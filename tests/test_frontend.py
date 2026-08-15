@@ -72,8 +72,8 @@ def test_row_count_matches_dataset(payload, dataset):
     assert payload["meta"]["companies"] == len(dataset["projects"])
 
 
-def test_twenty_funds_with_matching_totals(payload, dataset):
-    assert len(payload["funds"]) == 20
+def test_all_funds_with_matching_totals(payload, dataset):
+    assert len(payload["funds"]) == len(dataset["funds"])
     expected = {}
     for r in dataset["investments"]:
         expected[r["fund_slug"]] = expected.get(r["fund_slug"], 0) + 1

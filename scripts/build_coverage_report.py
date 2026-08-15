@@ -75,7 +75,7 @@ def main():
     add("| Pages failed | %s |" % fmt(len(ds["scrape"]["projects_failed"])))
     add("| Rounds in the source | %s |" % fmt(ds["scrape"]["rounds_total_in_source"]))
     add("| Investor relations in the source | %s |" % fmt(ds["scrape"]["investor_edges_total"]))
-    add("| Investment rows after filtering to the twenty funds | %s |" % fmt(len(inv)))
+    add("| Investment rows after filtering to the %d funds | %s |" % (len(FUNDS), fmt(len(inv))))
     add("| Unique rounds with at least one selected fund | %s |" % fmt(len(ds["rounds"])))
     add("| Unique portfolio companies | %s |" % fmt(len(ds["projects"])))
     add("")

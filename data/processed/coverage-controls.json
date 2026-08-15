@@ -7,7 +7,7 @@
     "url": "https://crypto-fundraising.info/funds/paradigm/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/paradigm/portfolio",
@@ -15,20 +15,20 @@
     "investments": 121,
     "country": "United States",
     "tier": 1,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://www.paradigm.xyz/portfolio",
     "status": "HTTP 200",
     "names_found": 95,
     "words_in_page": 1825,
-    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+    "note": "Unique outbound domains as an approximation of portfolio names."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Paradigm",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "cyber-fund": {
@@ -37,7 +37,7 @@
     "url": "https://crypto-fundraising.info/funds/cyber-fund/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/cyber-fund/portfolio",
@@ -45,20 +45,20 @@
     "investments": 31,
     "country": "Cayman Islands",
     "tier": 3,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://cyber.fund/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 23,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=cyber%E2%80%A2Fund",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "robot-ventures": {
@@ -67,7 +67,7 @@
     "url": "https://crypto-fundraising.info/funds/robot-ventures/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/robot-ventures/portfolio",
@@ -75,20 +75,20 @@
     "investments": 153,
     "country": "United States",
     "tier": 2,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://robvc.com/",
     "status": "HTTP 200",
     "names_found": 35,
     "words_in_page": 2964,
-    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+    "note": "Unique outbound domains as an approximation of portfolio names."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Robot%20Ventures",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "framework-ventures": {
@@ -97,7 +97,7 @@
     "url": "https://crypto-fundraising.info/funds/framework/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/framework-ventures/portfolio",
@@ -105,20 +105,20 @@
     "investments": 136,
     "country": "Canada",
     "tier": 2,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://framework.ventures/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 442,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Framework%20Ventures",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "electric-capital": {
@@ -127,7 +127,7 @@
     "url": "https://crypto-fundraising.info/funds/electric-capital/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/electric-capital/portfolio",
@@ -135,7 +135,7 @@
     "investments": 101,
     "country": "United States",
     "tier": 2,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://www.electriccapital.com/portfolio",
@@ -146,7 +146,7 @@
     "url": "https://www.rootdata.com/search?k=Electric%20Capital",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "bain-capital-crypto": {
@@ -155,7 +155,7 @@
     "url": "https://crypto-fundraising.info/funds/bain-capital-crypto/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/bain-capital-crypto/portfolio",
@@ -163,20 +163,20 @@
     "investments": 45,
     "country": "United States",
     "tier": 2,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://baincapitalcrypto.com/portfolio/",
     "status": "HTTP 200",
     "names_found": 20,
     "words_in_page": 402,
-    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+    "note": "Unique outbound domains as an approximation of portfolio names."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Bain%20Capital%20Crypto",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "dragonfly": {
@@ -185,7 +185,7 @@
     "url": "https://crypto-fundraising.info/funds/dragonfly-capital/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/dragon-fly-capital/portfolio",
@@ -193,20 +193,20 @@
     "investments": 183,
     "country": "United States",
     "tier": 1,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://www.dragonfly.xyz/portfolio",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 1865,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Dragonfly",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "maven11": {
@@ -215,7 +215,7 @@
     "url": "https://crypto-fundraising.info/funds/maven-11-capital/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/maven11/portfolio",
@@ -223,20 +223,20 @@
     "investments": 101,
     "country": "Netherlands",
     "tier": 2,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://www.maven11.com/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 918,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Maven11",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "lemniscap": {
@@ -245,7 +245,7 @@
     "url": "https://crypto-fundraising.info/funds/lemniscap/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/lemniscap/portfolio",
@@ -253,7 +253,7 @@
     "investments": 114,
     "country": "Hong Kong",
     "tier": 3,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://lemniscap.com/portfolio",
@@ -264,7 +264,7 @@
     "url": "https://www.rootdata.com/search?k=Lemniscap",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "haun-ventures": {
@@ -273,7 +273,7 @@
     "url": "https://crypto-fundraising.info/funds/haun-ventures/",
     "status": "HTTP 200",
     "visible_rows": 9,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/haun-ventures/portfolio",
@@ -281,20 +281,20 @@
     "investments": 39,
     "country": "United States",
     "tier": 3,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://www.haun.co/portfolio",
     "status": "HTTP 200",
     "names_found": 38,
     "words_in_page": 876,
-    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+    "note": "Unique outbound domains as an approximation of portfolio names."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Haun%20Ventures",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "multicoin-capital": {
@@ -303,7 +303,7 @@
     "url": "https://crypto-fundraising.info/funds/multicoin-capital/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/multicoin-capital/portfolio",
@@ -311,20 +311,20 @@
     "investments": 156,
     "country": "United States",
     "tier": 1,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://multicoin.capital/portfolio/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 1793,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Multicoin%20Capital",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "figment-capital": {
@@ -333,7 +333,7 @@
     "url": "https://crypto-fundraising.info/funds/figment-capital/",
     "status": "HTTP 200",
     "visible_rows": 9,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/figment-capital/portfolio",
@@ -341,20 +341,20 @@
     "investments": 63,
     "country": "United States",
     "tier": 3,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://www.figmentcapital.io/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 1359,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Figment%20Capital",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "a16z-crypto": {
@@ -363,7 +363,7 @@
     "url": "https://crypto-fundraising.info/funds/a16z-crypto/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/andreessen-horowitz/portfolio",
@@ -371,20 +371,20 @@
     "investments": 204,
     "country": "United States",
     "tier": 1,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://a16zcrypto.com/portfolio/",
     "status": "HTTP 200",
     "names_found": 127,
     "words_in_page": 649,
-    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+    "note": "Unique outbound domains as an approximation of portfolio names."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=a16z%20crypto",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "founders-fund": {
@@ -393,7 +393,7 @@
     "url": "https://crypto-fundraising.info/funds/founders-fund/",
     "status": "HTTP 200",
     "visible_rows": 9,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/founders-fund/portfolio",
@@ -401,20 +401,20 @@
     "investments": 55,
     "country": "United States",
     "tier": 2,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://foundersfund.com/portfolio/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 398,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Founders%20Fund",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "polychain": {
@@ -423,7 +423,7 @@
     "url": "https://crypto-fundraising.info/funds/polychain-capital/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/polychain-capital/portfolio",
@@ -431,20 +431,20 @@
     "investments": 222,
     "country": "United States",
     "tier": 1,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://polychain.capital/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 111,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Polychain",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "pantera": {
@@ -453,7 +453,7 @@
     "url": "https://crypto-fundraising.info/funds/pantera-capital/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/pantera-capital/portfolio",
@@ -461,20 +461,20 @@
     "investments": 247,
     "country": "United States",
     "tier": 1,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://panteracapital.com/portfolio/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 1859,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Pantera",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "semantic-ventures": {
@@ -483,7 +483,7 @@
     "url": "https://crypto-fundraising.info/funds/semantic-ventures/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/semantic-ventures/portfolio",
@@ -491,20 +491,20 @@
     "investments": 28,
     "country": "United Kingdom",
     "tier": 4,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://www.semantic.vc/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 1333,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Semantic%20Ventures",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "gnosis-vc": {
@@ -513,7 +513,7 @@
     "url": "https://crypto-fundraising.info/funds/gnosis/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/gnosis/portfolio",
@@ -521,20 +521,20 @@
     "investments": 27,
     "country": "Gibraltar",
     "tier": 4,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://www.gnosis.io/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 4342,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=GnosisVC",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "coinbase-ventures": {
@@ -543,7 +543,7 @@
     "url": "https://crypto-fundraising.info/funds/coinbase-ventures/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/coinbase-ventures/portfolio",
@@ -551,7 +551,7 @@
     "investments": 507,
     "country": "United States",
     "tier": 1,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://www.coinbase.com/ventures",
@@ -562,7 +562,7 @@
     "url": "https://www.rootdata.com/search?k=Coinbase%20Ventures",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
    }
   },
   "delphi-ventures": {
@@ -571,7 +571,7 @@
     "url": "https://crypto-fundraising.info/funds/delphi-ventures/",
     "status": "HTTP 200",
     "visible_rows": 10,
-    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
    },
    "cryptorank": {
     "url": "https://cryptorank.io/funds/delphi-ventures/portfolio",
@@ -579,20 +579,1098 @@
     "investments": 175,
     "country": "",
     "tier": 2,
-    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
    },
    "official_portfolio": {
     "url": "https://delphiventures.io/",
     "status": "HTTP 200",
     "names_found": null,
     "words_in_page": 10196,
-    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
    },
    "rootdata": {
     "url": "https://www.rootdata.com/search?k=Delphi%20Ventures",
     "status": "HTTP 404",
     "investments": null,
-    "note": "Geen telling verkregen; niet geschat."
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "alameda-research": {
+   "fund_name": "Alameda Research",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/alameda-research/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/alameda-research/portfolio",
+    "status": "HTTP 200",
+    "investments": 230,
+    "country": "Hong Kong",
+    "tier": null,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Alameda%20Research",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "spartan-group": {
+   "fund_name": "The Spartan Group",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/the-spartan-group/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/spartan-group/portfolio",
+    "status": "HTTP 200",
+    "investments": 233,
+    "country": "Hong Kong",
+    "tier": 1,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=The%20Spartan%20Group",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "digital-currency-group": {
+   "fund_name": "Digital Currency Group",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/digital-currency-group/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Digital%20Currency%20Group",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "animoca-brands": {
+   "fund_name": "Animoca Brands",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/animoca-brands/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/animoca-brands/portfolio",
+    "status": "HTTP 200",
+    "investments": 489,
+    "country": "Hong Kong",
+    "tier": 3,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "https://www.animocabrands.com/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 1177,
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Animoca%20Brands",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "parafi-capital": {
+   "fund_name": "ParaFi Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/parafi-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=ParaFi%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "galaxy-digital": {
+   "fund_name": "Galaxy Digital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/galaxy-digital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/galaxy-digital/portfolio",
+    "status": "HTTP 200",
+    "investments": 156,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Galaxy%20Digital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "sequoia-capital": {
+   "fund_name": "Sequoia Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/sequoia/",
+    "status": "HTTP 200",
+    "visible_rows": 6,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/sequoia-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 74,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "https://www.sequoiacap.com/companies/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 3846,
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Sequoia%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "gsr": {
+   "fund_name": "GSR",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/gsr-markets-ltd/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/gsr/portfolio",
+    "status": "HTTP 200",
+    "investments": 218,
+    "country": "Hong Kong",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "https://www.gsr.io/",
+    "status": "HTTP 200",
+    "names_found": 23,
+    "words_in_page": 2223,
+    "note": "Unique outbound domains as an approximation of portfolio names."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=GSR",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "blockchain-capital": {
+   "fund_name": "Blockchain Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/blockchain-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/blockchain-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 135,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "https://blockchaincapital.com/portfolio",
+    "status": "HTTP 200",
+    "names_found": 99,
+    "words_in_page": 2047,
+    "note": "Unique outbound domains as an approximation of portfolio names."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Blockchain%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "hashed": {
+   "fund_name": "Hashed",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/hashed/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "https://www.hashed.com/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 2536,
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Hashed",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "solana-ventures": {
+   "fund_name": "Solana Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/solana-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/solana-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 151,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Solana%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "mechanism-capital": {
+   "fund_name": "Mechanism Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/mechanism-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/mechanism-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 120,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Mechanism%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "coinfund": {
+   "fund_name": "CoinFund",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/coin-fund/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/coin-fund/portfolio",
+    "status": "HTTP 200",
+    "investments": 122,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=CoinFund",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "cms-holdings": {
+   "fund_name": "CMS Holdings",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/cms/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/cms-holdings/portfolio",
+    "status": "HTTP 200",
+    "investments": 201,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=CMS%20Holdings",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "alliance-dao": {
+   "fund_name": "Alliance DAO",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/alliance-dao/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/alliance-dao/portfolio",
+    "status": "HTTP 200",
+    "investments": 94,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "https://alliance.xyz/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 2896,
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Alliance%20DAO",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "iosg-ventures": {
+   "fund_name": "IOSG Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/iosg-venture/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/iosg/portfolio",
+    "status": "HTTP 200",
+    "investments": 125,
+    "country": "Hong Kong",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=IOSG%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "okx-ventures": {
+   "fund_name": "OKX Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/okx-blockdream-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/okx-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 226,
+    "country": "Seychelles",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=OKX%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "circle-ventures": {
+   "fund_name": "Circle Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/circle-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/circle-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 30,
+    "country": "United States",
+    "tier": 3,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Circle%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "hashkey-capital": {
+   "fund_name": "HashKey Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/hashkey-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=HashKey%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "1kx": {
+   "fund_name": "1kx",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/1kx/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/1kx/portfolio",
+    "status": "HTTP 200",
+    "investments": 112,
+    "country": "Netherlands",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=1kx",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "hack-vc": {
+   "fund_name": "Hack VC",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/hack-vc/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/hack-vc/portfolio",
+    "status": "HTTP 200",
+    "investments": 113,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Hack%20VC",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "hypersphere": {
+   "fund_name": "Hypersphere",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/hypersphere/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Hypersphere",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "cmt-digital": {
+   "fund_name": "CMT Digital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/cmt-digital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/cmt-digital/portfolio",
+    "status": "HTTP 200",
+    "investments": 135,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=CMT%20Digital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "mirana-ventures": {
+   "fund_name": "Mirana Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/mirana-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/mirana-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 135,
+    "country": "Hong Kong",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Mirana%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "arrington-capital": {
+   "fund_name": "Arrington Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/arrington-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Arrington%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "jump-crypto": {
+   "fund_name": "Jump Crypto",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/jump-crypto/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/jump-crypto/portfolio",
+    "status": "HTTP 200",
+    "investments": 110,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Jump%20Crypto",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "amber-group": {
+   "fund_name": "Amber Group",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/amber-group/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/amber-group/portfolio",
+    "status": "HTTP 200",
+    "investments": 123,
+    "country": "Hong Kong",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Amber%20Group",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "polygon-ventures": {
+   "fund_name": "Polygon Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/polygon-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/polygon-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 153,
+    "country": "Cayman Islands",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Polygon%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "huobi-ventures": {
+   "fund_name": "HTX Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/huobi-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=HTX%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "fenbushi-capital": {
+   "fund_name": "Fenbushi Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/fenbushi-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/fenbushi-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 162,
+    "country": "China",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Fenbushi%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "big-brain-holdings": {
+   "fund_name": "Big Brain Holdings",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/big-brain-holdings/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/big-brain-holdings/portfolio",
+    "status": "HTTP 200",
+    "investments": 186,
+    "country": "United States",
+    "tier": 3,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Big%20Brain%20Holdings",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "yzi-labs": {
+   "fund_name": "YZi Labs",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/yzi-labs/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/binance-labs/portfolio",
+    "status": "HTTP 200",
+    "investments": 292,
+    "country": "Malta",
+    "tier": 1,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "https://www.yzilabs.com/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 598,
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=YZi%20Labs",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "sevenx-ventures": {
+   "fund_name": "SevenX Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/sevenx-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=SevenX%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "sfermion": {
+   "fund_name": "Sfermion",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/sfermion/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/sfermion/portfolio",
+    "status": "HTTP 200",
+    "investments": 101,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Sfermion",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "longhash-ventures": {
+   "fund_name": "LongHash Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/longhash-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=LongHash%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "foresight-ventures": {
+   "fund_name": "Foresight Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/foresight-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/foresight-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 106,
+    "country": "Singapore",
+    "tier": 3,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Foresight%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "borderless-capital": {
+   "fund_name": "Borderless Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/borderless-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/borderless-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 125,
+    "country": "United States",
+    "tier": 3,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Borderless%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "mh-ventures": {
+   "fund_name": "MH Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/mh-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/mh-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 146,
+    "country": "United Kingdom",
+    "tier": 2,
+    "note": "`investments` is CryptoRank's own count. The visible portfolio list shows only ten rows without an account; that list was not used."
+   },
+   "official_portfolio": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=MH%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
+   }
+  },
+  "animoca-brands-japan": {
+   "fund_name": "Animoca Brands Japan",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/animoca-brands-japan/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "The fund page shows a fixed maximum number of rows; this is a display limit, not a portfolio total."
+   },
+   "cryptorank": {
+    "url": "",
+    "status": "error: MissingSchema",
+    "investments": null
+   },
+   "official_portfolio": {
+    "url": "https://animocabrands.co.jp/en/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 468,
+    "note": "Page delivers no readable portfolio list in static HTML (client-side rendered). Not counted; no estimate made."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Animoca%20Brands%20Japan",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "No count obtained; not estimated."
    }
   }
  }

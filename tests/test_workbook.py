@@ -7,13 +7,18 @@ dates, real booleans, clickable URLs, and consistent counts across sheets.
 
 import csv
 import os
+import sys
 
 import pytest
 from openpyxl import load_workbook
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+from funds import FUNDS  # noqa: E402
+
 XLSX = os.path.join(ROOT, "outputs", "vc-investments-full.xlsx")
 CSV = os.path.join(ROOT, "outputs", "vc-investments-full.csv")
+N_FUNDS = len(FUNDS)
 
 SHEETS = ["README", "Funds", "Investments", "Rounds", "Portfolio Companies",
           "Coverage", "Sources", "Conflicts", "Unknown", "Aliases"]
@@ -114,12 +119,12 @@ def test_conditional_formatting_on_conflicts(wb):
     assert "uncertain" in formulas
 
 
-def test_twenty_funds_on_funds_coverage_and_aliases(wb):
-    assert wb["Aliases"].max_row - 1 == 20
-    assert wb["Coverage"].max_row - 1 == 20
+def test_all_funds_on_funds_coverage_and_aliases(wb):
+    assert wb["Aliases"].max_row - 1 == N_FUNDS
+    assert wb["Coverage"].max_row - 1 == N_FUNDS
     slugs = {wb["Funds"].cell(row=r, column=1).value
-             for r in range(2, 22)}
-    assert len(slugs) == 20
+             for r in range(2, N_FUNDS + 2)}
+    assert len(slugs) == N_FUNDS
 
 
 def test_counts_consistent_across_sheets(wb):
@@ -137,7 +142,7 @@ def test_counts_consistent_across_sheets(wb):
                     for r in range(2, wb["Rounds"].max_row + 1)}
     assert round_ids == rounds_sheet
 
-    for r in range(2, 22):
+    for r in range(2, N_FUNDS + 2):
         slug = wb["Funds"].cell(row=r, column=1).value
         count = wb["Funds"].cell(row=r, column=4).value
         assert count == per_fund.get(slug, 0), slug
@@ -150,7 +155,7 @@ def test_coverage_never_counts_higher_than_investments(wb):
     companies = {}
     for row in inv.iter_rows(min_row=2, max_row=inv.max_row):
         companies.setdefault(row[fi].value, set()).add(row[pi].value)
-    for r in range(2, 22):
+    for r in range(2, N_FUNDS + 2):
         slug = wb["Coverage"].cell(row=r, column=1).value
         own = wb["Coverage"].cell(row=r, column=3).value
         assert own == len(companies.get(slug, set())), slug
@@ -161,9 +166,6 @@ PER_FUND = os.path.join(ROOT, "outputs", "per-fund")
 
 @pytest.fixture(scope="module")
 def fund_slugs():
-    import sys
-    sys.path.insert(0, os.path.join(ROOT, "scripts"))
-    from funds import FUNDS
     return list(FUNDS)
 
 
@@ -172,7 +174,7 @@ def test_one_file_per_fund(fund_slugs):
         pytest.skip("per-fund directory is missing; run build_workbook.py first")
     for slug in fund_slugs:
         assert os.path.exists(os.path.join(PER_FUND, "vc-investments-%s.xlsx" % slug)), slug
-    assert len([f for f in os.listdir(PER_FUND) if f.endswith(".xlsx")]) == 20
+    assert len([f for f in os.listdir(PER_FUND) if f.endswith(".xlsx")]) == N_FUNDS
 
 
 def test_fund_file_contains_only_its_own_fund(fund_slugs):

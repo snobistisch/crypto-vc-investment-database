@@ -1,11 +1,20 @@
 """Canonical fund definitions and alias rules.
 
-Single source of truth for the twenty funds in the brief. Every alias was
+Single source of truth for every fund in the dataset. Every alias was
 manually verified against the source's own fund page; `alias_evidence`
 records why a name was merged into a canonical fund.
 
 No automatic merging: a name that is not listed here stays a separate fund
 and does not enter the dataset.
+
+The original twenty (brief) are followed by a second block added from
+`research/missing-funds.md` — the funds with 100+ rounds in the source that
+were not already covered. See that file for the round counts, the exclusion
+rules applied, and what was rejected. Several entries below carry a blank
+`official_portfolio_url` or `cryptorank_url`: that control-list URL was not
+verified during the research pass, so it is left empty rather than guessed.
+An empty URL is handled by `fetch_coverage_controls.py` as "not checked", not
+as a zero.
 """
 
 # canonical_slug -> definition
@@ -196,6 +205,417 @@ FUNDS = {
             "Delphi Digital is the research arm, Delphi Ventures the investment arm, Delphi "
             "Labs the builder arm. Fundraising sources use the names interchangeably for the "
             "same cap-table rows; the source name stays visible."
+        ),
+    },
+
+    # ------------------------------------------------------------------
+    # Added from research/missing-funds.md, tier 1 (100+ rounds in the
+    # source, shape verified against the fund's own site or CryptoRank).
+    # Round counts below are as measured on 2026-08-15 against
+    # data/processed/rounds.json and are the basis for inclusion, not an
+    # estimate of current activity.
+    # ------------------------------------------------------------------
+
+    "alameda-research": {
+        "fund_name": "Alameda Research",
+        "source_slugs": ["alameda-research"],
+        "aliases": ["Alameda Research", "Alameda"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/alameda-research/portfolio",
+        "alias_evidence": (
+            "One fund page on crypto-fundraising.info, 207 rounds, active 2020-2022. "
+            "Defunct since the FTX collapse in November 2022; no round after that year. "
+            "Included deliberately: a database built to resist survivorship bias cannot "
+            "omit the firms that failed. No official portfolio page survives."
+        ),
+    },
+    "spartan-group": {
+        "fund_name": "The Spartan Group",
+        "source_slugs": ["the-spartan-group"],
+        "aliases": ["The Spartan Group", "Spartan Group", "Spartan"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/spartan-group/portfolio",
+        "alias_evidence": (
+            "235 rounds, active 2018-2026. CryptoRank tier 1 with 233 portfolio "
+            "companies, confirming the source's count independently."
+        ),
+    },
+    "digital-currency-group": {
+        "fund_name": "Digital Currency Group",
+        "source_slugs": ["digital-currency-group"],
+        "aliases": ["Digital Currency Group", "DCG"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "",
+        "alias_evidence": (
+            "284 rounds, active 2013-2026 — one of the oldest crypto venture investors "
+            "in the source. CryptoRank slug not found in a light probe; left blank "
+            "rather than guessed."
+        ),
+    },
+    "animoca-brands": {
+        "fund_name": "Animoca Brands",
+        "source_slugs": ["animoca-brands"],
+        "aliases": ["Animoca Brands"],
+        "official_portfolio_url": "https://www.animocabrands.com/",
+        "cryptorank_url": "https://cryptorank.io/funds/animoca-brands/portfolio",
+        "alias_evidence": (
+            "442 rounds and 116 leads, active 2018-2026 — the single largest omission "
+            "by round count in the twenty-fund selection. Own site states \"We build, "
+            "invest, and accelerate\" and claims 600+ portfolio companies. "
+            "`animoca-brands-japan` is a separate legal entity with its own outside "
+            "capital (see below) and is not merged into this entry."
+        ),
+    },
+    "parafi-capital": {
+        "fund_name": "ParaFi Capital",
+        "source_slugs": ["parafi-capital"],
+        "aliases": ["ParaFi Capital", "ParaFi"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "",
+        "alias_evidence": "136 rounds, active 2020-2026, 83 shared with the original twenty.",
+    },
+    "galaxy-digital": {
+        "fund_name": "Galaxy Digital",
+        "source_slugs": ["galaxy-digital"],
+        "aliases": ["Galaxy Digital", "Galaxy"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/galaxy-digital/portfolio",
+        "alias_evidence": (
+            "170 rounds, active 2017-2026. CryptoRank tier 1. `galaxy-interactive` and "
+            "`project-galaxy` are different entities and are not merged in."
+        ),
+    },
+    "sequoia-capital": {
+        "fund_name": "Sequoia Capital",
+        "source_slugs": ["sequoia"],
+        "aliases": ["Sequoia Capital", "Sequoia"],
+        "official_portfolio_url": "https://www.sequoiacap.com/companies/",
+        "cryptorank_url": "https://cryptorank.io/funds/sequoia-capital/portfolio",
+        "alias_evidence": (
+            "A generalist fund with a substantial crypto book, the same shape as "
+            "Founders Fund, already in the original twenty. 123 rounds, active "
+            "2017-2026. `hongshan-ex-sequoia-china` and `peak-xv-partners-ex-as-"
+            "sequoia-india-south-east-asia` are the demerged regional firms since "
+            "2023 and are deliberately NOT merged in."
+        ),
+    },
+    "gsr": {
+        "fund_name": "GSR",
+        "source_slugs": ["gsr-markets-ltd"],
+        "aliases": ["GSR", "GSR Markets LTD", "GSR Markets"],
+        "official_portfolio_url": "https://www.gsr.io/",
+        "cryptorank_url": "https://cryptorank.io/funds/gsr/portfolio",
+        "alias_evidence": (
+            "194 rounds, active 2021-2026, but only 6 leads — consistent with balance-"
+            "sheet participation rather than a pure venture practice. Included because "
+            "the firm states a dedicated venture line: \"Investing in early-stage "
+            "companies with capital and 13 years of experience.\" GSR also trades and "
+            "makes markets; readers weighing that against the low lead rate may "
+            "reasonably exclude this entry."
+        ),
+    },
+    "blockchain-capital": {
+        "fund_name": "Blockchain Capital",
+        "source_slugs": ["blockchain-capital"],
+        "aliases": ["Blockchain Capital", "BCap"],
+        "official_portfolio_url": "https://blockchaincapital.com/portfolio",
+        "cryptorank_url": "https://cryptorank.io/funds/blockchain-capital/portfolio",
+        "alias_evidence": (
+            "One fund page on crypto-fundraising.info, 139 rounds, active since 2014. "
+            "Own site: \"Partners to crypto builders since 2013.\" `ok-blockchain-"
+            "capital` and `avant-blockchain-capital` are different firms and are not "
+            "merged."
+        ),
+    },
+    "hashed": {
+        "fund_name": "Hashed",
+        "source_slugs": ["hashed"],
+        "aliases": ["Hashed"],
+        "official_portfolio_url": "https://www.hashed.com/",
+        "cryptorank_url": "",
+        "alias_evidence": (
+            "173 rounds, active 2017-2026. Seoul-headquartered with offices in San "
+            "Francisco, Singapore, Bangalore and Abu Dhabi per its own site."
+        ),
+    },
+    "solana-ventures": {
+        "fund_name": "Solana Ventures",
+        "source_slugs": ["solana-ventures"],
+        "aliases": ["Solana Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/solana-ventures/portfolio",
+        "alias_evidence": (
+            "Ecosystem investment arm, the same shape as GnosisVC in the original "
+            "twenty. 144 rounds, active 2021-2026."
+        ),
+    },
+    "mechanism-capital": {
+        "fund_name": "Mechanism Capital",
+        "source_slugs": ["mechanism-capital"],
+        "aliases": ["Mechanism Capital"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/mechanism-capital/portfolio",
+        "alias_evidence": "130 rounds, active 2020-2025.",
+    },
+    "coinfund": {
+        "fund_name": "CoinFund",
+        "source_slugs": ["coin-fund"],
+        "aliases": ["CoinFund"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/coin-fund/portfolio",
+        "alias_evidence": "136 rounds, active 2017-2026.",
+    },
+    "cms-holdings": {
+        "fund_name": "CMS Holdings",
+        "source_slugs": ["cms"],
+        "aliases": ["CMS Holdings", "CMS"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/cms-holdings/portfolio",
+        "alias_evidence": (
+            "187 rounds, active 2019-2026, but only 7 leads — consistent with "
+            "balance-sheet participation by a trading firm rather than a venture "
+            "practice. No stated venture programme was verified beyond its appearance "
+            "as an investor in the source; readers applying the brief's rule against "
+            "counting market makers as investors may reasonably exclude this entry."
+        ),
+    },
+    "alliance-dao": {
+        "fund_name": "Alliance DAO",
+        "source_slugs": ["alliance-dao"],
+        "aliases": ["Alliance DAO", "DeFi Alliance", "Alliance"],
+        "official_portfolio_url": "https://alliance.xyz/",
+        "cryptorank_url": "https://cryptorank.io/funds/alliance-dao/portfolio",
+        "alias_evidence": (
+            "An accelerator, but one with demonstrated capital investment: its own "
+            "FAQ states it invests $400,000 per admitted startup at a $4M post-money "
+            "valuation via SAFE. Formerly DeFi Alliance. 127 rounds, active 2020-2026."
+        ),
+    },
+    "iosg-ventures": {
+        "fund_name": "IOSG Ventures",
+        "source_slugs": ["iosg-venture"],
+        "aliases": ["IOSG Ventures", "IOSG"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/iosg/portfolio",
+        "alias_evidence": "140 rounds, active 2017-2026.",
+    },
+    "okx-ventures": {
+        "fund_name": "OKX Ventures",
+        "source_slugs": ["okx-blockdream-ventures"],
+        "aliases": ["OKX Ventures", "OKEx Blockdream Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/okx-ventures/portfolio",
+        "alias_evidence": (
+            "Exchange venture arm, the same shape as Coinbase Ventures in the "
+            "original twenty. 223 rounds, active 2020-2026."
+        ),
+    },
+    "circle-ventures": {
+        "fund_name": "Circle Ventures",
+        "source_slugs": ["circle-ventures"],
+        "aliases": ["Circle Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/circle-ventures/portfolio",
+        "alias_evidence": (
+            "101 rounds, active 2021-2026. CryptoRank tier 1. `circle-2` and "
+            "`merit-circle` are different entities and are not merged in."
+        ),
+    },
+    "hashkey-capital": {
+        "fund_name": "HashKey Capital",
+        "source_slugs": ["hashkey-capital"],
+        "aliases": ["HashKey Capital", "Hashkey Capital"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "",
+        "alias_evidence": (
+            "250 rounds, active 2018-2026. CryptoRank tier 1 with 288 portfolio "
+            "companies, confirming the source's count independently. `hashkey-group` "
+            "is the parent exchange entity and is not merged in."
+        ),
+    },
+    "1kx": {
+        "fund_name": "1kx",
+        "source_slugs": ["1kx"],
+        "aliases": ["1kx"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/1kx/portfolio",
+        "alias_evidence": "126 rounds, active 2018-2026, 44% lead rate.",
+    },
+    "hack-vc": {
+        "fund_name": "Hack VC",
+        "source_slugs": ["hack-vc"],
+        "aliases": ["Hack VC"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/hack-vc/portfolio",
+        "alias_evidence": "117 rounds, active 2018-2026, 43% lead rate.",
+    },
+    "hypersphere": {
+        "fund_name": "Hypersphere",
+        "source_slugs": ["hypersphere"],
+        "aliases": ["Hypersphere", "Hypersphere Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "",
+        "alias_evidence": "112 rounds, active 2020-2026.",
+    },
+    "cmt-digital": {
+        "fund_name": "CMT Digital",
+        "source_slugs": ["cmt-digital"],
+        "aliases": ["CMT Digital"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/cmt-digital/portfolio",
+        "alias_evidence": "142 rounds, active 2017-2026.",
+    },
+    "mirana-ventures": {
+        "fund_name": "Mirana Ventures",
+        "source_slugs": ["mirana-ventures"],
+        "aliases": ["Mirana Ventures", "Mirana"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/mirana-ventures/portfolio",
+        "alias_evidence": "132 rounds, active 2021-2026.",
+    },
+    "arrington-capital": {
+        "fund_name": "Arrington Capital",
+        "source_slugs": ["arrington-capital"],
+        "aliases": ["Arrington Capital", "Arrington XRP Capital"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "",
+        "alias_evidence": "126 rounds, active 2018-2026.",
+    },
+    "jump-crypto": {
+        "fund_name": "Jump Crypto",
+        "source_slugs": ["jump-crypto"],
+        "aliases": ["Jump Crypto", "Jump Trading"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/jump-crypto/portfolio",
+        "alias_evidence": (
+            "Trading firm's crypto venture arm, 110 rounds, active 2018-2026, "
+            "30% lead rate."
+        ),
+    },
+    "amber-group": {
+        "fund_name": "Amber Group",
+        "source_slugs": ["amber-group"],
+        "aliases": ["Amber Group"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/amber-group/portfolio",
+        "alias_evidence": (
+            "126 rounds, active 2020-2026, but only 15 leads. No stated venture "
+            "programme was verified beyond its appearance as an investor in the "
+            "source; a trading firm, so the same caveat as CMS Holdings applies."
+        ),
+    },
+    "polygon-ventures": {
+        "fund_name": "Polygon Ventures",
+        "source_slugs": ["polygon-ventures"],
+        "aliases": ["Polygon Ventures", "P2 Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/polygon-ventures/portfolio",
+        "alias_evidence": (
+            "Ecosystem investment arm, the same shape as GnosisVC in the original "
+            "twenty. 154 rounds, active 2021-2026."
+        ),
+    },
+    "huobi-ventures": {
+        "fund_name": "HTX Ventures",
+        "source_slugs": ["huobi-ventures"],
+        "aliases": ["HTX Ventures", "Huobi Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "",
+        "alias_evidence": (
+            "Exchange venture arm, renamed from Huobi Ventures to HTX Ventures. "
+            "117 rounds, active 2018-2026."
+        ),
+    },
+    "fenbushi-capital": {
+        "fund_name": "Fenbushi Capital",
+        "source_slugs": ["fenbushi-capital"],
+        "aliases": ["Fenbushi Capital"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/fenbushi-capital/portfolio",
+        "alias_evidence": "147 rounds, active since 2016 — one of the older funds in this batch.",
+    },
+    "big-brain-holdings": {
+        "fund_name": "Big Brain Holdings",
+        "source_slugs": ["big-brain-holdings"],
+        "aliases": ["Big Brain Holdings"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/big-brain-holdings/portfolio",
+        "alias_evidence": "177 rounds, active 2021-2026.",
+    },
+    "yzi-labs": {
+        "fund_name": "YZi Labs",
+        "source_slugs": ["yzi-labs"],
+        "aliases": ["YZi Labs", "Binance Labs", "YZi Labs (ex Binance Labs)"],
+        "official_portfolio_url": "https://www.yzilabs.com/",
+        "cryptorank_url": "https://cryptorank.io/funds/binance-labs/portfolio",
+        "alias_evidence": (
+            "Binance Labs was renamed YZi Labs; the source carries one slug for both, "
+            "so `fund_name_in_source` will vary by round. 238 rounds and 90 leads, "
+            "active 2018-2026. CryptoRank tier 1 with 292 portfolio companies under "
+            "its former name."
+        ),
+    },
+    "sevenx-ventures": {
+        "fund_name": "SevenX Ventures",
+        "source_slugs": ["sevenx-ventures"],
+        "aliases": ["SevenX Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "",
+        "alias_evidence": "124 rounds, active 2020-2026.",
+    },
+    "sfermion": {
+        "fund_name": "Sfermion",
+        "source_slugs": ["sfermion"],
+        "aliases": ["Sfermion"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/sfermion/portfolio",
+        "alias_evidence": "106 rounds, active 2021-2026.",
+    },
+    "longhash-ventures": {
+        "fund_name": "LongHash Ventures",
+        "source_slugs": ["longhash-ventures"],
+        "aliases": ["LongHash Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "",
+        "alias_evidence": "103 rounds, active 2020-2025.",
+    },
+    "foresight-ventures": {
+        "fund_name": "Foresight Ventures",
+        "source_slugs": ["foresight-ventures"],
+        "aliases": ["Foresight Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/foresight-ventures/portfolio",
+        "alias_evidence": "102 rounds, active 2021-2026.",
+    },
+    "borderless-capital": {
+        "fund_name": "Borderless Capital",
+        "source_slugs": ["borderless-capital"],
+        "aliases": ["Borderless Capital"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/borderless-capital/portfolio",
+        "alias_evidence": "137 rounds, active 2020-2026, 31% lead rate.",
+    },
+    "mh-ventures": {
+        "fund_name": "MH Ventures",
+        "source_slugs": ["mh-ventures"],
+        "aliases": ["MH Ventures"],
+        "official_portfolio_url": "",
+        "cryptorank_url": "https://cryptorank.io/funds/mh-ventures/portfolio",
+        "alias_evidence": "143 rounds, active 2021-2026.",
+    },
+    "animoca-brands-japan": {
+        "fund_name": "Animoca Brands Japan",
+        "source_slugs": ["animoca-brands-japan"],
+        "aliases": ["Animoca Brands Japan"],
+        "official_portfolio_url": "https://animocabrands.co.jp/en/",
+        "cryptorank_url": "",
+        "alias_evidence": (
+            "A separate legal entity from Animoca Brands with its own outside "
+            "capital — raised $45M from MUFG and its parent at a $500M pre-money "
+            "valuation, per public reporting. Merging it into Animoca Brands would "
+            "misstate both entities' figures; kept separate deliberately, at the cost "
+            "of the two potentially co-investing in the same round under different "
+            "canonical slugs. 107 rounds, active 2018-2024."
         ),
     },
 }

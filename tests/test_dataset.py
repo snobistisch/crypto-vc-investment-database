@@ -33,8 +33,8 @@ def dataset():
 # aliases
 # --------------------------------------------------------------------------
 
-def test_twenty_funds():
-    assert len(FUNDS) == 20
+def test_funds_present():
+    assert len(FUNDS) >= 20
 
 
 def test_no_source_slug_belongs_to_two_funds():

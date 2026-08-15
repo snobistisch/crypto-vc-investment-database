@@ -115,8 +115,8 @@ def main():
     missing_funds = sorted(set(FUNDS) - {r["fund_slug"] for r in inv})
     if missing_funds:
         notes.append("funds without an investment row: %s" % ", ".join(missing_funds))
-    check(len(fund_slugs) == 20, "all twenty funds are in Funds",
-          "(%d)" % len(fund_slugs))
+    check(len(fund_slugs) == len(FUNDS), "all funds in funds.py are in Funds",
+          "(%d vs %d in funds.py)" % (len(fund_slugs), len(FUNDS)))
 
     print("\nWorkbook")
     check(os.path.exists(XLSX), "XLSX exists")
@@ -177,12 +177,13 @@ def main():
           "row count on Conflicts matches")
     check(wb["Unknown"].max_row - 1 == len(ds["unknowns"]) or not ds["unknowns"],
           "row count on Unknown matches")
-    check(wb["Aliases"].max_row - 1 == 20, "twenty alias rows")
-    check(wb["Coverage"].max_row - 1 == 20, "twenty coverage rows")
-    check(wb["Funds"].max_row - 1 >= 20, "twenty fund rows")
+    n = len(FUNDS)
+    check(wb["Aliases"].max_row - 1 == n, "%d alias rows" % n)
+    check(wb["Coverage"].max_row - 1 == n, "%d coverage rows" % n)
+    check(wb["Funds"].max_row - 1 >= n, "%d fund rows" % n)
 
     sum_fund_counts = sum(
-        r[3].value or 0 for r in wb["Funds"].iter_rows(min_row=2, max_row=21)
+        r[3].value or 0 for r in wb["Funds"].iter_rows(min_row=2, max_row=n + 1)
     )
     check(sum_fund_counts == len(inv),
           "sum of investments_in_database equals the number of investment rows",
@@ -203,7 +204,7 @@ def main():
     check(os.path.isdir(PER_FUND), "outputs/per-fund directory exists")
     files = sorted(f for f in os.listdir(PER_FUND) if f.endswith(".xlsx")) \
         if os.path.isdir(PER_FUND) else []
-    check(len(files) == 20, "twenty fund files", "(%d found)" % len(files))
+    check(len(files) == len(FUNDS), "%d fund files" % len(FUNDS), "(%d found)" % len(files))
 
     total_rows = 0
     for slug in FUNDS:

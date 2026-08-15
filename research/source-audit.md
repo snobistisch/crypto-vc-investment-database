@@ -44,8 +44,9 @@ rounds.
 
 ## Official portfolio pages
 
-Of the twenty funds, a minority serve a portfolio list in static HTML. The
-rest render client-side; there a blank cell with the reason is recorded.
+Of the 59 funds, 7 serve a portfolio list in static HTML that this script's
+domain-counting heuristic could read. The rest render client-side; there a
+blank cell with the reason is recorded.
 Where a list is readable, the number of unique outbound domains was counted
 as an approximation of the number of portfolio names. That is an
 approximation and is noted as such in the column note.

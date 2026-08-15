@@ -3,7 +3,7 @@
 
 Inverts the index. The scrape produces projects with rounds and investors;
 this script turns that into one investment row per combination of fund and
-round, but only for the twenty funds in `funds.py`. All other investors in
+round, but only for the funds in `funds.py`. All other investors in
 the same round are kept as co-investors.
 
 Input    data/processed/rounds.json

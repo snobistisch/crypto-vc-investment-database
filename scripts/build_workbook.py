@@ -164,11 +164,12 @@ def sheet_readme(wb, dataset, controls, fund_slug=None):
     ws.column_dimensions["A"].width = 32
     ws.column_dimensions["B"].width = 110
 
+    total_funds = len(FUNDS)
     if fund_slug:
         title = "Crypto VC Investment Database — %s" % FUNDS[fund_slug]["fund_name"]
         scope = [
-            ("Scope of this file", "Only %s. The full overview with all twenty funds is in "
-                                    "vc-investments-full.xlsx." % FUNDS[fund_slug]["fund_name"]),
+            ("Scope of this file", "Only %s. The full overview with all %d funds is in "
+                                    "vc-investments-full.xlsx." % (FUNDS[fund_slug]["fund_name"], total_funds)),
             ("Co-investors", "The Rounds sheet shows ALL investors in the same round, including "
                              "funds outside this file. That is deliberate: the rest of the cap "
                              "table is exactly the interesting part."),
@@ -176,8 +177,8 @@ def sheet_readme(wb, dataset, controls, fund_slug=None):
     else:
         title = "Crypto VC Investment Database"
         scope = [
-            ("Scope of this file", "All twenty funds. A separate file also exists per fund in "
-                                    "outputs/per-fund/."),
+            ("Scope of this file", "All %d funds. A separate file also exists per fund in "
+                                    "outputs/per-fund/." % total_funds),
         ]
 
     lines = [
@@ -201,12 +202,12 @@ def sheet_readme(wb, dataset, controls, fund_slug=None):
         ("Investor relations in the source", "%d" % dataset["scrape"]["investor_edges_total"]),
         ("", ""),
         ("Sheets", ""),
-        ("Funds", "The twenty funds, with control totals per external source."),
+        ("Funds", "The %d funds, with control totals per external source." % total_funds),
         ("Investments", "One row per fund-round pair. This is the main table and the CSV export."),
         ("Rounds", "One row per round. A round with five selected funds appears here once and "
                    "in Investments five times."),
-        ("Portfolio Companies", "One row per company in which at least one of the twenty funds "
-                                "invested."),
+        ("Portfolio Companies", "One row per company in which at least one of these %d funds "
+                                "invested." % total_funds),
         ("Coverage", "Own count next to the official portfolio page, crypto-fundraising.info, "
                      "RootData and CryptoRank."),
         ("Sources", "Every source URL used, with the date consulted and its type."),

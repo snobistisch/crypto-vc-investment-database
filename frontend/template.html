@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crypto VC Investment Database — Who Funded What</title>
-<meta name="description" content="Interactive explorer for publicly known investments by twenty crypto venture capital funds, built from round pages rather than fund pages.">
+<meta name="description" content="Interactive explorer for publicly known investments by __FUND_COUNT__ crypto venture capital funds, built from round pages rather than fund pages.">
 <style>
   :root{
     --paper:#000000; --surface:#0a0a0a; --panel:#111111; --panel-2:#161616;
@@ -222,7 +222,7 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="kicker">Twenty funds · round-level evidence</div>
+    <div class="kicker">__FUND_COUNT__ funds · round-level evidence</div>
     <h1>Who funded what in crypto, one round at a time</h1>
     <p class="lede">Every investment here exists because a fund appeared in a
       funding round, <b>not because it put itself on a portfolio page</b>. The
@@ -256,7 +256,7 @@
 <section id="funds">
   <div class="wrap">
     <div class="sec-head"><div class="sec-num">02</div>
-      <h2>Twenty funds, ranked on what they actually led</h2></div>
+      <h2>__FUND_COUNT__ funds, ranked on what they actually led</h2></div>
     <div class="prose">
       <p class="lead-p">Portfolio size is the easiest metric to score well on
         and says the least. <b>Lead rate</b> is the more honest number: it is
@@ -339,7 +339,7 @@
       <p class="lead-p">So every figure below is scored against a
         <b>permutation null</b> that holds two things fixed: each fund keeps its
         own number of rounds, and each round keeps its own number of these
-        twenty funds. Swaps stay inside a calendar year, so a fund's active
+        __FUND_COUNT__ funds. Swaps stay inside a calendar year, so a fund's active
         window is preserved too. <b>Lift</b> is what actually happened divided
         by what that null expects — 1.0 is exactly chance.</p>
     </div>
@@ -394,12 +394,12 @@
     </div>
 
     <div class="chartcard">
-      <h3>How often each fund is the only one of the twenty in a round</h3>
-      <p class="csub">A high bar means the fund rarely shares a cap table with
-        the other nineteen. That is a statement about this sample, not about
+      <h3>How often each fund is the only one of the __FUND_COUNT__ in a round</h3>
+      <p class="csub">A high bar means the fund rarely shares a cap table with the
+        others in this set. That is a statement about this sample, not about
         whether the fund co-invests at all — it may well share rounds with
-        hundreds of funds outside these twenty.</p>
-      <svg class="chart" id="soloChart" role="img" aria-label="Share of each fund's rounds containing no other of the twenty funds"></svg>
+        hundreds of funds outside this set.</p>
+      <svg class="chart" id="soloChart" role="img" aria-label="Share of each fund's rounds containing no other of the selected funds"></svg>
       <div class="chartnote" id="soloNote"></div>
     </div>
 
@@ -489,7 +489,7 @@
     var pctPrimary = Math.round(100 * M.with_primary / M.investments);
     var kpis = [
       [fmtInt(M.projects_parsed), 'project pages parsed in one pass, ' + fmtInt(M.rounds_in_source) + ' rounds and ' + fmtInt(M.edges_in_source) + ' investor relations read'],
-      [fmtInt(M.investments), 'fund-round pairs for the twenty funds, across ' + fmtInt(M.companies) + ' companies'],
+      [fmtInt(M.investments), 'fund-round pairs across these ' + FUNDS.length + ' funds, spanning ' + fmtInt(M.companies) + ' companies'],
       [fmtInt(M.lead_total), 'rounds led rather than joined — ' + Math.round(100*M.lead_total/M.investments) + '% of all rows'],
       [pctPrimary + '%', 'of rows carry a link to the original announcement or press release']
     ];
@@ -1037,7 +1037,7 @@
       'correction. Hover for the counts, click to load the pair into the explorer.';
     document.getElementById('netNote').innerHTML =
       fmtInt(CO.totals.multi_fund_rounds) + ' of ' + fmtInt(CO.totals.rounds_scored) +
-      ' rounds contain more than one of these twenty funds. Median lift across all pairs is ' +
+      ' rounds contain more than one of these ' + FUNDS.length + ' funds. Median lift across all pairs is ' +
       CO.totals.median_lift + '× under the permutation null, against ' +
       CO.totals.median_lift_naive + '× under a naive independence assumption — the naive model ' +
       'systematically over-predicts co-investment, which is why it is not used here. Selecting two ' +
@@ -1060,7 +1060,7 @@
       svg.appendChild(t);
     });
     var xl = svgEl('text', {x:x(50), y:H - 3, 'text-anchor':'middle', 'font-size':'10'});
-    xl.textContent = 'share of the fund’s rounds with no other of the twenty present';
+    xl.textContent = 'share of the fund’s rounds with none of the other ' + (FUNDS.length - 1) + ' present';
     svg.appendChild(xl);
 
     rows.forEach(function(p, i){
@@ -1079,8 +1079,8 @@
       g.appendChild(hit);
       bindTip(hit, '<b>' + esc(p.name) + '</b><br>' +
         '<span class="k">Rounds</span> ' + p.rounds + '<br>' +
-        '<span class="k">Alone among the twenty</span> ' + p.solo_rounds + ' (' + p.solo_rate + '%)<br>' +
-        '<span class="k">Distinct partners here</span> ' + p.distinct_partners + ' of 19<br>' +
+        '<span class="k">Alone among these funds</span> ' + p.solo_rounds + ' (' + p.solo_rate + '%)<br>' +
+        '<span class="k">Distinct partners here</span> ' + p.distinct_partners + ' of ' + (FUNDS.length - 1) + '<br>' +
         '<span class="k">Most frequent</span> ' + esc(p.top_partner) + ' (' + p.top_partner_rounds + ' rounds)');
       hit.addEventListener('click', function(){
         state.funds = {}; state.funds[FUNDS[p.i].slug] = 1; state.limit = 250;
@@ -1092,7 +1092,7 @@
 
     var most = rows[0], least = rows[rows.length - 1];
     document.getElementById('soloNote').textContent =
-      most.name + ' appears without any of the other nineteen in ' + most.solo_rate +
+      most.name + ' appears without any of the other ' + (FUNDS.length - 1) + ' in ' + most.solo_rate +
       '% of its rounds; ' + least.name + ' in ' + least.solo_rate + '%. Hover for each fund’s ' +
       'partner count, click to filter the explorer.';
   })();

@@ -21,6 +21,12 @@ pages**. All investors were parsed per round; the index was then inverted to
 fund → investments. A fund appears in this dataset because it was in a round,
 not because it put itself on a list.
 
+This inversion is also why the fund selection could grow from 20 funds to 59
+without a second scrape: `research/missing-funds.md` mined the same round
+universe for investor slugs with heavy round counts that were not yet mapped
+in `scripts/funds.py`, and mapping them was enough — the rounds were already
+sitting in the cache.
+
 ## Two representations per page, checked against each other
 
 Every project page carries the same rounds twice, in different form. The

@@ -1,35 +1,38 @@
 #!/usr/bin/env python3
-"""Measures which of the twenty funds co-invest more, or less, than chance.
+"""Measures which funds co-invest more, or less, than chance.
 
 Raw shared-round counts answer the wrong question. Coinbase Ventures sits in
-497 rounds, so it pairs with everyone often; Semantic Ventures sits in 31 and
-pairs with nobody often. Ranking on the raw count re-ranks portfolio size and
-calls it a relationship. Measured here: of the ten largest raw pairings, nine
-are actually BELOW chance once size is accounted for.
+497 rounds, so it pairs with everyone often; a small fund pairs with nobody
+often. Ranking on the raw count re-ranks portfolio size and calls it a
+relationship.
 
 ## The null model, and why the obvious one is wrong
 
-The obvious null is independence: expected = (rounds_a x rounds_b) / N. It is
-wrong here, and measurably so — under it the median pair scores 0.56, meaning
-the model over-predicts co-investment for almost every pair. The reason is
-structural: most rounds contain exactly one of the twenty funds, so rounds
-cannot absorb co-occurrence the way independent draws assume.
+The obvious null is independence: expected = (rounds_a x rounds_b) / N. Its
+median lift can land anywhere depending on how much of the round universe is
+multi-fund at the current fund count — sometimes far from 1, sometimes close
+to it by coincidence. That is not the reason it is rejected. A closed-form
+formula produces one number, not a distribution, so it has no way to say how
+surprising an observed count is; there is no p-value to compute from it. The
+real problem is structural: rounds cannot absorb co-occurrence the way
+independent draws assume, and turning the formula's output into a p-value
+would require pretending otherwise.
 
 This script uses a **degree-preserving permutation null** instead. Fund-round
 memberships are shuffled by repeated edge swaps that hold two things fixed:
 
   - every fund keeps exactly its own number of rounds;
-  - every round keeps exactly its own number of these twenty funds.
+  - every round keeps exactly its own number of these funds.
 
 Swaps are further restricted to rounds **within the same calendar year**, so a
-fund's activity window is preserved too. Without that, Semantic Ventures
-(2018-2025) could be shuffled into cyber-Fund's 2023-2026 rounds and their
+fund's activity window is preserved too. Without that, a fund active only in
+2018-2025 could be shuffled into another's 2023-2026 rounds and their
 non-overlap would read as avoidance when it is only vintage.
 
 Expected co-occurrence is then the mean across permutation samples, and the
 p-value is empirical: the share of samples at least as extreme as observed.
-Testing 190 pairs, p-values are corrected with Benjamini-Hochberg FDR —
-without it, roughly ten pairs would look significant by chance alone.
+p-values are corrected with Benjamini-Hochberg FDR across every pair tested —
+without it, some pairs would look significant by chance alone.
 
 ## What this still cannot say
 
@@ -56,13 +59,20 @@ from funds import FUNDS  # noqa: E402
 PROCESSED = os.path.join(ROOT, "data", "processed")
 OUT = os.path.join(PROCESSED, "coinvestment.json")
 
-# Sample count is set by the resolution the test needs, not by taste. The
-# smallest empirical p reachable is 1/(SAMPLES+1); Benjamini-Hochberg over 190
-# pairs requires a p at or below (1/190) x 0.05 = 0.00026 for anything to clear
-# the most stringent rank. At 1000 samples the floor is 0.001 — above that
-# threshold — so no pair could ever be called significant no matter how extreme
-# it was. 10,000 samples put the floor at 0.0001, comfortably below.
-SAMPLES = 10000
+N_PAIRS = len(FUNDS) * (len(FUNDS) - 1) // 2
+
+# Sample count is set by the resolution the test needs, not by taste, and it
+# scales with how many pairs are being tested. The smallest empirical p
+# reachable is 1/(SAMPLES+1); Benjamini-Hochberg over N_PAIRS pairs requires a
+# p at or below (1/N_PAIRS) x FDR_ALPHA for anything to clear the strictest
+# rank. SAFETY_MARGIN below sets how far under that threshold the floor sits —
+# at 20 funds (190 pairs) this formula gives roughly the same 10,000 samples
+# that were hand-picked and verified for that case; at 59 funds (1,711 pairs)
+# it scales up automatically so the test does not silently lose the power to
+# ever call anything significant.
+FDR_ALPHA = 0.05
+SAFETY_MARGIN = 3
+SAMPLES = max(2000, math.ceil(SAFETY_MARGIN * N_PAIRS / FDR_ALPHA))
 BURN_IN_MULT = 10       # swap attempts per edge before the first sample
 THIN_MULT = 1           # swap attempts per edge between samples
 SEED = 20260815         # fixed so the published figures are reproducible
@@ -71,7 +81,6 @@ SEED = 20260815         # fixed so the published figures are reproducible
 # anything. Below it, "they never co-invest" is indistinguishable from "they
 # were never both likely to appear anyway".
 MIN_EXPECTED_FOR_AVOIDANCE = 3.0
-FDR_ALPHA = 0.05
 
 
 def benjamini_hochberg(pvalues, alpha=FDR_ALPHA):
@@ -306,20 +315,26 @@ def main():
         "generated_at": date.today().isoformat(),
         "cutoff": ds["source_consulted_date"],
         "method": {
-            "unit": "round containing at least one of the twenty funds",
+            "unit": "round containing at least one of the %d funds" % len(slugs),
             "null": ("degree-preserving edge-swap permutation, restricted to rounds in the "
                      "same calendar year; every fund keeps its round count, every round "
-                     "keeps its number of these twenty funds, and activity windows are held"),
+                     "keeps its number of these %d funds, and activity windows are held" % len(slugs)),
             "samples": SAMPLES,
             "seed": SEED,
             "lift": "observed shared rounds / mean shared rounds across permutations; 1.0 is chance",
             "significance": "empirical p from the permutations, Benjamini-Hochberg FDR at %.2f" % FDR_ALPHA,
             "min_expected_for_avoidance": MIN_EXPECTED_FOR_AVOIDANCE,
             "why_not_independence": (
-                "Independence expects (rounds_a x rounds_b)/N, under which the median pair "
-                "scores %.2f — the model over-predicts co-investment for nearly every pair, "
-                "because most rounds hold only one of these funds. The permutation null "
-                "centres the median at %.2f." % (
+                "Independence expects (rounds_a x rounds_b)/N. Its median lift here is %.2f, "
+                "against %.2f under the permutation null — sometimes close to that null's "
+                "median, sometimes not, depending on how much of the round universe is "
+                "multi-fund at the current fund count. That closeness is not why independence "
+                "is rejected: a point-estimate formula has no null distribution to draw a "
+                "p-value from at all. The permutation null does, because it builds an actual "
+                "constrained sample space that respects each fund's true round count, each "
+                "round's true fund count, and each fund's active years — which is what makes "
+                "any of the p-values in this file valid, regardless of where the two medians "
+                "happen to land." % (
                     naive_lifts[len(naive_lifts)//2] if naive_lifts else 0,
                     lifts_all[len(lifts_all)//2] if lifts_all else 0)),
             "caveat": ("Co-occurrence is not collaboration. Two funds in one cap table may "
