@@ -1,0 +1,17 @@
+# Tijdelijke HTML-caches. Volledige kopieën van websites horen niet in Git.
+data/raw/
+*.html
+*.html.gz
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# macOS
+.DS_Store
+
+# Excel-vergrendelingsbestanden
+~$*.xlsx
