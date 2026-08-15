@@ -1,7 +1,10 @@
 # Temporary HTML caches. Full copies of websites do not belong in Git.
+# Scoped to data/raw deliberately: a bare *.html would also swallow
+# frontend/template.html and the generated docs/index.html, which are both
+# source of the deliverable and must be tracked.
 data/raw/
-*.html
-*.html.gz
+data/raw/**/*.html
+data/raw/**/*.html.gz
 
 # Python
 .venv/
