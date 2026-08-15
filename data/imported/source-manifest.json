@@ -1,0 +1,70 @@
+{
+ "source_repository": "/Users/matthiasalma/Documents/Investeringsdashboard",
+ "source_git_commit": "a42723ba303100203339b5face7af1798e7b7c0e",
+ "source_working_tree_clean": true,
+ "import_date": "2026-08-15",
+ "files": [
+  {
+   "path": "AGENTS.md",
+   "bytes": 10223,
+   "sha256": "8fe418ef79b5a36baaa1d11925f25523ec6c0dd956a98bda9c3d15c4dcba266d"
+  },
+  {
+   "path": "research/crypto-vc-database-plan.md",
+   "bytes": 8022,
+   "sha256": "35d7faae5a562cf38796807526cb4008df5651cf1b8d1235657fd4b575158264"
+  },
+  {
+   "path": "research/crypto-vc-haun-ventures.md",
+   "bytes": 11695,
+   "sha256": "610d7cf53657a99ad35cdef13ae58df0c751b6d50c8a5f68b10aceda332606ea"
+  },
+  {
+   "path": "research/crypto-vc-paradigm.md",
+   "bytes": 24924,
+   "sha256": "0a860e76e1730e513e2465bb740b925283c9f01a9dab49dcb6b355d6f0421a87"
+  },
+  {
+   "path": "research/crypto-vc-research.md",
+   "bytes": 14801,
+   "sha256": "4204e2cfd70ec97c58099328eaa391691f2a7f835a04b1c2c614aac64fc12bb8"
+  },
+  {
+   "path": "research/vc-overleving.md",
+   "bytes": 10500,
+   "sha256": "350c6589e02ed9092ef3f66fee00d062c2c7388b78a417e900b1ead5459e7ccf"
+  },
+  {
+   "path": "research/vc-overleving.json",
+   "bytes": 15409,
+   "sha256": "a89186fc023692a493cf8e3f151594954ea75022752dad6d2b51f5b0f9781317"
+  },
+  {
+   "path": "public/dashboards/crypto-vc.html",
+   "bytes": 79705,
+   "sha256": "7b3b3449d1641fe8ab2b4898111475b33e4be0d29d15626068972b18631ac655"
+  },
+  {
+   "path": "public/data/crypto-history.json",
+   "bytes": 384439,
+   "sha256": "9b2ccdfca735f5ed09e21619316c7f02932dbcb54ba3deeb9f568c7ca5c9c638"
+  },
+  {
+   "path": "public/data/crypto-market.json",
+   "bytes": 28097,
+   "sha256": "fab615bacaed05be0dd5ca27282a6012593ee3ef820b680b2f9c8c45db977cb4"
+  },
+  {
+   "path": "scripts/build-vc-survival.ts",
+   "bytes": 23173,
+   "sha256": "09751c9d6cfcc1a6c91695752ca9866592b10101272566c29c27032e2f85e0c0"
+  }
+ ],
+ "records_imported": {
+  "investment-dashboard-rounds.json": 153,
+  "investment-dashboard-vc-research.json": 12,
+  "token_measurements": 5
+ },
+ "parser_warnings": [],
+ "write_scope": "Dit script schrijft uitsluitend in data/imported/ van deze repository."
+}

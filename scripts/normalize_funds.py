@@ -110,11 +110,15 @@ def main():
             measured_tokens[t["token_ticker"].upper()] = t
 
     # Dashboardregels op (fonds, projectnaam, maand) voor kruiscontrole.
+    # Sleutel op maand, niet op dag. Het dashboard kende alleen maand en jaar,
+    # terwijl de scrape via JSON-LD exacte dagen levert. Matchen op de volledige
+    # datum zou de kruiscontrole stilzwijgend uitschakelen.
     dash_index = {}
     for r in dashboard.get("rounds", []):
         if not r.get("fund_canonical"):
             continue
-        key = (r["fund_canonical"], r["project_name"].strip().lower(), r.get("round_date"))
+        month = (r.get("round_date") or "")[:7]
+        key = (r["fund_canonical"], r["project_name"].strip().lower(), month)
         dash_index.setdefault(key, []).append(r)
 
     rounds_out = {}
@@ -185,7 +189,7 @@ def main():
                     )
 
                 # Kruiscontrole met het eerder gebouwde dashboard.
-                dkey = (canonical, pname.strip().lower(), rnd.get("round_date"))
+                dkey = (canonical, pname.strip().lower(), (rnd.get("round_date") or "")[:7])
                 dmatches = dash_index.get(dkey) or []
                 for d in dmatches:
                     if d["is_lead"] != is_lead:

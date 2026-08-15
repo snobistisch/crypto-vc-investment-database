@@ -1,0 +1,599 @@
+{
+ "collected_at": "2026-08-15",
+ "funds": {
+  "paradigm": {
+   "fund_name": "Paradigm",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/paradigm/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/paradigm/portfolio",
+    "status": "HTTP 200",
+    "investments": 121,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://www.paradigm.xyz/portfolio",
+    "status": "HTTP 200",
+    "names_found": 95,
+    "words_in_page": 1825,
+    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Paradigm",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "cyber-fund": {
+   "fund_name": "cyber•Fund",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/cyber-fund/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/cyber-fund/portfolio",
+    "status": "HTTP 200",
+    "investments": 31,
+    "country": "Cayman Islands",
+    "tier": 3,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://cyber.fund/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 23,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=cyber%E2%80%A2Fund",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "robot-ventures": {
+   "fund_name": "Robot Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/robot-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/robot-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 153,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://robvc.com/",
+    "status": "HTTP 200",
+    "names_found": 35,
+    "words_in_page": 2964,
+    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Robot%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "framework-ventures": {
+   "fund_name": "Framework Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/framework/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/framework-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 136,
+    "country": "Canada",
+    "tier": 2,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://framework.ventures/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 442,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Framework%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "electric-capital": {
+   "fund_name": "Electric Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/electric-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/electric-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 101,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://www.electriccapital.com/portfolio",
+    "status": "HTTP 404",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Electric%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "bain-capital-crypto": {
+   "fund_name": "Bain Capital Crypto",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/bain-capital-crypto/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/bain-capital-crypto/portfolio",
+    "status": "HTTP 200",
+    "investments": 45,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://baincapitalcrypto.com/portfolio/",
+    "status": "HTTP 200",
+    "names_found": 20,
+    "words_in_page": 402,
+    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Bain%20Capital%20Crypto",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "dragonfly": {
+   "fund_name": "Dragonfly",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/dragonfly-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/dragon-fly-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 183,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://www.dragonfly.xyz/portfolio",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 1865,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Dragonfly",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "maven11": {
+   "fund_name": "Maven11",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/maven-11-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/maven11/portfolio",
+    "status": "HTTP 200",
+    "investments": 101,
+    "country": "Netherlands",
+    "tier": 2,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://www.maven11.com/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 918,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Maven11",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "lemniscap": {
+   "fund_name": "Lemniscap",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/lemniscap/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/lemniscap/portfolio",
+    "status": "HTTP 200",
+    "investments": 114,
+    "country": "Hong Kong",
+    "tier": 3,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://lemniscap.com/portfolio",
+    "status": "HTTP 403",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Lemniscap",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "haun-ventures": {
+   "fund_name": "Haun Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/haun-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/haun-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 39,
+    "country": "United States",
+    "tier": 3,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://www.haun.co/portfolio",
+    "status": "HTTP 200",
+    "names_found": 38,
+    "words_in_page": 876,
+    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Haun%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "multicoin-capital": {
+   "fund_name": "Multicoin Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/multicoin-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/multicoin-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 156,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://multicoin.capital/portfolio/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 1793,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Multicoin%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "figment-capital": {
+   "fund_name": "Figment Capital",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/figment-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/figment-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 63,
+    "country": "United States",
+    "tier": 3,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://www.figmentcapital.io/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 1359,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Figment%20Capital",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "a16z-crypto": {
+   "fund_name": "a16z crypto",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/a16z-crypto/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/andreessen-horowitz/portfolio",
+    "status": "HTTP 200",
+    "investments": 204,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://a16zcrypto.com/portfolio/",
+    "status": "HTTP 200",
+    "names_found": 127,
+    "words_in_page": 649,
+    "note": "Unieke uitgaande domeinen als benadering van portefeuillenamen."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=a16z%20crypto",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "founders-fund": {
+   "fund_name": "Founders Fund",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/founders-fund/",
+    "status": "HTTP 200",
+    "visible_rows": 9,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/founders-fund/portfolio",
+    "status": "HTTP 200",
+    "investments": 55,
+    "country": "United States",
+    "tier": 2,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://foundersfund.com/portfolio/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 398,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Founders%20Fund",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "polychain": {
+   "fund_name": "Polychain",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/polychain-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/polychain-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 222,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://polychain.capital/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 111,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Polychain",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "pantera": {
+   "fund_name": "Pantera",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/pantera-capital/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/pantera-capital/portfolio",
+    "status": "HTTP 200",
+    "investments": 247,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://panteracapital.com/portfolio/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 1859,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Pantera",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "semantic-ventures": {
+   "fund_name": "Semantic Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/semantic-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/semantic-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 28,
+    "country": "United Kingdom",
+    "tier": 4,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://www.semantic.vc/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 1333,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Semantic%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "gnosis-vc": {
+   "fund_name": "GnosisVC",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/gnosis/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/gnosis/portfolio",
+    "status": "HTTP 200",
+    "investments": 27,
+    "country": "Gibraltar",
+    "tier": 4,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://www.gnosis.io/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 4342,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=GnosisVC",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "coinbase-ventures": {
+   "fund_name": "Coinbase Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/coinbase-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/coinbase-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 507,
+    "country": "United States",
+    "tier": 1,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://www.coinbase.com/ventures",
+    "status": "HTTP 403",
+    "names_found": null
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Coinbase%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  },
+  "delphi-ventures": {
+   "fund_name": "Delphi Ventures",
+   "crypto_fundraising": {
+    "url": "https://crypto-fundraising.info/funds/delphi-ventures/",
+    "status": "HTTP 200",
+    "visible_rows": 10,
+    "note": "Fondspagina toont een vast maximum aantal regels; dit is een displaylimiet en geen portefeuilletotaal."
+   },
+   "cryptorank": {
+    "url": "https://cryptorank.io/funds/delphi-ventures/portfolio",
+    "status": "HTTP 200",
+    "investments": 175,
+    "country": "",
+    "tier": 2,
+    "note": "`investments` is CryptoRanks eigen telling. De zichtbare portefeuillelijst toont zonder account maar tien regels; die lijst is niet gebruikt."
+   },
+   "official_portfolio": {
+    "url": "https://delphiventures.io/",
+    "status": "HTTP 200",
+    "names_found": null,
+    "words_in_page": 10196,
+    "note": "Pagina levert geen leesbare portefeuillelijst in statische HTML (client-side gerenderd). Niet geteld; geen schatting gemaakt."
+   },
+   "rootdata": {
+    "url": "https://www.rootdata.com/search?k=Delphi%20Ventures",
+    "status": "HTTP 404",
+    "investments": null,
+    "note": "Geen telling verkregen; niet geschat."
+   }
+  }
+ }
+}

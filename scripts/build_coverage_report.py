@@ -182,12 +182,38 @@ def main():
     add("  exitdataset; die valt buiten deze opdracht.")
     add("- `secondary_source_url` — vereist handmatige verificatie per regel.")
     add("")
+    add("## Kruiscontrole met het eerdere dashboardonderzoek")
+    add("")
+    dash_path = os.path.join(ROOT, "data", "imported", "investment-dashboard-rounds.json")
+    if os.path.exists(dash_path):
+        dash = json.load(open(dash_path))["rounds"]
+        keys = {(r["fund_slug"], r["project_name"].strip().lower(),
+                 (r["round_date"] or "")[:7]) for r in inv}
+        usable = [d for d in dash if d.get("fund_canonical")]
+        matched = [d for d in usable
+                   if (d["fund_canonical"], d["project_name"].strip().lower(),
+                       (d.get("round_date") or "")[:7]) in keys]
+        add("| | |")
+        add("| --- | ---: |")
+        add("| Fonds-rondeparen uit het dashboard (13 aug 2026) | %s |" % fmt(len(dash)))
+        add("| Daarvan teruggevonden in deze dataset | %s |" % fmt(len(matched)))
+        add("| Niet teruggevonden | %s |" % fmt(len(usable) - len(matched)))
+        add("")
+        add("De niet-teruggevonden regels zijn niet stilzwijgend verwijderd en niet als")
+        add("bevestigd overgenomen. Ze matchen niet op de combinatie fonds, projectnaam en")
+        add("maand. Plausibele oorzaken, niet per regel uitgezocht: het project is bij de")
+        add("bron hernoemd, de ronde is sinds 13 augustus 2026 aangepast, of de maand")
+        add("verschilt tussen aankondiging en registratie. Overname zonder die controle")
+        add("zou regels aan de dataset toevoegen die de huidige bron niet bevestigt.")
+        add("")
     add("## Bronconflicten")
     add("")
-    add("Er staan %s conflictregels op het tabblad `Conflicten`. Ze zijn niet"
-        % fmt(len(ds["conflicts"])))
-    add("gladgestreken: de actuele bronpagina is in de datavelden aangehouden en de")
-    add("afwijkende waarde uit het eerdere dashboardonderzoek blijft ernaast staan.")
+    n_conf = len(ds["conflicts"])
+    add("Het tabblad `Conflicten` bevat %s %s. %s niet gladgestreken: de actuele"
+        % (fmt(n_conf), "conflictregel" if n_conf == 1 else "conflictregels",
+           "Die is" if n_conf == 1 else "Die zijn"))
+    add("bronpagina is in de datavelden aangehouden en de afwijkende waarde uit het")
+    add("eerdere dashboardonderzoek blijft ernaast staan.")
     add("")
     add("Geen beleggingsadvies.")
 

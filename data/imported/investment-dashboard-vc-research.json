@@ -1,0 +1,598 @@
+{
+ "imported_from": "/Users/matthiasalma/Documents/Investeringsdashboard",
+ "imported_at": "2026-08-15",
+ "markdown": [
+  {
+   "file": "research/crypto-vc-database-plan.md",
+   "headings": [
+    "VC-investeringsdatabase — bronnenonderzoek en opzet",
+    "1. Bronnenonderzoek — wat ik heb geprobeerd",
+    "1.1 Gestructureerde API's — allemaal dicht",
+    "1.2 Portfoliopagina's van de fondsen zelf — namen, geen rondes",
+    "1.3 crypto-fundraising.info — dit is de bron",
+    "2. Wat \"volledig\" kan betekenen — en wat niet",
+    "3. De prompt die ik mezelf geef",
+    "4. Scope-voorstel"
+   ],
+   "urls": [],
+   "chars": 7960
+  },
+  {
+   "file": "research/crypto-vc-haun-ventures.md",
+   "headings": [
+    "Haun Ventures — investeringsdatabase",
+    "1. Hoe dit tot stand kwam, en wat er misging",
+    "2. Het profiel in cijfers",
+    "3. Wat er echt uitspringt: het co-investeerdersnetwerk",
+    "4. Alle 37 rondes",
+    "5. Wat dit nog niet is"
+   ],
+   "urls": [],
+   "chars": 11602
+  },
+  {
+   "file": "research/crypto-vc-paradigm.md",
+   "headings": [
+    "Paradigm — investeringsdatabase",
+    "1. Het profiel in cijfers",
+    "2. Het co-investeerdersnetwerk",
+    "3. Alle 116 rondes",
+    "4. Wat dit nog niet is"
+   ],
+   "urls": [],
+   "chars": 24610
+  },
+  {
+   "file": "research/crypto-vc-research.md",
+   "headings": [
+    "Crypto venture capital — wie is goed, en waarom",
+    "0. Wat ik wel en niet kan vaststellen",
+    "1. De vondst die het plaatje verandert",
+    "2. Wat een crypto-VC daadwerkelijk goed maakt",
+    "3. Mijn lijst",
+    "Bouwers — fondsen die de infrastructuur schrijven die ze financieren",
+    "Technisch-analytisch — onderzoek als dealstroom",
+    "Kapitaalteruggevers — bewezen distributies",
+    "Hoge overtuiging, hoge variantie",
+    "Groot en laat — nuttig, maar niet als kompas",
+    "4. Waar ik van je expert afwijk",
+    "5. De drie die je specifiek noemde",
+    "cyber•Fund — de interessantste van de drie",
+    "Semantic Ventures — smal maar scherp",
+    "GnosisVC — strategisch, geen financieel fonds",
+    "6. Wat ik zou doen"
+   ],
+   "urls": [],
+   "chars": 14697
+  },
+  {
+   "file": "research/vc-overleving.md",
+   "headings": [
+    "VC-tokenoverleving",
+    "§0 Wat dit wel en niet kan vaststellen",
+    "§1 Methode en definities",
+    "§2 Rangorde op cohortoverschot",
+    "§3 Fondsdossiers",
+    "Lighter: Founders Fund tegenover Haun",
+    "Nockchain: Delphi als lead",
+    "Gemeten tokenregels",
+    "§4 Tier-lijst getoetst",
+    "§5 Wat dit onderzoek niet kan zeggen",
+    "§6 Bronnen"
+   ],
+   "urls": [
+    "https://crypto-fundraising.info/projects/lighter/",
+    "https://cryptorank.io/funds",
+    "https://cryptorank.io/funds/andreessen-horowitz/portfolio",
+    "https://cryptorank.io/funds/bain-capital-crypto/portfolio",
+    "https://cryptorank.io/funds/coinbase-ventures/portfolio",
+    "https://cryptorank.io/funds/cyber-fund/portfolio",
+    "https://cryptorank.io/funds/delphi-ventures/portfolio",
+    "https://cryptorank.io/funds/dragon-fly-capital/portfolio",
+    "https://cryptorank.io/funds/electric-capital/portfolio",
+    "https://cryptorank.io/funds/figment-capital/portfolio",
+    "https://cryptorank.io/funds/founders-fund/portfolio",
+    "https://cryptorank.io/funds/framework-ventures/portfolio",
+    "https://cryptorank.io/funds/gnosis/portfolio",
+    "https://cryptorank.io/funds/haun-ventures/portfolio",
+    "https://cryptorank.io/funds/lemniscap/portfolio",
+    "https://cryptorank.io/funds/maven11/portfolio",
+    "https://cryptorank.io/funds/multicoin-capital/portfolio",
+    "https://cryptorank.io/funds/pantera-capital/portfolio",
+    "https://cryptorank.io/funds/paradigm/portfolio",
+    "https://cryptorank.io/funds/polychain-capital/portfolio",
+    "https://cryptorank.io/funds/robot-ventures/portfolio",
+    "https://cryptorank.io/funds/semantic-ventures/portfolio",
+    "https://docs.coingecko.com/docs/keyless-public-api",
+    "https://www.coingecko.com/en/coins/lighter",
+    "https://www.coingecko.com/en/coins/megaeth",
+    "https://www.coingecko.com/en/coins/monad",
+    "https://www.coingecko.com/en/coins/nockchain",
+    "https://www.coingecko.com/en/coins/plasma",
+    "https://www.nockchain.org/roadmap",
+    "https://www.tokenomist.ai/research/lighter-lit-tokenomics-robinhood-hype-a-real-burn-and-the-december-2026-cliff-2"
+   ],
+   "chars": 10463
+  }
+ ],
+ "named_findings": [
+  {
+   "needle": "Lighter",
+   "file": "research/vc-overleving.md",
+   "text": "### Lighter: Founders Fund tegenover Haun",
+   "urls": []
+  },
+  {
+   "needle": "Lighter",
+   "file": "research/vc-overleving.md",
+   "text": "De rondepagina onderscheidt twee rondes. Founders Fund en Ribbit leidden de ronde van november 2025 tegen een waardering van $1,5 miljard. Haun en Robinhood liepen mee. In oktober 2025 stonden Haun, Founders Fund, Dragonfly en Robot Ventures als leads bij een ronde zonder openbaar bedrag of waardering. De eerdere notitie dat Founders de ene ronde met al deze partijen als gewone co-investeerders leidde, voegde dus twee rondes samen. [Rondepagina](https://crypto-fundraising.info/projects/lighter/)",
+   "urls": [
+    "https://crypto-fundraising.info/projects/lighter/"
+   ]
+  },
+  {
+   "needle": "Lighter",
+   "file": "research/vc-overleving.md",
+   "text": "De tokenuitkomst is voor alle namen in de cap table dezelfde. De publieke bronnen tonen niet hun individuele instapprijs, positieomvang of verkoopgedrag. Daarmee kan LIT het verschil tussen Founders Fund op F en Haun als niet-gerangschikt niet verklaren. Het verschil is op deze deal niet toetsbaar. De eerste insidercliff staat op 27 december 2026. [Unlockbron](https://www.tokenomist.ai/research/lighter-lit-tokenomics-robinhood-hype-a-real-burn-and-the-december-2026-cliff-2)",
+   "urls": [
+    "https://www.tokenomist.ai/research/lighter-lit-tokenomics-robinhood-hype-a-real-burn-and-the-december-2026-cliff-2"
+   ]
+  },
+  {
+   "needle": "Nockchain",
+   "file": "research/vc-overleving.md",
+   "text": "### Nockchain: Delphi als lead",
+   "urls": []
+  },
+  {
+   "needle": "Nockchain",
+   "file": "research/vc-overleving.md",
+   "text": "Nockchain vermeldt dat Delphi Ventures de seedronde van $5 miljoen leidde, met North Island Ventures en CMCC Global. [Primaire bron](https://www.nockchain.org/roadmap) De openbare prijsreeks begint op 22 augustus 2025. NOCK wordt daarom alleen vanaf die eerste geobserveerde handelsdag gemeten. Delphi's instapwaardering, tokenpositie en eventuele verkoop zijn niet openbaar. De tokenuitkomst toetst de deal, niet Delphi als geheel.",
+   "urls": [
+    "https://www.nockchain.org/roadmap"
+   ]
+  },
+  {
+   "needle": "Lighter",
+   "file": "research/vc-overleving.md",
+   "text": "| token | eerste handel | D30 USD | nu USD | sinds D30 | vs BTC | cohortoverschot | drawdown ATH | status | bron | | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | | NOCK | 2025-08-22 | 0.018406 | 0.0094678 | -48.6% | -3.0 pp | 15.7 pp | -95.5% | zieltogend | [koers](https://www.coingecko.com/en/coins/nockchain) | | XPL | 2025-09-25 | 0.38596 | 0.076876 | -80.1% | -36.8 pp | -15.8 pp | -95.4% | zieltogend | [koers](https://www.coingecko.com/en/coins/plasma) | | MON | 2025-11-24 | 0.019767 | 0.020974 | 6.1% | 34.2 pp | -3.2 pp | -57.0% | levend | [koers](https://www.coingecko.com/en/coins/monad) | | LIT | 2025-12-30 | 1.9745 | 2.2200 | 12.4% | 41.9 pp | 3.1 pp | -71.8% | levend | [koers](https://www.coingecko.com/en/coins/lighter) | | MEGA | 2026-04-30 | 0.061570 | 0.031428 | -49.0% | -34.6 pp | 0.0 pp | -85.6% | levend | [koers](https://www.coingecko.com/en/coins/megaeth) |",
+   "urls": [
+    "https://www.coingecko.com/en/coins/lighter",
+    "https://www.coingecko.com/en/coins/megaeth",
+    "https://www.coingecko.com/en/coins/monad",
+    "https://www.coingecko.com/en/coins/nockchain",
+    "https://www.coingecko.com/en/coins/plasma"
+   ]
+  },
+  {
+   "needle": "Lighter",
+   "file": "research/vc-overleving.md",
+   "text": "- [CryptoRank fondsportfolio's](https://cryptorank.io/funds), geraadpleegd 2026-08-15. Openbare weergave: maximaal tien regels per fonds. - [CoinGecko keyless API](https://docs.coingecko.com/docs/keyless-public-api), geraadpleegd 2026-08-15. 365 dagen prijshistorie en een actuele markt-snapshot. - [Crypto Fundraising: Lighter](https://crypto-fundraising.info/projects/lighter/), geraadpleegd 2026-08-15. - [Nockchain roadmap](https://www.nockchain.org/roadmap), geraadpleegd 2026-08-15. - [Tokenomist: Lighter unlocks](https://www.tokenomist.ai/research/lighter-lit-tokenomics-robinhood-hype-a-real-burn-and-the-december-2026-cliff-2), geraadpleegd 2026-08-15.",
+   "urls": [
+    "https://crypto-fundraising.info/projects/lighter/",
+    "https://cryptorank.io/funds",
+    "https://docs.coingecko.com/docs/keyless-public-api",
+    "https://www.nockchain.org/roadmap",
+    "https://www.tokenomist.ai/research/lighter-lit-tokenomics-robinhood-hype-a-real-burn-and-the-december-2026-cliff-2"
+   ]
+  }
+ ],
+ "token_measurements": {
+  "meta": {
+   "gegenereerd": "2026-08-15",
+   "dekking_notitie": "Ondergrens. CryptoRank toont zonder account alleen tien portefeuilleregels per fonds. Daardoor is de tokenstartpopulatie overlevingsvertekend en is geen fonds-rangorde geldig. Onopgeloste CoinGecko-tickers: MORPHO, ATOM, OP, COMP, STRK, AXS, META, INX, AVAIL, RESOLV, NB, JTO, TIA, ZRO, BP, CFG, DRV, SENT, IMX, GRT, RE, ALLO, SUI, EGLD, WAL, AXL, MINA, ROSE, WLD, SC, ACX, BICO, FUEL, SCR, AVAX, BGB, VVV, APT, KAITO, MOVE, DUSK, KNTQ, RED, XAN, REZ, FLIP, ALGO, PENDLE, DBR, LAB, FT, KAVA, PLUME, ZORA, EUL, ICP, RENDER, PYTH, OSMO, RECALL, HYPER, SCRT, INIT, XRP, CC, PENGU, USDP, AVNT, ERA, ARB, LUNC, DOT, SUP, NTRN, U, FLOCK, HOPR, IDOS, IDEX, EUROP, SHU, SEI, 2Z. Mislukte historie-requests: geen.",
+   "cohorten": [
+    {
+     "kwartaal": "2025Q3",
+     "n": 2,
+     "mediaan_rendement_pct": -64.3
+    },
+    {
+     "kwartaal": "2025Q4",
+     "n": 2,
+     "mediaan_rendement_pct": 9.3
+    },
+    {
+     "kwartaal": "2026Q2",
+     "n": 1,
+     "mediaan_rendement_pct": -49
+    }
+   ]
+  },
+  "fund_slices": [
+   {
+    "fund_canonical": "paradigm",
+    "fund_name_in_source": "Paradigm",
+    "fund_slug_in_source": "paradigm",
+    "cryptorank_portfolio_count": 121,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": 1,
+    "tier_from_source": "God-tier",
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "cyber-fund",
+    "fund_name_in_source": "cyber•Fund",
+    "fund_slug_in_source": "cyber-fund",
+    "cryptorank_portfolio_count": 31,
+    "cryptorank_token_rows": 4,
+    "tokens_with_180d": null,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "robot-ventures",
+    "fund_name_in_source": "Robot Ventures",
+    "fund_slug_in_source": "robot-ventures",
+    "cryptorank_portfolio_count": 153,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": null,
+    "tier_from_source": "niet_gerangschikt",
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "framework-ventures",
+    "fund_name_in_source": "Framework Ventures",
+    "fund_slug_in_source": "framework-ventures",
+    "cryptorank_portfolio_count": 136,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": 1,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "electric-capital",
+    "fund_name_in_source": "Electric Capital",
+    "fund_slug_in_source": "electric-capital",
+    "cryptorank_portfolio_count": 100,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": 1,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "bain-capital-crypto",
+    "fund_name_in_source": "Bain Capital Crypto",
+    "fund_slug_in_source": "bain-capital-crypto",
+    "cryptorank_portfolio_count": 45,
+    "cryptorank_token_rows": 9,
+    "tokens_with_180d": null,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "dragonfly",
+    "fund_name_in_source": "Dragonfly",
+    "fund_slug_in_source": "dragonfly",
+    "cryptorank_portfolio_count": 183,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": 1,
+    "tier_from_source": "B",
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "maven11",
+    "fund_name_in_source": "Maven11",
+    "fund_slug_in_source": "maven11",
+    "cryptorank_portfolio_count": 101,
+    "cryptorank_token_rows": 9,
+    "tokens_with_180d": null,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "lemniscap",
+    "fund_name_in_source": "Lemniscap",
+    "fund_slug_in_source": "lemniscap",
+    "cryptorank_portfolio_count": 114,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": 1,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "haun-ventures",
+    "fund_name_in_source": "Haun Ventures",
+    "fund_slug_in_source": "haun-ventures",
+    "cryptorank_portfolio_count": 38,
+    "cryptorank_token_rows": 4,
+    "tokens_with_180d": 1,
+    "tier_from_source": "niet_gerangschikt",
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "multicoin-capital",
+    "fund_name_in_source": "Multicoin Capital",
+    "fund_slug_in_source": "multicoin-capital",
+    "cryptorank_portfolio_count": 156,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": null,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "figment-capital",
+    "fund_name_in_source": "Figment Capital",
+    "fund_slug_in_source": "figment-capital",
+    "cryptorank_portfolio_count": 63,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": null,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "a16z-crypto",
+    "fund_name_in_source": "a16z crypto",
+    "fund_slug_in_source": "a16z-crypto",
+    "cryptorank_portfolio_count": 204,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": null,
+    "tier_from_source": "F",
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "founders-fund",
+    "fund_name_in_source": "Founders Fund",
+    "fund_slug_in_source": "founders-fund",
+    "cryptorank_portfolio_count": 55,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": 2,
+    "tier_from_source": "F",
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "polychain",
+    "fund_name_in_source": "Polychain",
+    "fund_slug_in_source": "polychain",
+    "cryptorank_portfolio_count": 222,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": null,
+    "tier_from_source": "D",
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "pantera",
+    "fund_name_in_source": "Pantera",
+    "fund_slug_in_source": "pantera",
+    "cryptorank_portfolio_count": 247,
+    "cryptorank_token_rows": 9,
+    "tokens_with_180d": null,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "semantic-ventures",
+    "fund_name_in_source": "Semantic Ventures",
+    "fund_slug_in_source": "semantic-ventures",
+    "cryptorank_portfolio_count": 28,
+    "cryptorank_token_rows": 6,
+    "tokens_with_180d": null,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "gnosis-vc",
+    "fund_name_in_source": "GnosisVC",
+    "fund_slug_in_source": "gnosisvc",
+    "cryptorank_portfolio_count": 29,
+    "cryptorank_token_rows": 7,
+    "tokens_with_180d": null,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "coinbase-ventures",
+    "fund_name_in_source": "Coinbase Ventures",
+    "fund_slug_in_source": "coinbase-ventures",
+    "cryptorank_portfolio_count": 511,
+    "cryptorank_token_rows": 10,
+    "tokens_with_180d": null,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   },
+   {
+    "fund_canonical": "delphi-ventures",
+    "fund_name_in_source": "Delphi Ventures",
+    "fund_slug_in_source": "delphi-ventures",
+    "cryptorank_portfolio_count": 175,
+    "cryptorank_token_rows": 11,
+    "tokens_with_180d": 1,
+    "tier_from_source": null,
+    "source_confidence": "laag"
+   }
+  ],
+  "tokens": [
+   {
+    "token_ticker": "MON",
+    "project_name": "Monad",
+    "coingecko_id": "monad",
+    "tge_date": "2025-11-24",
+    "d30_price_usd": 0.0197671,
+    "price_now_usd": 0.02097385,
+    "ath_price_usd": 0.04882901713148541,
+    "ath_date": "2025-11-26",
+    "status": "levend",
+    "source_url": null,
+    "raw": {
+     "ticker": "MON",
+     "project": "Monad",
+     "coingecko_id": "monad",
+     "tge_datum": "2025-11-24",
+     "d30_koers_usd": 0.0197671,
+     "ath_koers_usd": 0.04882901713148541,
+     "ath_datum": "2025-11-26",
+     "koers_nu_usd": 0.02097385,
+     "peildatum": "2026-08-15",
+     "drawdown_ath_pct": -57,
+     "rendement_sinds_d30_pct": 6.1,
+     "excess_vs_btc_pct": 34.2,
+     "status": "levend",
+     "bronnen": [
+      "https://cryptorank.io/funds/paradigm/portfolio",
+      "https://cryptorank.io/funds/electric-capital/portfolio",
+      "https://cryptorank.io/funds/lemniscap/portfolio",
+      "https://www.coingecko.com/en/coins/monad",
+      "https://www.coingecko.com/en/coins/bitcoin"
+     ],
+     "cohortoverschot_pct": -3.2
+    }
+   },
+   {
+    "token_ticker": "XPL",
+    "project_name": "Plasma",
+    "coingecko_id": "plasma",
+    "tge_date": "2025-09-25",
+    "d30_price_usd": 0.385963,
+    "price_now_usd": 0.076876,
+    "ath_price_usd": 1.6826300122570497,
+    "ath_date": "2025-09-27",
+    "status": "zieltogend",
+    "source_url": null,
+    "raw": {
+     "ticker": "XPL",
+     "project": "Plasma",
+     "coingecko_id": "plasma",
+     "tge_datum": "2025-09-25",
+     "d30_koers_usd": 0.385963,
+     "ath_koers_usd": 1.6826300122570497,
+     "ath_datum": "2025-09-27",
+     "koers_nu_usd": 0.076876,
+     "peildatum": "2026-08-15",
+     "drawdown_ath_pct": -95.4,
+     "rendement_sinds_d30_pct": -80.1,
+     "excess_vs_btc_pct": -36.8,
+     "status": "zieltogend",
+     "bronnen": [
+      "https://cryptorank.io/funds/framework-ventures/portfolio",
+      "https://cryptorank.io/funds/founders-fund/portfolio",
+      "https://www.coingecko.com/en/coins/plasma",
+      "https://www.coingecko.com/en/coins/bitcoin"
+     ],
+     "cohortoverschot_pct": -15.8
+    }
+   },
+   {
+    "token_ticker": "LIT",
+    "project_name": "Lighter",
+    "coingecko_id": "lighter",
+    "tge_date": "2025-12-30",
+    "d30_price_usd": 1.97447,
+    "price_now_usd": 2.22,
+    "ath_price_usd": 7.865108430439668,
+    "ath_date": "2025-12-30",
+    "status": "levend",
+    "source_url": null,
+    "raw": {
+     "ticker": "LIT",
+     "project": "Lighter",
+     "coingecko_id": "lighter",
+     "tge_datum": "2025-12-30",
+     "d30_koers_usd": 1.97447,
+     "ath_koers_usd": 7.865108430439668,
+     "ath_datum": "2025-12-30",
+     "koers_nu_usd": 2.22,
+     "peildatum": "2026-08-15",
+     "drawdown_ath_pct": -71.8,
+     "rendement_sinds_d30_pct": 12.4,
+     "excess_vs_btc_pct": 41.9,
+     "status": "levend",
+     "bronnen": [
+      "https://cryptorank.io/funds/dragon-fly-capital/portfolio",
+      "https://cryptorank.io/funds/haun-ventures/portfolio",
+      "https://cryptorank.io/funds/founders-fund/portfolio",
+      "https://www.coingecko.com/en/coins/lighter",
+      "https://www.coingecko.com/en/coins/bitcoin",
+      "https://crypto-fundraising.info/projects/lighter/",
+      "https://www.tokenomist.ai/research/lighter-lit-tokenomics-robinhood-hype-a-real-burn-and-the-december-2026-cliff-2"
+     ],
+     "lead": "founders-fund",
+     "investeerders": [
+      "ribbit-capital",
+      "haun-ventures",
+      "robinhood-ventures"
+     ],
+     "laatste_prive_fdv_usd": 1500000000,
+     "eerste_cliff": "2026-12-27",
+     "cohortoverschot_pct": 3.1
+    }
+   },
+   {
+    "token_ticker": "MEGA",
+    "project_name": "MegaETH",
+    "coingecko_id": "megaeth",
+    "tge_date": "2026-04-30",
+    "d30_price_usd": 0.0615696,
+    "price_now_usd": 0.03142788,
+    "ath_price_usd": 0.2177156122253174,
+    "ath_date": "2026-04-30",
+    "status": "levend",
+    "source_url": null,
+    "raw": {
+     "ticker": "MEGA",
+     "project": "MegaETH",
+     "coingecko_id": "megaeth",
+     "tge_datum": "2026-04-30",
+     "d30_koers_usd": 0.0615696,
+     "ath_koers_usd": 0.2177156122253174,
+     "ath_datum": "2026-04-30",
+     "koers_nu_usd": 0.03142788,
+     "peildatum": "2026-08-15",
+     "drawdown_ath_pct": -85.6,
+     "rendement_sinds_d30_pct": -49,
+     "excess_vs_btc_pct": -34.6,
+     "status": "levend",
+     "bronnen": [
+      "https://cryptorank.io/funds/figment-capital/portfolio",
+      "https://www.coingecko.com/en/coins/megaeth",
+      "https://www.coingecko.com/en/coins/bitcoin"
+     ],
+     "cohortoverschot_pct": 0
+    }
+   },
+   {
+    "token_ticker": "NOCK",
+    "project_name": "Nockchain",
+    "coingecko_id": "nockchain",
+    "tge_date": "2025-08-22",
+    "d30_price_usd": 0.0184056,
+    "price_now_usd": 0.0094678,
+    "ath_price_usd": 0.21021990514592248,
+    "ath_date": "2025-10-17",
+    "status": "zieltogend",
+    "source_url": null,
+    "raw": {
+     "ticker": "NOCK",
+     "project": "Nockchain",
+     "coingecko_id": "nockchain",
+     "tge_datum": "2025-08-22",
+     "d30_koers_usd": 0.0184056,
+     "ath_koers_usd": 0.21021990514592248,
+     "ath_datum": "2025-10-17",
+     "koers_nu_usd": 0.0094678,
+     "peildatum": "2026-08-15",
+     "drawdown_ath_pct": -95.5,
+     "rendement_sinds_d30_pct": -48.6,
+     "excess_vs_btc_pct": -3,
+     "status": "zieltogend",
+     "bronnen": [
+      "https://cryptorank.io/funds/delphi-ventures/portfolio",
+      "https://www.coingecko.com/en/coins/nockchain",
+      "https://www.coingecko.com/en/coins/bitcoin",
+      "https://www.nockchain.org/roadmap"
+     ],
+     "lead": "delphi-ventures",
+     "investeerders": [
+      "north-island-ventures",
+      "cmcc-global"
+     ],
+     "cohortoverschot_pct": 15.7
+    }
+   }
+  ],
+  "field_semantics": {
+   "cryptorank_portfolio_count": "aantal portefeuilleregels dat CryptoRank zonder account toonde; ondergrens",
+   "d30_price_usd": "slotkoers op of na dag 30 na de eerste waarneming, geen rondewaardering"
+  }
+ },
+ "known_limitation": "De CryptoRank-slices in het brononderzoek tonen maximaal tien regels per fonds. Ze zijn hier alleen als controlelijst overgenomen, niet als dekkingsmaat."
+}
