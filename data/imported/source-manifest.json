@@ -66,5 +66,5 @@
   "token_measurements": 5
  },
  "parser_warnings": [],
- "write_scope": "Dit script schrijft uitsluitend in data/imported/ van deze repository."
+ "write_scope": "This script writes exclusively into data/imported/ of this repository."
 }

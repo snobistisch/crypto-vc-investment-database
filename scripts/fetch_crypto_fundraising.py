@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
-"""Haalt het volledige ronde-universum op van crypto-fundraising.info.
+"""Fetches the full round universe from crypto-fundraising.info.
 
-Architectuur: de rondepagina is de atomaire eenheid, het fonds is een afgeleide
-index. Fondspagina's op de bron tonen structureel maar tien rondes en de
-paginering redirect terug naar pagina één; daarom wordt er niet per fonds
-gescrapet.
+Architecture: the round page is the atomic unit, the fund is a derived index.
+Fund pages on the source structurally show only ten rounds and pagination
+redirects back to page one; that is why this does not scrape per fund.
 
-Stap 1  slug-lijst via de open WP REST API (`/wp-json/wp/v2/projects`)
-Stap 2  elke projectpagina ophalen, gzip-gecachet in data/raw/pages/
-Stap 3  per pagina twee representaties parsen en samenvoegen:
-        - JSON-LD `funding[]`: exacte rondedatum, rondetype, bedrag, funders
-        - HTML `newrisedblock`: lead-versus-deelnemersplitsing, waardering,
-          en de Details-link naar de oorspronkelijke aankondiging
-        De twee lijsten staan in dezelfde volgorde (nieuwste eerst) en worden
-        op index uitgelijnd; de maand-jaarlabels worden als controle vergeleken.
+Step 1  slug list via the open WP REST API (`/wp-json/wp/v2/projects`)
+Step 2  fetch every project page, gzip-cached in data/raw/pages/
+Step 3  parse and merge two representations per page:
+        - JSON-LD `funding[]`: exact round date, round type, amount, funders
+        - HTML `newrisedblock`: lead-versus-participant split, valuation,
+          and the Details link to the original announcement
+        The two lists are in the same order (newest first) and are aligned
+        by index; the month-year labels are cross-checked against each other.
 
-Uitvoer: data/processed/rounds.json — alle rondes, alle investeerders.
-De HTML-cache blijft lokaal en staat in .gitignore.
+Output: data/processed/rounds.json — all rounds, all investors.
+The HTML cache stays local and is listed in .gitignore.
 """
 
 import argparse
@@ -51,7 +50,7 @@ def session():
 
 
 def get(sess, url, tries=6, timeout=30):
-    """GET met exponentiële backoff. Geeft None terug na uitputting."""
+    """GET with exponential backoff. Returns None once retries are exhausted."""
     delay = 1.5
     for attempt in range(tries):
         try:
@@ -72,7 +71,7 @@ def get(sess, url, tries=6, timeout=30):
 
 
 # --------------------------------------------------------------------------
-# stap 1 — sluglijst
+# step 1 — slug list
 # --------------------------------------------------------------------------
 
 def fetch_slugs(sess, per_page=100):
@@ -99,7 +98,7 @@ def fetch_slugs(sess, per_page=100):
                 "title": htmllib.unescape(item["title"]["rendered"]).strip(),
                 "source_modified": item.get("modified"),
             })
-        sys.stderr.write("\r  slugs: %d (pagina %d/%s)" % (len(slugs), page, total_pages))
+        sys.stderr.write("\r  slugs: %d (page %d/%s)" % (len(slugs), page, total_pages))
         sys.stderr.flush()
         if total_pages and page >= total_pages:
             break
@@ -110,7 +109,7 @@ def fetch_slugs(sess, per_page=100):
 
 
 # --------------------------------------------------------------------------
-# stap 2 — pagina's ophalen met cache
+# step 2 — fetch pages with cache
 # --------------------------------------------------------------------------
 
 def cache_path(slug):
@@ -142,7 +141,7 @@ def _init_worker():
 
 
 # --------------------------------------------------------------------------
-# stap 3 — parsen
+# step 3 — parsing
 # --------------------------------------------------------------------------
 
 JSONLD_RE = re.compile(r'<script type="application/ld\+json"[^>]*>(.*?)</script>', re.S)
@@ -178,12 +177,12 @@ def to_int(raw):
     if not digits:
         return None
     value = int(digits)
-    # De bron gebruikt 0 als 'niet bekendgemaakt'. Nul is geen rondegrootte.
+    # The source uses 0 for 'undisclosed'. Zero is not a round size.
     return value if value > 0 else None
 
 
 def parse_month_label(label):
-    """'Raised Nov 2025' -> (2025, 11). Geeft (None, None) bij onbekend."""
+    """'Raised Nov 2025' -> (2025, 11). Returns (None, None) when unknown."""
     m = re.search(r"([A-Za-z]{3})[a-z]*\s+(\d{4})", label or "")
     if not m:
         return None, None
@@ -191,14 +190,14 @@ def parse_month_label(label):
 
 
 def parse_jsonld(page):
-    """Rondes uit de JSON-LD Organization-node: exacte datum, type, bedrag, funders."""
+    """Rounds from the JSON-LD Organization node: exact date, type, amount, funders."""
     for raw in JSONLD_RE.findall(page):
         if '"funding"' not in raw:
             continue
         try:
             data = json.loads(raw)
         except json.JSONDecodeError:
-            # De bron levert af en toe niet-ontsnapte aanhalingstekens in beschrijvingen.
+            # The source occasionally ships unescaped quotes inside descriptions.
             continue
         funding = data.get("funding") or []
         out = []
@@ -234,11 +233,11 @@ def parse_jsonld(page):
 
 
 def parse_blocks(page):
-    """Rondeblokken uit de gerenderde HTML: lead/deelnemer, waardering, bron-URL."""
+    """Round blocks from the rendered HTML: lead/participant, valuation, source URL."""
     parts = BLOCK_SPLIT_RE.split(page)[1:]
     blocks = []
     for part in parts:
-        # Begrens het blok bij het begin van het volgende, of bij het einde van de sectie.
+        # Bound the block at the start of the next one, or the end of the section.
         end = part.find('<section')
         if end == -1:
             end = len(part)
@@ -264,7 +263,7 @@ def parse_blocks(page):
         d_m = DETAILS_RE.search(seg)
         details = d_m.group(1).strip() if d_m else ""
 
-        # Wijs elke investeerderslink toe aan de dichtstbijzijnde voorafgaande kop.
+        # Assign each investor link to the nearest preceding heading.
         markers = []
         for m in SUBTITLE_RE.finditer(seg):
             markers.append((m.start(), clean(m.group(1)).lower()))
@@ -307,11 +306,11 @@ def parse_project(slug, url, page):
     blocks = parse_blocks(page)
 
     if not project_name:
-        warnings.append("projectnaam niet gevonden in HTML")
+        warnings.append("project name not found in HTML")
     if len(ld_rounds) != len(blocks):
         warnings.append(
-            "aantal JSON-LD-rondes (%d) wijkt af van aantal HTML-blokken (%d); "
-            "datums uit JSON-LD alleen toegekend waar maand en jaar overeenkomen"
+            "number of JSON-LD rounds (%d) differs from number of HTML blocks (%d); "
+            "dates from JSON-LD only assigned where month and year match"
             % (len(ld_rounds), len(blocks))
         )
 
@@ -327,13 +326,13 @@ def parse_project(slug, url, page):
                     round_date = ld["round_date"]
                 else:
                     warnings.append(
-                        "ronde %d: JSON-LD-datum %s komt niet overeen met HTML-label '%s'"
+                        "round %d: JSON-LD date %s does not match HTML label '%s'"
                         % (i, ld["round_date"], block["label"])
                     )
             else:
                 round_date = ld["round_date"]
         if round_date is None and block["year"] and block["month"]:
-            # Alleen maand bekend: eerste van de maand, expliciet gemarkeerd.
+            # Only month known: first of the month, explicitly flagged.
             round_date = "%04d-%02d-01" % (block["year"], block["month"])
             announcement_date = None
             date_precision = "month"
@@ -348,11 +347,11 @@ def parse_project(slug, url, page):
                 and ld.get("round_size_usd") is not None
                 and block["round_size_usd"] != ld["round_size_usd"]):
             warnings.append(
-                "ronde %d: bedrag verschilt tussen HTML (%s) en JSON-LD (%s)"
+                "round %d: amount differs between HTML (%s) and JSON-LD (%s)"
                 % (i, block["round_size_usd"], ld["round_size_usd"])
             )
 
-        # Investeerders die alleen in JSON-LD staan, alsnog als deelnemer opnemen.
+        # Investors that only appear in JSON-LD are still added as participants.
         seen = {x["slug"] for x in block["leads"]} | {x["slug"] for x in block["participants"]}
         extra = []
         if ld:
@@ -391,10 +390,10 @@ def parse_project(slug, url, page):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--limit", type=int, default=0, help="alleen de eerste N projecten")
+    ap.add_argument("--limit", type=int, default=0, help="only the first N projects")
     ap.add_argument("--workers", type=int, default=6)
-    ap.add_argument("--refresh", action="store_true", help="cache negeren")
-    ap.add_argument("--only", nargs="*", help="alleen deze projectslugs")
+    ap.add_argument("--refresh", action="store_true", help="ignore the cache")
+    ap.add_argument("--only", nargs="*", help="only these project slugs")
     args = ap.parse_args()
 
     os.makedirs(RAW_DIR, exist_ok=True)
@@ -404,12 +403,12 @@ def main():
     slug_file = os.path.join(PROCESSED_DIR, "project-slugs.json")
     if os.path.exists(slug_file) and not args.refresh:
         slugs = json.load(open(slug_file))
-        print("Sluglijst uit cache: %d projecten" % len(slugs))
+        print("Slug list from cache: %d projects" % len(slugs))
     else:
-        print("Sluglijst ophalen via WP REST API ...")
+        print("Fetching slug list via WP REST API ...")
         slugs = fetch_slugs(sess)
         json.dump(slugs, open(slug_file, "w"), indent=1)
-        print("Sluglijst opgeslagen: %d projecten" % len(slugs))
+        print("Slug list saved: %d projects" % len(slugs))
 
     if args.only:
         wanted = set(args.only)
@@ -417,7 +416,7 @@ def main():
     if args.limit:
         slugs = slugs[: args.limit]
 
-    print("Projectpagina's ophalen en parsen (%d, %d workers) ..." % (len(slugs), args.workers))
+    print("Fetching and parsing project pages (%d, %d workers) ..." % (len(slugs), args.workers))
     projects = []
     failed = []
     cached = 0
@@ -441,7 +440,7 @@ def main():
                 projects.append(parsed)
             if done % 200 == 0 or done == len(slugs):
                 sys.stderr.write(
-                    "\r  %d/%d  (cache %d, mislukt %d, %.0fs)"
+                    "\r  %d/%d  (cache %d, failed %d, %.0fs)"
                     % (done, len(slugs), cached, len(failed), time.time() - t0)
                 )
                 sys.stderr.flush()
@@ -463,8 +462,8 @@ def main():
     path = os.path.join(PROCESSED_DIR, "rounds.json")
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1)
-    print("Geschreven: %s" % path)
-    print("  projecten %d, rondes %d, investeerdersrelaties %d, mislukt %d"
+    print("Written: %s" % path)
+    print("  projects %d, rounds %d, investor relations %d, failed %d"
           % (len(projects), total_rounds, total_edges, len(failed)))
 
 

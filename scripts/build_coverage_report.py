@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Genereert research/coverage-report.md uit de dataset.
+"""Generates research/coverage-report.md from the dataset.
 
-Elk getal in het rapport komt uit `dataset.json` of `coverage-controls.json`.
-Er wordt geen cijfer met de hand ingetypt.
+Every number in the report comes from `dataset.json` or
+`coverage-controls.json`. No figure is typed in by hand.
 """
 
 import json
@@ -18,15 +18,15 @@ PROCESSED = os.path.join(ROOT, "data", "processed")
 OUT = os.path.join(ROOT, "research", "coverage-report.md")
 
 STATEMENT = (
-    "Volledig binnen de publiek toegankelijke en genoemde bronnen op de peildatum. "
-    "Niet-aangekondigde rondes, secundaire transacties, liquide marktposities en "
-    "investeerders die in persberichten onder 'others' vallen, blijven structureel "
-    "onzichtbaar."
+    "Complete within the publicly accessible and named sources as of the "
+    "cutoff date. Unannounced rounds, secondary transactions, liquid market "
+    "positions, and investors that press releases lump under 'others' remain "
+    "structurally invisible."
 )
 
 
 def fmt(value):
-    return "—" if value in (None, "") else ("{:,}".format(value).replace(",", ".")
+    return "—" if value in (None, "") else ("{:,}".format(value)
                                             if isinstance(value, int) else str(value))
 
 
@@ -54,35 +54,35 @@ def main():
 
     lines = []
     add = lines.append
-    add("# Dekkingsrapport")
+    add("# Coverage Report")
     add("")
-    add("**Peildatum bron:** %s" % ds["source_consulted_date"])
-    add("**Rapport gegenereerd:** %s" % date.today().isoformat())
+    add("**Source cutoff date:** %s" % ds["source_consulted_date"])
+    add("**Report generated:** %s" % date.today().isoformat())
     add("")
     add("> %s" % STATEMENT)
     add("")
-    add("Alle cijfers hieronder zijn gegenereerd uit `data/processed/dataset.json` en")
-    add("`data/processed/coverage-controls.json`. Er staat bewust geen algemeen")
-    add("dekkingspercentage in dit rapport: een percentage veronderstelt een bekende")
-    add("noemer, en de noemer is precies wat niet bekend is.")
+    add("Every figure below is generated from `data/processed/dataset.json` and")
+    add("`data/processed/coverage-controls.json`. This report deliberately carries")
+    add("no overall coverage percentage: a percentage presupposes a known")
+    add("denominator, and the denominator is exactly what is not known.")
     add("")
 
-    add("## Wat de scrape heeft doorzocht")
+    add("## What the scrape searched")
     add("")
     add("| | |")
     add("| --- | ---: |")
-    add("| Projectpagina's geparsed | %s |" % fmt(ds["scrape"]["projects_parsed"]))
-    add("| Pagina's mislukt | %s |" % fmt(len(ds["scrape"]["projects_failed"])))
-    add("| Rondes in de bron | %s |" % fmt(ds["scrape"]["rounds_total_in_source"]))
-    add("| Investeerdersrelaties in de bron | %s |" % fmt(ds["scrape"]["investor_edges_total"]))
-    add("| Investeringsregels na filtering op de twintig fondsen | %s |" % fmt(len(inv)))
-    add("| Unieke rondes met minstens één geselecteerd fonds | %s |" % fmt(len(ds["rounds"])))
-    add("| Unieke portefeuillebedrijven | %s |" % fmt(len(ds["projects"])))
+    add("| Project pages parsed | %s |" % fmt(ds["scrape"]["projects_parsed"]))
+    add("| Pages failed | %s |" % fmt(len(ds["scrape"]["projects_failed"])))
+    add("| Rounds in the source | %s |" % fmt(ds["scrape"]["rounds_total_in_source"]))
+    add("| Investor relations in the source | %s |" % fmt(ds["scrape"]["investor_edges_total"]))
+    add("| Investment rows after filtering to the twenty funds | %s |" % fmt(len(inv)))
+    add("| Unique rounds with at least one selected fund | %s |" % fmt(len(ds["rounds"])))
+    add("| Unique portfolio companies | %s |" % fmt(len(ds["projects"])))
     add("")
 
-    add("## Rondes en bedrijven per fonds")
+    add("## Rounds and companies per fund")
     add("")
-    add("| Fonds | Rondes | Unieke bedrijven | Waarvan lead | Actief in |")
+    add("| Fund | Rounds | Unique companies | Of which lead | Active | ")
     add("| --- | ---: | ---: | ---: | --- |")
     for slug, meta in sorted(FUNDS.items(), key=lambda kv: -len(
             per_fund.get(kv[0], {"companies": set()})["companies"])):
@@ -97,13 +97,13 @@ def main():
             fmt(f["leads"]), span))
     add("")
 
-    add("## Eigen telling naast de controlebronnen")
+    add("## Own count next to the control sources")
     add("")
-    add("De kolom *fondspagina bron* is een displaylimiet, geen portefeuilletotaal.")
-    add("De kolom *CryptoRank* is de eigen telling van CryptoRank uit `__NEXT_DATA__`,")
-    add("niet de zichtbare lijst van tien regels.")
+    add("The *source fund page* column is a display limit, not a portfolio total.")
+    add("The *CryptoRank* column is CryptoRank's own count from `__NEXT_DATA__`,")
+    add("not the visible list of ten rows.")
     add("")
-    add("| Fonds | Eigen bedrijven | Fondspagina bron | Officiële pagina | RootData | CryptoRank | Verschil eigen − CryptoRank |")
+    add("| Fund | Own companies | Source fund page | Official page | RootData | CryptoRank | Difference own − CryptoRank |")
     add("| --- | ---: | ---: | ---: | ---: | ---: | ---: |")
     for slug, meta in FUNDS.items():
         f = per_fund.get(slug, {"companies": set()})
@@ -120,9 +120,9 @@ def main():
             ("+%d" % diff if isinstance(diff, int) and diff > 0 else fmt(diff))))
     add("")
 
-    add("## Datakwaliteit per fonds")
+    add("## Data quality per fund")
     add("")
-    add("| Fonds | Regels | Met rondegrootte | Met waardering | Met rondetype | Met primaire bron-URL |")
+    add("| Fund | Rows | With round size | With valuation | With round type | With primary source URL |")
     add("| --- | ---: | ---: | ---: | ---: | ---: |")
     for slug, meta in FUNDS.items():
         f = per_fund.get(slug)
@@ -142,47 +142,47 @@ def main():
     for r in inv:
         status_counts[r["verification_status"]] = status_counts.get(r["verification_status"], 0) + 1
         conf_counts[r["confidence"]] = conf_counts.get(r["confidence"], 0) + 1
-    add("## Verificatie en betrouwbaarheid")
+    add("## Verification and confidence")
     add("")
-    add("| Verificatiestatus | Regels |")
+    add("| Verification status | Rows |")
     add("| --- | ---: |")
     for k, v in sorted(status_counts.items(), key=lambda kv: -kv[1]):
         add("| %s | %s |" % (k, fmt(v)))
     add("")
-    add("| Betrouwbaarheid | Regels |")
+    add("| Confidence | Rows |")
     add("| --- | ---: |")
     for k in ("high", "medium", "low"):
         add("| %s | %s |" % (k, fmt(conf_counts.get(k, 0))))
     add("")
-    add("`verified_two_sources` komt niet voor. De scripts stellen zelf geen tweede")
-    add("onafhankelijke primaire bron vast, en een status die automatisch wordt")
-    add("uitgedeeld is geen verificatie.")
+    add("`verified_two_sources` does not occur. The scripts do not themselves")
+    add("establish a second independent primary source, and a status handed out")
+    add("automatically is not verification.")
     add("")
 
-    add("## Resterende datagaten")
+    add("## Remaining data gaps")
     add("")
     missing = {}
     for u in ds["unknowns"]:
         for field in u["missing_fields"].split(", "):
             if field:
                 missing[field] = missing.get(field, 0) + 1
-    add("| Ontbrekend veld | Investeringsregels |")
+    add("| Missing field | Investment rows |")
     add("| --- | ---: |")
     for k, v in sorted(missing.items(), key=lambda kv: -kv[1]):
         add("| %s | %s |" % (k, fmt(v)))
     add("")
-    add("Structureel leeg, met reden:")
+    add("Structurally blank, with the reason:")
     add("")
-    add("- `fund_ticket_usd` — geen enkele gebruikte bron publiceert wat een individueel")
-    add("  fonds in een ronde inlegde. De rondegrootte hier overnemen zou een getal")
-    add("  opleveren dat er goed uitziet en fout is.")
-    add("- `country`, `sector`, `chain_or_ecosystem` — de projectpagina's van de bron")
-    add("  voeren geen land-, sector- of ecosysteemtaxonomie. Niet ingevuld op gevoel.")
-    add("- `acquisition_or_exit`, `acquirer`, `exit_price_usd` — vereisen een aparte")
-    add("  exitdataset; die valt buiten deze opdracht.")
-    add("- `secondary_source_url` — vereist handmatige verificatie per regel.")
+    add("- `fund_ticket_usd` — no source used publishes what an individual fund put")
+    add("  into a round. Copying the round size here would produce a number that")
+    add("  looks right and is wrong.")
+    add("- `country`, `sector`, `chain_or_ecosystem` — the source's project pages")
+    add("  carry no country, sector, or ecosystem taxonomy. Not filled in by feel.")
+    add("- `acquisition_or_exit`, `acquirer`, `exit_price_usd` — require a separate")
+    add("  exit dataset; that falls outside this brief.")
+    add("- `secondary_source_url` — requires manual verification per row.")
     add("")
-    add("## Kruiscontrole met het eerdere dashboardonderzoek")
+    add("## Cross-check against the earlier dashboard research")
     add("")
     dash_path = os.path.join(ROOT, "data", "imported", "investment-dashboard-rounds.json")
     if os.path.exists(dash_path):
@@ -195,31 +195,32 @@ def main():
                        (d.get("round_date") or "")[:7]) in keys]
         add("| | |")
         add("| --- | ---: |")
-        add("| Fonds-rondeparen uit het dashboard (13 aug 2026) | %s |" % fmt(len(dash)))
-        add("| Daarvan teruggevonden in deze dataset | %s |" % fmt(len(matched)))
-        add("| Niet teruggevonden | %s |" % fmt(len(usable) - len(matched)))
+        add("| Fund-round pairs from the dashboard (13 Aug 2026) | %s |" % fmt(len(dash)))
+        add("| Of which found again in this dataset | %s |" % fmt(len(matched)))
+        add("| Not found again | %s |" % fmt(len(usable) - len(matched)))
         add("")
-        add("De niet-teruggevonden regels zijn niet stilzwijgend verwijderd en niet als")
-        add("bevestigd overgenomen. Ze matchen niet op de combinatie fonds, projectnaam en")
-        add("maand. Plausibele oorzaken, niet per regel uitgezocht: het project is bij de")
-        add("bron hernoemd, de ronde is sinds 13 augustus 2026 aangepast, of de maand")
-        add("verschilt tussen aankondiging en registratie. Overname zonder die controle")
-        add("zou regels aan de dataset toevoegen die de huidige bron niet bevestigt.")
+        add("The rows not found again were not silently dropped and not carried over")
+        add("as confirmed. They do not match on the combination of fund, project name")
+        add("and month. Plausible causes, not investigated row by row: the project was")
+        add("renamed at the source, the round was updated since 13 August 2026, or the")
+        add("month differs between announcement and registration. Carrying them over")
+        add("without that check would add rows to the dataset that the current source")
+        add("does not confirm.")
         add("")
-    add("## Bronconflicten")
+    add("## Source conflicts")
     add("")
     n_conf = len(ds["conflicts"])
-    add("Het tabblad `Conflicten` bevat %s %s. %s niet gladgestreken: de actuele"
-        % (fmt(n_conf), "conflictregel" if n_conf == 1 else "conflictregels",
-           "Die is" if n_conf == 1 else "Die zijn"))
-    add("bronpagina is in de datavelden aangehouden en de afwijkende waarde uit het")
-    add("eerdere dashboardonderzoek blijft ernaast staan.")
+    add("The `Conflicts` sheet contains %s %s. %s not smoothed over: the current"
+        % (fmt(n_conf), "conflict row" if n_conf == 1 else "conflict rows",
+           "It is" if n_conf == 1 else "They are"))
+    add("source page was kept in the data fields, and the deviating value from the")
+    add("earlier dashboard research stays next to it.")
     add("")
-    add("Geen beleggingsadvies.")
+    add("Not investment advice.")
 
     with open(OUT, "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines) + "\n")
-    print("Geschreven: %s" % OUT)
+    print("Written: %s" % OUT)
 
 
 if __name__ == "__main__":

@@ -590,9 +590,9 @@
    }
   ],
   "field_semantics": {
-   "cryptorank_portfolio_count": "aantal portefeuilleregels dat CryptoRank zonder account toonde; ondergrens",
-   "d30_price_usd": "slotkoers op of na dag 30 na de eerste waarneming, geen rondewaardering"
+   "cryptorank_portfolio_count": "number of portfolio rows CryptoRank showed without an account; a lower bound",
+   "d30_price_usd": "closing price on or after day 30 after first observation, not a round valuation"
   }
  },
- "known_limitation": "De CryptoRank-slices in het brononderzoek tonen maximaal tien regels per fonds. Ze zijn hier alleen als controlelijst overgenomen, niet als dekkingsmaat."
+ "known_limitation": "The CryptoRank slices in the source research show at most ten rows per fund. They are carried over here only as a control list, not as a coverage measure."
 }

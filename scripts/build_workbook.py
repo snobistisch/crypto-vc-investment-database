@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-"""Bouwt outputs/vc-investeringen-volledig.xlsx en de bijbehorende CSV.
+"""Builds outputs/vc-investments-full.xlsx and the matching CSV.
 
-Het workbook wordt volledig uit `data/processed/dataset.json` opgebouwd. Er
-wordt geen waarde met de hand in dit script getypt: elke cel komt uit de
-dataset of is een formule over de tabbladen.
+The workbook is built entirely from `data/processed/dataset.json`. No value
+is typed by hand in this script: every cell comes from the dataset or is a
+formula over the sheets.
 
-Opmaakregels: eerste rij bevroren, autofilter op elke datatabel, geen
-samengevoegde cellen, bedragen als echte getallen, datums als echte datums,
-booleans als TRUE/FALSE, URLs klikbaar, conflicten en onzekere records met
-voorwaardelijke opmaak.
+Formatting rules: first row frozen, autofilter on every data table, no merged
+cells, amounts as real numbers, dates as real dates, booleans as TRUE/FALSE,
+clickable URLs, conflicting and uncertain records get conditional formatting.
 """
 
 import csv
@@ -30,9 +29,9 @@ from funds import FUNDS  # noqa: E402
 PROCESSED = os.path.join(ROOT, "data", "processed")
 OUTPUTS = os.path.join(ROOT, "outputs")
 
-XLSX = os.path.join(OUTPUTS, "vc-investeringen-volledig.xlsx")
-CSV = os.path.join(OUTPUTS, "vc-investeringen-volledig.csv")
-PER_FUND = os.path.join(OUTPUTS, "per-fonds")
+XLSX = os.path.join(OUTPUTS, "vc-investments-full.xlsx")
+CSV = os.path.join(OUTPUTS, "vc-investments-full.csv")
+PER_FUND = os.path.join(OUTPUTS, "per-fund")
 
 HEADER_FILL = PatternFill("solid", fgColor="1F3A5F")
 HEADER_FONT = Font(color="FFFFFF", bold=True, size=10)
@@ -46,10 +45,10 @@ USD_FMT = '#,##0;[Red]-#,##0'
 DATE_FMT = "yyyy-mm-dd"
 
 COMPLETENESS_STATEMENT = (
-    "Volledig binnen de publiek toegankelijke en genoemde bronnen op de peildatum. "
-    "Niet-aangekondigde rondes, secundaire transacties, liquide marktposities en "
-    "investeerders die in persberichten onder 'others' vallen, blijven structureel "
-    "onzichtbaar."
+    "Complete within the publicly accessible and named sources as of the "
+    "cutoff date. Unannounced rounds, secondary transactions, liquid market "
+    "positions, and investors that press releases lump under 'others' remain "
+    "structurally invisible."
 )
 
 INVESTMENT_COLUMNS = [
@@ -104,7 +103,7 @@ def as_date(value):
 
 
 def write_table(ws, name, columns, rows, freeze="A2"):
-    """Schrijft één datatabel met kop, opmaak, autofilter en bevroren kop."""
+    """Writes one data table with header, formatting, autofilter and frozen header."""
     for idx, (title, _kind, width) in enumerate(columns, start=1):
         cell = ws.cell(row=1, column=idx, value=title)
         cell.fill = HEADER_FILL
@@ -120,7 +119,7 @@ def write_table(ws, name, columns, rows, freeze="A2"):
             cell.font = BODY_FONT
             cell.border = Border(bottom=THIN)
             if kind == "usd":
-                # Een onbekend bedrag blijft leeg. Nul is geen onbekende waarde.
+                # An unknown amount stays blank. Zero is not an unknown value.
                 if value in (None, "", 0):
                     cell.value = None
                 else:
@@ -166,20 +165,19 @@ def sheet_readme(wb, dataset, controls, fund_slug=None):
     ws.column_dimensions["B"].width = 110
 
     if fund_slug:
-        title = "Crypto-VC-investeringsdatabase — %s" % FUNDS[fund_slug]["fund_name"]
+        title = "Crypto VC Investment Database — %s" % FUNDS[fund_slug]["fund_name"]
         scope = [
-            ("Bereik van dit bestand", "Alleen %s. Het volledige overzicht met alle twintig "
-                                       "fondsen staat in vc-investeringen-volledig.xlsx."
-                                       % FUNDS[fund_slug]["fund_name"]),
-            ("Co-investeerders", "Het tabblad Rondes toont álle investeerders in dezelfde ronde, "
-                                 "ook fondsen buiten dit bestand. Dat is bewust: de overige namen "
-                                 "in de cap table zijn juist het interessante deel."),
+            ("Scope of this file", "Only %s. The full overview with all twenty funds is in "
+                                    "vc-investments-full.xlsx." % FUNDS[fund_slug]["fund_name"]),
+            ("Co-investors", "The Rounds sheet shows ALL investors in the same round, including "
+                             "funds outside this file. That is deliberate: the rest of the cap "
+                             "table is exactly the interesting part."),
         ]
     else:
-        title = "Crypto-VC-investeringsdatabase"
+        title = "Crypto VC Investment Database"
         scope = [
-            ("Bereik van dit bestand", "Alle twintig fondsen. Per fonds bestaat daarnaast een "
-                                       "afzonderlijk bestand in outputs/per-fonds/."),
+            ("Scope of this file", "All twenty funds. A separate file also exists per fund in "
+                                    "outputs/per-fund/."),
         ]
 
     lines = [
@@ -187,53 +185,52 @@ def sheet_readme(wb, dataset, controls, fund_slug=None):
         ("", ""),
     ] + scope + [
         ("", ""),
-        ("Peildatum bron", dataset["source_consulted_date"]),
-        ("Workbook gegenereerd", dataset["generated_at"]),
-        ("Fondsen in dit bestand", str(len(dataset["funds"]))),
+        ("Source cutoff date", dataset["source_consulted_date"]),
+        ("Workbook generated", dataset["generated_at"]),
+        ("Funds in this file", str(len(dataset["funds"]))),
         ("", ""),
-        ("Wat dit bestand is", "Eén regel per combinatie van fonds en financieringsronde, "
-                               "opgebouwd uit rondepagina's en niet uit fondspagina's."),
-        ("Volledigheid", COMPLETENESS_STATEMENT),
+        ("What this file is", "One row per combination of fund and funding round, built from "
+                              "round pages, not from fund pages."),
+        ("Completeness", COMPLETENESS_STATEMENT),
         ("", ""),
-        ("Methode", "Het ronde-universum is in één pass over alle projectpagina's van "
-                    "crypto-fundraising.info opgehaald; daarna is de index omgekeerd naar "
-                    "fonds. Fondspagina's tonen structureel tien regels en zijn daarom "
-                    "alleen als controlelijst gebruikt."),
-        ("Projecten doorzocht", "%d" % dataset["scrape"]["projects_parsed"]),
-        ("Rondes in de bron", "%d" % dataset["scrape"]["rounds_total_in_source"]),
-        ("Investeerdersrelaties in de bron", "%d" % dataset["scrape"]["investor_edges_total"]),
+        ("Method", "The round universe was fetched in a single pass over every project page on "
+                   "crypto-fundraising.info; the index was then inverted to fund. Fund pages "
+                   "structurally show ten rows and were therefore used only as a control list."),
+        ("Projects searched", "%d" % dataset["scrape"]["projects_parsed"]),
+        ("Rounds in the source", "%d" % dataset["scrape"]["rounds_total_in_source"]),
+        ("Investor relations in the source", "%d" % dataset["scrape"]["investor_edges_total"]),
         ("", ""),
-        ("Tabbladen", ""),
-        ("Fondsen", "De twintig fondsen, met controletotalen per externe bron."),
-        ("Investeringen", "Eén regel per fonds-ronde. Dit is de hoofdtabel en de CSV-export."),
-        ("Rondes", "Eén regel per ronde. Een ronde met vijf geselecteerde fondsen staat hier "
-                   "één keer en in Investeringen vijf keer."),
-        ("Portefeuillebedrijven", "Eén regel per bedrijf waarin minstens één van de twintig "
-                                  "fondsen investeerde."),
-        ("Dekking", "Eigen telling naast officiële portfoliopagina, crypto-fundraising.info, "
-                    "RootData en CryptoRank."),
-        ("Bronnen", "Elke gebruikte bron-URL met raadpleegdatum en type."),
-        ("Conflicten", "Velden waarover bronnen elkaar tegenspreken. Niet gladgestreken."),
-        ("Onbekend", "Records met ontbrekende velden en wat er is geprobeerd."),
-        ("Aliases", "Canonieke naam, bronnaam en de reden dat namen zijn samengevoegd."),
+        ("Sheets", ""),
+        ("Funds", "The twenty funds, with control totals per external source."),
+        ("Investments", "One row per fund-round pair. This is the main table and the CSV export."),
+        ("Rounds", "One row per round. A round with five selected funds appears here once and "
+                   "in Investments five times."),
+        ("Portfolio Companies", "One row per company in which at least one of the twenty funds "
+                                "invested."),
+        ("Coverage", "Own count next to the official portfolio page, crypto-fundraising.info, "
+                     "RootData and CryptoRank."),
+        ("Sources", "Every source URL used, with the date consulted and its type."),
+        ("Conflicts", "Fields on which sources contradict each other. Not smoothed over."),
+        ("Unknown", "Records with missing fields and what was attempted."),
+        ("Aliases", "Canonical name, source name and the reason names were merged."),
         ("", ""),
-        ("Leesregels", ""),
-        ("Lege cel", "Waarde onbekend. Nooit vervangen door nul of een schatting."),
-        ("round_size_usd", "Grootte van de hele ronde. Uitdrukkelijk niet het bedrag dat het "
-                           "fonds zelf inlegde."),
-        ("fund_ticket_usd", "Bedrag dat het fonds zelf inlegde. Vrijwel nooit openbaar; daarom "
-                            "vrijwel altijd leeg."),
-        ("valuation_usd", "Waardering van de ronde zoals de bron die vermeldt, met "
-                          "valuation_type erbij. Nooit een actuele token-FDV."),
+        ("How to read this", ""),
+        ("Blank cell", "Value unknown. Never replaced with zero or an estimate."),
+        ("round_size_usd", "Size of the entire round. Explicitly not the amount the fund itself "
+                           "put in."),
+        ("fund_ticket_usd", "Amount the fund itself put in. Almost never public; therefore "
+                            "almost always blank."),
+        ("valuation_usd", "Valuation of the round as stated by the source, with valuation_type "
+                          "next to it. Never a current token FDV."),
         ("", ""),
-        ("Kleurcodering", "Rood: conflict_flag is TRUE. Geel: verificatiestatus onzeker of "
+        ("Colour coding", "Red: conflict_flag is TRUE. Yellow: verification status uncertain or "
                           "single_source."),
         ("", ""),
-        ("Bronvolgorde", "1 officiële aankondiging bedrijf, 2 aankondiging fonds, 3 officieel "
-                         "document, 4 persbericht, 5 crypto-fundraising.info, 6 RootData, "
-                         "7 CryptoRank, 8 media."),
+        ("Source priority", "1 official company announcement, 2 fund announcement, 3 official "
+                            "document, 4 press release, 5 crypto-fundraising.info, 6 RootData, "
+                            "7 CryptoRank, 8 media."),
         ("", ""),
-        ("Disclaimer", "Geen beleggingsadvies."),
+        ("Disclaimer", "Not investment advice."),
     ]
     for i, (label, value) in enumerate(lines, start=1):
         a = ws.cell(row=i, column=1, value=label or None)
@@ -247,12 +244,12 @@ def sheet_readme(wb, dataset, controls, fund_slug=None):
 
 
 def scope_to_fund(dataset, fund_slug):
-    """Beperkt de dataset tot één fonds, met dezelfde structuur als het geheel.
+    """Restricts the dataset to one fund, keeping the same structure as the whole.
 
-    Rondes, bedrijven, conflicten en onbekende velden worden meegefilterd, zodat
-    de tellingen binnen een fondsbestand onderling kloppen. `all_investors` op
-    het tabblad Rondes blijft ongewijzigd: de overige investeerders in dezelfde
-    ronde zijn juist het interessante deel en worden niet weggefilterd.
+    Rounds, companies, conflicts and unknown fields are filtered along, so the
+    counts within a fund file are internally consistent. `all_investors` on
+    the Rounds sheet is left unchanged: the other investors in the same round
+    are exactly the interesting part and are not filtered out.
     """
     inv = [r for r in dataset["investments"] if r["fund_slug"] == fund_slug]
     round_ids = {r["round_id"] for r in inv}
@@ -272,7 +269,7 @@ def scope_to_fund(dataset, fund_slug):
 
 
 def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
-    """Bouwt één workbook. Met `fund_slug` is het bereik één fonds."""
+    """Builds one workbook. With `fund_slug`, the scope is a single fund."""
     wb = Workbook()
     wb.remove(wb.active)
 
@@ -285,7 +282,7 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
     rounds = sorted(dataset["rounds"], key=lambda r: (r["round_date"] or "", r["project_name"]))
     projects = sorted(dataset["projects"], key=lambda r: r["project_name"].lower())
 
-    # --- Fondsen
+    # --- Funds
     per_fund = {}
     for inv in investments:
         f = per_fund.setdefault(inv["fund_slug"], {"rounds": 0, "companies": set(), "leads": 0})
@@ -312,8 +309,8 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
             "aggregator_fund_url": f["aggregator_fund_url"],
             "cryptorank_url": f["cryptorank_url"],
         })
-    ws = wb.create_sheet("Fondsen")
-    write_table(ws, "Fondsen", [
+    ws = wb.create_sheet("Funds")
+    write_table(ws, "Funds", [
         ("fund_slug", "txt", 20), ("fund_name", "txt", 22), ("source_slugs", "txt", 28),
         ("investments_in_database", "int", 20), ("unique_companies", "int", 17),
         ("lead_rounds", "int", 12), ("cryptorank_investments", "int", 20),
@@ -322,9 +319,9 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
         ("cryptorank_url", "url", 40),
     ], fund_rows)
 
-    # --- Investeringen
-    ws = wb.create_sheet("Investeringen")
-    last = write_table(ws, "Investeringen", INVESTMENT_COLUMNS, investments)
+    # --- Investments
+    ws = wb.create_sheet("Investments")
+    last = write_table(ws, "Investments", INVESTMENT_COLUMNS, investments)
     col = {name: get_column_letter(i) for i, (name, _k, _w) in enumerate(INVESTMENT_COLUMNS, 1)}
     rng = "A2:%s%d" % (get_column_letter(len(INVESTMENT_COLUMNS)), last)
     ws.conditional_formatting.add(rng, FormulaRule(
@@ -335,9 +332,9 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
                     col["verification_status"])],
         fill=UNCERTAIN_FILL))
 
-    # --- Rondes
-    ws = wb.create_sheet("Rondes")
-    write_table(ws, "Rondes", [
+    # --- Rounds
+    ws = wb.create_sheet("Rounds")
+    write_table(ws, "Rounds", [
         ("round_id", "txt", 18), ("project_slug", "txt", 26), ("project_name", "txt", 26),
         ("round_date", "date", 13), ("date_precision", "txt", 14), ("round_type", "txt", 14),
         ("round_size_usd", "usd", 16), ("valuation_usd", "usd", 16),
@@ -347,7 +344,7 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
         ("all_investors", "txt", 60),
     ], rounds)
 
-    # --- Portefeuillebedrijven
+    # --- Portfolio Companies
     company_stats = {}
     for inv in investments:
         c = company_stats.setdefault(inv["project_slug"], {"funds": set(), "rounds": set(),
@@ -376,8 +373,8 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
             "source_url": p["source_url"],
             "description": p["description"],
         })
-    ws = wb.create_sheet("Portefeuillebedrijven")
-    write_table(ws, "Portefeuillebedrijven", [
+    ws = wb.create_sheet("Portfolio Companies")
+    write_table(ws, "PortfolioCompanies", [
         ("project_slug", "txt", 26), ("project_name", "txt", 26), ("token_ticker", "txt", 12),
         ("token_exists", "bool", 12), ("selected_fund_count", "int", 19),
         ("selected_funds", "txt", 40), ("rounds_with_selected_funds", "int", 24),
@@ -386,7 +383,7 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
         ("description", "txt", 60),
     ], company_rows)
 
-    # --- Dekking
+    # --- Coverage
     coverage_rows = []
     for f in dataset["funds"]:
         slug = f["fund_slug"]
@@ -415,8 +412,8 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
             "difference_own_minus_cryptorank": diff,
             "coverage_statement": COMPLETENESS_STATEMENT,
         })
-    ws = wb.create_sheet("Dekking")
-    write_table(ws, "Dekking", [
+    ws = wb.create_sheet("Coverage")
+    write_table(ws, "Coverage", [
         ("fund_slug", "txt", 20), ("fund_name", "txt", 22),
         ("unique_companies_own_database", "int", 26), ("rounds_own_database", "int", 20),
         ("crypto_fundraising_fund_page_rows", "int", 28), ("crypto_fundraising_note", "txt", 46),
@@ -427,7 +424,7 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
         ("coverage_statement", "txt", 60),
     ], coverage_rows)
 
-    # --- Bronnen
+    # --- Sources
     source_rows = []
     seen = set()
 
@@ -441,26 +438,26 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
         })
 
     for inv in investments:
-        add_source(inv["primary_source_url"], "oorspronkelijke aankondiging of persbericht", 4,
-                   "%s — %s" % (inv["project_name"], inv["round_date"] or "datum onbekend"))
+        add_source(inv["primary_source_url"], "original announcement or press release", 4,
+                   "%s — %s" % (inv["project_name"], inv["round_date"] or "date unknown"))
     for inv in investments:
         add_source(inv["aggregator_source_url"], "aggregator crypto-fundraising.info", 5,
                    inv["project_name"])
     for f in dataset["funds"]:
-        add_source(f["official_portfolio_url"], "portfoliopagina fonds (controlelijst)", 2,
+        add_source(f["official_portfolio_url"], "fund portfolio page (control list)", 2,
                    f["fund_name"])
-        add_source(f["cryptorank_url"], "aggregator CryptoRank (controlelijst)", 7, f["fund_name"])
-        add_source(f["aggregator_fund_url"], "fondspagina aggregator (toont tien regels)", 5,
+        add_source(f["cryptorank_url"], "aggregator CryptoRank (control list)", 7, f["fund_name"])
+        add_source(f["aggregator_fund_url"], "aggregator fund page (shows ten rows)", 5,
                    f["fund_name"])
-    ws = wb.create_sheet("Bronnen")
-    write_table(ws, "Bronnen", [
+    ws = wb.create_sheet("Sources")
+    write_table(ws, "Sources", [
         ("source_url", "url", 70), ("source_type", "txt", 40), ("priority_rank", "int", 14),
         ("consulted_date", "date", 16), ("context", "txt", 40),
     ], sorted(source_rows, key=lambda r: (r["priority_rank"], r["source_url"])))
 
-    # --- Conflicten
-    ws = wb.create_sheet("Conflicten")
-    write_table(ws, "Conflicten", [
+    # --- Conflicts
+    ws = wb.create_sheet("Conflicts")
+    write_table(ws, "Conflicts", [
         ("investment_id", "txt", 18), ("round_id", "txt", 18), ("fund_slug", "txt", 20),
         ("project_name", "txt", 26), ("field", "txt", 18),
         ("value_a", "txt", 18), ("source_a", "url", 44),
@@ -468,9 +465,9 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
         ("resolution", "txt", 60),
     ], dataset["conflicts"])
 
-    # --- Onbekend
-    ws = wb.create_sheet("Onbekend")
-    write_table(ws, "Onbekend", [
+    # --- Unknown
+    ws = wb.create_sheet("Unknown")
+    write_table(ws, "Unknown", [
         ("investment_id", "txt", 18), ("fund_slug", "txt", 20), ("project_name", "txt", 26),
         ("round_date", "date", 13), ("missing_fields", "txt", 40),
         ("attempted", "txt", 60), ("source_url", "url", 44),
@@ -485,21 +482,21 @@ def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
         ("cryptorank_url", "url", 36),
     ], dataset["aliases"])
 
-    # --- Afgeleide tellingen als formules op Fondsen
-    ws = wb["Fondsen"]
+    # --- Derived counts as formulas on Funds
+    ws = wb["Funds"]
     n = len(fund_rows) + 1
-    ws.cell(row=n + 2, column=1, value="Controle (formules over Investeringen)").font = Font(bold=True)
-    ws.cell(row=n + 3, column=1, value="investeringsregels totaal")
-    ws.cell(row=n + 3, column=2, value="=COUNTA(Investeringen!A2:A%d)" % (len(investments) + 1))
-    ws.cell(row=n + 4, column=1, value="som investments_in_database")
+    ws.cell(row=n + 2, column=1, value="Check (formulas over Investments)").font = Font(bold=True)
+    ws.cell(row=n + 3, column=1, value="total investment rows")
+    ws.cell(row=n + 3, column=2, value="=COUNTA(Investments!A2:A%d)" % (len(investments) + 1))
+    ws.cell(row=n + 4, column=1, value="sum of investments_in_database")
     ws.cell(row=n + 4, column=2, value="=SUM(D2:D%d)" % n)
-    ws.cell(row=n + 5, column=1, value="rondes totaal")
-    ws.cell(row=n + 5, column=2, value="=COUNTA(Rondes!A2:A%d)" % (len(rounds) + 1))
-    ws.cell(row=n + 6, column=1, value="bedrijven totaal")
-    ws.cell(row=n + 6, column=2, value="=COUNTA(Portefeuillebedrijven!A2:A%d)" % (len(company_rows) + 1))
-    ws.cell(row=n + 7, column=1, value="regels met conflict_flag")
+    ws.cell(row=n + 5, column=1, value="total rounds")
+    ws.cell(row=n + 5, column=2, value="=COUNTA(Rounds!A2:A%d)" % (len(rounds) + 1))
+    ws.cell(row=n + 6, column=1, value="total companies")
+    ws.cell(row=n + 6, column=2, value="=COUNTA('Portfolio Companies'!A2:A%d)" % (len(company_rows) + 1))
+    ws.cell(row=n + 7, column=1, value="rows with conflict_flag")
     ws.cell(row=n + 7, column=2,
-            value="=COUNTIF(Investeringen!%s2:%s%d,TRUE)" % (col["conflict_flag"],
+            value="=COUNTIF(Investments!%s2:%s%d,TRUE)" % (col["conflict_flag"],
                                                             col["conflict_flag"], last))
 
     os.makedirs(os.path.dirname(xlsx_path), exist_ok=True)
@@ -536,18 +533,18 @@ def main():
     os.makedirs(OUTPUTS, exist_ok=True)
 
     stats = build(dataset, controls, XLSX, CSV)
-    print("Geschreven: %s" % XLSX)
-    print("Geschreven: %s" % CSV)
-    print("  investeringen %d, rondes %d, bedrijven %d, bronnen %d"
+    print("Written: %s" % XLSX)
+    print("Written: %s" % CSV)
+    print("  investments %d, rounds %d, companies %d, sources %d"
           % (stats["investments"], stats["rounds"], stats["companies"], stats["sources"]))
 
     os.makedirs(PER_FUND, exist_ok=True)
-    print("\nPer fonds:")
+    print("\nPer fund:")
     for slug, meta in FUNDS.items():
         scoped = scope_to_fund(dataset, slug)
-        path = os.path.join(PER_FUND, "vc-investeringen-%s.xlsx" % slug)
+        path = os.path.join(PER_FUND, "vc-investments-%s.xlsx" % slug)
         s = build(scoped, controls, path, fund_slug=slug)
-        print("  %-20s %4d investeringen  %4d rondes  %4d bedrijven  -> %s"
+        print("  %-20s %4d investments  %4d rounds  %4d companies  -> %s"
               % (meta["fund_name"], s["investments"], s["rounds"], s["companies"],
                  os.path.basename(path)))
 

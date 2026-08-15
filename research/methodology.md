@@ -1,124 +1,123 @@
-# Methode
+# Methodology
 
-## De keuze die alles bepaalt: de ronde is de eenheid, niet het fonds
+## The choice that determines everything: the round is the unit, not the fund
 
-Fondspagina's zijn de voor de hand liggende ingang en de verkeerde. Twee
-gemeten eigenschappen maken ze ongeschikt als primaire bron:
+Fund pages are the obvious entry point and the wrong one. Two measured
+properties make them unsuitable as a primary source:
 
-1. **Displaylimiet.** De fondspagina van crypto-fundraising.info toont tien
-   rondes. Gemeten op `https://crypto-fundraising.info/funds/paradigm/`:
-   precies tien unieke projectlinks, terwijl CryptoRank voor hetzelfde fonds
-   121 investeringen telt. Pagineringsparameters redirecten terug naar pagina
-   één.
-2. **Overlevingsbias.** Een fonds dat zijn eigen portfoliopagina onderhoudt,
-   heeft geen reden om afgeschreven bedrijven te laten staan. Dezelfde bias
-   zit in de openbare CryptoRank-weergave, die tien liquide namen toont.
+1. **Display limit.** The fund page on crypto-fundraising.info shows ten
+   rounds. Measured on `https://crypto-fundraising.info/funds/paradigm/`:
+   exactly ten unique project links, while CryptoRank counts 121 investments
+   for the same fund. Pagination parameters redirect back to page one.
+2. **Survivorship bias.** A fund that maintains its own portfolio page has no
+   reason to keep written-off companies listed. The same bias sits in the
+   public CryptoRank view, which shows ten liquid names.
 
-Beide effecten wijzen dezelfde kant op: wie per fonds scrapet, meet de winnaars
-en noemt dat een portefeuille.
+Both effects point the same way: scraping per fund measures the winners and
+calls that a portfolio.
 
-De dataset is daarom in één pass over **alle 6.411 projectpagina's** opgebouwd.
-Per ronde zijn alle investeerders geparsed; daarna is de index omgekeerd naar
-fonds → investeringen. Een fonds komt in deze dataset voor omdat het in een
-ronde stond, niet omdat het zichzelf op een lijst zette.
+The dataset was therefore built in a single pass over **all 6,411 project
+pages**. All investors were parsed per round; the index was then inverted to
+fund → investments. A fund appears in this dataset because it was in a round,
+not because it put itself on a list.
 
-## Twee representaties per pagina, tegen elkaar gelegd
+## Two representations per page, checked against each other
 
-Elke projectpagina bevat dezelfde rondes twee keer, in verschillende vorm. De
-parser leest beide en voegt ze samen.
+Every project page carries the same rounds twice, in different form. The
+parser reads both and merges them.
 
 | | JSON-LD `funding[]` | HTML `newrisedblock` |
 | --- | --- | --- |
-| Rondedatum | exact, `startDate: 2024-04-09` | alleen maand, `Raised Apr 2024` |
-| Rondetype | `name`, ook `Unknown` | `roundtype`, ontbreekt vaker |
-| Bedrag | `amount.value` | `abbrusd` |
-| Waardering | — | `roundvalua` |
-| Lead versus deelnemer | — | `Lead Investors` / `Investors` |
-| Oorspronkelijke bron | — | `raisedinlink` → persbericht |
+| Round date | exact, `startDate: 2024-04-09` | month only, `Raised Apr 2024` |
+| Round type | `name`, sometimes `Unknown` | `roundtype`, missing more often |
+| Amount | `amount.value` | `abbrusd` |
+| Valuation | — | `roundvalua` |
+| Lead vs. participant | — | `Lead Investors` / `Investors` |
+| Original source | — | `raisedinlink` → press release |
 
-De twee lijsten staan in dezelfde volgorde, nieuwste eerst, en worden op index
-uitgelijnd. De uitlijning wordt gecontroleerd: de exacte datum uit JSON-LD
-wordt alleen overgenomen wanneer maand en jaar overeenkomen met het HTML-label.
-Bij afwijking valt de datum terug op de eerste van de maand en wordt
-`date_precision` op `month` gezet plus een waarschuwing vastgelegd.
+The two lists are in the same order, newest first, and are aligned by index.
+The alignment is checked: the exact date from JSON-LD is only used when month
+and year match the HTML label. On a mismatch, the date falls back to the
+first of the month and `date_precision` is set to `month` with a warning
+recorded.
 
-De lead-toewijzing gebeurt op positie: elke investeerderslink krijgt de rol van
-de dichtstbijzijnde voorafgaande kop. Dat is robuuster dan het knippen van
-geneste `div`-blokken, die in de bron niet consistent gesloten zijn.
+Lead assignment happens by position: every investor link gets the role of the
+nearest preceding heading. That is more robust than cutting on nested `div`
+blocks, which are not consistently closed in the source.
 
-## Wat een investering is
+## What counts as an investment
 
-Opgenomen: equity-rondes, pre-seed tot en met late stage, strategische
-investeringen, aangekondigde token- en SAFT-investeringen, publieke token sales
-met aantoonbare deelname, vervolgfinancieringen, en incubaties met aantoonbaar
-kapitaal.
+Included: equity rounds, pre-seed through late stage, strategic investments,
+announced token and SAFT investments, public token sales with demonstrable
+participation, follow-on financing, and incubations with demonstrable
+capital.
 
-Niet opgenomen: grants, accelerator-deelname zonder investering, partnerships,
-market-making, ecosystem incentives, tokens die alleen op de markt zijn gekocht,
-en adviesrollen. Rondetypen die als grant of airdrop in de bron staan, krijgen
-`verification_status = uncertain` met de reden in `notes`; ze worden niet
-stilzwijgend verwijderd en niet als bevestigde investering gepresenteerd.
+Not included: grants, accelerator participation without investment,
+partnerships, market making, ecosystem incentives, tokens bought only on the
+open market, and advisory roles. Round types listed as a grant or airdrop in
+the source get `verification_status = uncertain` with the reason in `notes`;
+they are not silently removed and not presented as a confirmed investment.
 
-## Bedragen: drie velden die niet hetzelfde zijn
+## Amounts: three fields that are not the same
 
-`round_size_usd` is de omvang van de hele ronde. `fund_ticket_usd` is wat het
-fonds zelf inlegde. `valuation_usd` is de waardering van de ronde, met
-`valuation_type` ernaast.
+`round_size_usd` is the size of the whole round. `fund_ticket_usd` is what the
+fund itself put in. `valuation_usd` is the valuation of the round, with
+`valuation_type` next to it.
 
-`fund_ticket_usd` is in deze dataset vrijwel overal leeg, en dat is de juiste
-uitkomst: geen van de gebruikte bronnen publiceert wat een individueel fonds
-in een ronde stopte. De rondegrootte in dat veld overnemen zou een getal
-opleveren dat er goed uitziet en fout is.
+`fund_ticket_usd` is blank almost everywhere in this dataset, and that is the
+correct outcome: none of the sources used publish what an individual fund put
+into a round. Copying the round size into that field would produce a number
+that looks right and is wrong.
 
-`valuation_usd` is nooit ingevuld met een actuele token-FDV. Een waardering uit
-2021 en een marktkapitalisatie van vandaag zijn verschillende grootheden.
+`valuation_usd` is never filled in with a current token FDV. A valuation from
+2021 and today's market cap are different quantities.
 
-## Ontbrekende waarden
+## Missing values
 
-Een ontbrekende waarde is een lege cel. Niet nul, niet `null`, niet geschat.
-De bron gebruikt `0` en `TBD` voor onbekend; de parser zet beide om naar leeg.
-Elke regel met een ontbrekend veld staat op het tabblad `Onbekend` met wat er
-is geprobeerd.
+A missing value is a blank cell. Not zero, not `null`, not estimated. The
+source uses `0` and `TBD` for unknown; the parser converts both to blank.
+Every row with a missing field is on the `Unknown` sheet with what was
+attempted.
 
-## Aliassen
+## Aliases
 
-Fondsnamen zijn samengevoegd op grond van de bronslug, niet op naamgelijkenis.
-Elke samenvoeging staat in `scripts/funds.py` met een reden, en die reden staat
-ook op het tabblad `Aliases`. Drie beslissingen zijn het vermelden waard:
+Fund names were merged on the basis of the source slug, not name similarity.
+Every merge is recorded in `scripts/funds.py` with a reason, and that reason
+is also on the `Aliases` sheet. Three decisions are worth calling out:
 
-- **Bain Capital Ventures is niet samengevoegd met Bain Capital Crypto.** De
-  bron voert twee fondsen; het zijn twee fondsen met een eigen mandaat.
-- **Figment (stakingoperator) is niet samengevoegd met Figment Capital.**
-- **Delphi Ventures, Delphi Digital en Delphi Labs zijn wél samengevoegd.** De
-  drie namen worden in fundraisingbronnen door elkaar gebruikt voor dezelfde
-  cap-tableregels. `fund_name_in_source` houdt zichtbaar welke naam er stond,
-  zodat de samenvoeging terug te draaien is.
+- **Bain Capital Ventures was not merged with Bain Capital Crypto.** The
+  source carries two funds; they are two funds with separate mandates.
+- **Figment (staking operator) was not merged with Figment Capital.**
+- **Delphi Ventures, Delphi Digital and Delphi Labs WERE merged.** The three
+  names are used interchangeably in fundraising sources for the same
+  cap-table rows. `fund_name_in_source` keeps visible which name was there,
+  so the merge is reversible.
 
-## Verificatiestatus
+## Verification status
 
-`verified_primary` betekent dat de aggregatorpagina een Details-link naar de
-oorspronkelijke aankondiging of het persbericht bevat en dat die link is
-vastgelegd. `verified_aggregator_only` betekent dat alleen de aggregatorpagina
-de ronde bevestigt. `verified_two_sources` wordt door de scripts niet
-toegekend — het script stelt zelf geen tweede onafhankelijke primaire bron
-vast, en een status die automatisch wordt uitgedeeld is geen verificatie.
+`verified_primary` means the aggregator page carries a Details link to the
+original announcement or press release and that link was recorded.
+`verified_aggregator_only` means only the aggregator page confirms the round.
+`verified_two_sources` is never assigned by the scripts — the script does not
+itself establish a second independent primary source, and a status handed out
+automatically is not verification.
 
-## Dekking meten in plaats van claimen
+## Measuring coverage instead of claiming it
 
-Per fonds staan vier getallen naast elkaar op het tabblad `Dekking`: de eigen
-telling, de fondspagina van de aggregator, de officiële portfoliopagina en de
-telling van CryptoRank. Waar een bron niet leesbaar is — client-side gerenderde
-portfoliopagina's, RootData zonder sleutel — staat dat er als zodanig, met een
-lege cel in plaats van een schatting.
+Four numbers sit side by side per fund on the `Coverage` sheet: the own
+count, the aggregator's fund page, the official portfolio page, and
+CryptoRank's count. Where a source is not readable — client-side rendered
+portfolio pages, RootData without a key — that is recorded as such, with a
+blank cell instead of an estimate.
 
-Er staat geen algemeen dekkingspercentage in dit bestand. Een percentage
-veronderstelt een bekende noemer, en de noemer is precies wat niet bekend is.
+This file carries no overall coverage percentage. A percentage presupposes a
+known denominator, and the denominator is exactly what is not known.
 
-## Volledigheid
+## Completeness
 
-> Volledig binnen de publiek toegankelijke en genoemde bronnen op de peildatum.
-> Niet-aangekondigde rondes, secundaire transacties, liquide marktposities en
-> investeerders die in persberichten onder 'others' vallen, blijven structureel
-> onzichtbaar.
+> Complete within the publicly accessible and named sources as of the
+> cutoff date. Unannounced rounds, secondary transactions, liquid market
+> positions, and investors that press releases lump under 'others' remain
+> structurally invisible.
 
-Geen beleggingsadvies.
+Not investment advice.

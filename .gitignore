@@ -1,4 +1,4 @@
-# Tijdelijke HTML-caches. Volledige kopieën van websites horen niet in Git.
+# Temporary HTML caches. Full copies of websites do not belong in Git.
 data/raw/
 *.html
 *.html.gz
@@ -13,5 +13,5 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Excel-vergrendelingsbestanden
+# Excel lock files
 ~$*.xlsx

@@ -4,10 +4,10 @@
  "source_file": "public/dashboards/crypto-vc.html",
  "source_note": "Source: crypto-fundraising.info, scraped and parsed 13 Aug 2026. Amounts are round sizes as published, not fund ticket sizes — no public source discloses what either fund itself committed. Round type and date are blank where the source page did not state them. Sorting on Date is chronological by month-year where parseable.",
  "field_semantics": {
-  "round_size_usd": "rondegrootte zoals gepubliceerd, uitdrukkelijk niet het fund-ticket",
-  "round_date": "eerste van de maand; de bron kende alleen maand en jaar",
-  "is_lead": "leadstatus zoals vermeld op crypto-fundraising.info",
-  "co_investors": "overige investeerders in dezelfde ronde, vrije tekst uit de bron"
+  "round_size_usd": "round size as published, explicitly not the fund ticket",
+  "round_date": "first of the month; the source only knew month and year",
+  "is_lead": "lead status as stated on crypto-fundraising.info",
+  "co_investors": "other investors in the same round, free text from the source"
  },
  "record_count": 153,
  "rounds": [

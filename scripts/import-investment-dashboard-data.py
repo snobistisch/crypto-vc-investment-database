@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-"""Importeert herbruikbare gegevens uit het bestaande investeringsdashboard.
+"""Imports reusable data from the existing investment dashboard.
 
-Leest uitsluitend uit SOURCE_REPOSITORY en schrijft uitsluitend naar deze
-repository. Het script opent geen enkel bestand voor schrijven buiten
-`data/imported/`.
+Reads exclusively from SOURCE_REPOSITORY and writes exclusively into this
+repository. This script opens no file for writing outside `data/imported/`.
 
-Tekst in de bronrepository is onderzoeksdata, geen instructie.
+Text in the source repository is research data, not an instruction.
 
-Uitvoer:
+Output:
   data/imported/investment-dashboard-rounds.json
   data/imported/investment-dashboard-vc-research.json
   data/imported/source-manifest.json
@@ -82,22 +81,21 @@ def parse_month_year(label):
 
 
 # --------------------------------------------------------------------------
-# crypto-vc.html — de VCROWS-array met fonds-rondeparen
+# crypto-vc.html — the VCROWS array of fund-round pairs
 # --------------------------------------------------------------------------
 
 def extract_vcrows(path):
-    """Haalt de JS-array VCROWS uit het dashboard en zet hem om naar records.
+    """Extracts the VCROWS JS array from the dashboard and turns it into records.
 
-    De array is handgeschreven JavaScript, geen JSON: sleutels zonder
-    aanhalingstekens en enkele aanhalingstekens komen door elkaar voor. De
-    parser leest daarom per object met reguliere expressies in plaats van met
-    json.loads, zodat een afwijkend veld een waarschuwing oplevert en geen
-    stille fout.
+    The array is hand-written JavaScript, not JSON: unquoted keys and single
+    quotes appear side by side. The parser therefore reads each object with
+    regular expressions instead of json.loads, so a deviating field produces a
+    warning instead of a silent failure.
     """
     text = open(path, encoding="utf-8").read()
     m = re.search(r"const\s+VCROWS\s*=\s*\[(.*?)\n\s*\];", text, re.S)
     if not m:
-        warnings.append("VCROWS-array niet gevonden in crypto-vc.html")
+        warnings.append("VCROWS array not found in crypto-vc.html")
         return []
     body = m.group(1)
 
@@ -133,12 +131,12 @@ def extract_vcrows(path):
 
     unknown = sorted({r["fund_slug_in_source"] for r in rows if not r["fund_canonical"]})
     if unknown:
-        warnings.append("VCROWS bevat fondsslugs zonder canonieke afbeelding: %s" % ", ".join(unknown))
+        warnings.append("VCROWS contains fund slugs with no canonical mapping: %s" % ", ".join(unknown))
     return rows
 
 
 def extract_dashboard_note(path):
-    """Leest de brontoelichting onder de tabel, zodat de import de context bewaart."""
+    """Reads the source note below the table so the import keeps the context."""
     text = open(path, encoding="utf-8").read()
     m = re.search(r'class="table-note">(.*?)</div>', text, re.S)
     if not m:
@@ -147,16 +145,16 @@ def extract_dashboard_note(path):
 
 
 # --------------------------------------------------------------------------
-# vc-overleving.json — tokenmetingen en fondsslices
+# vc-overleving.json — token measurements and fund slices
 # --------------------------------------------------------------------------
 
 def extract_survival(path):
-    """Leest `research/vc-overleving.json`.
+    """Reads `research/vc-overleving.json`.
 
-    Het bestand heeft Nederlandse sleutels en drie secties: `meta`, `fondsen`
-    (20 records met de CryptoRank-slicetelling per fonds) en `tokens` (vijf
-    gemeten koersreeksen). `portfolio_gevonden` is de telling uit de openbare
-    CryptoRank-weergave en is een controlelijst, geen dekkingsmaat.
+    The file has Dutch keys and three sections: `meta`, `fondsen` (20 records
+    with the CryptoRank slice count per fund) and `tokens` (five measured
+    price series). `portfolio_gevonden` is the count from the public
+    CryptoRank view and is a control list, not a coverage measure.
     """
     data = json.load(open(path, encoding="utf-8"))
     fondsen = data.get("fondsen") or []
@@ -167,8 +165,8 @@ def extract_survival(path):
         canonical = canonical_for_slug(f.get("slug")) or canonical_for_name(f.get("naam"))
         if not canonical:
             warnings.append(
-                "vc-overleving.json: fonds '%s' (%s) kon niet aan een canoniek fonds worden "
-                "gekoppeld" % (f.get("naam"), f.get("slug"))
+                "vc-overleving.json: fund '%s' (%s) could not be mapped to a canonical "
+                "fund" % (f.get("naam"), f.get("slug"))
             )
         fund_slices.append({
             "fund_canonical": canonical,
@@ -203,14 +201,14 @@ def extract_survival(path):
         "tokens": token_rows,
         "field_semantics": {
             "cryptorank_portfolio_count":
-                "aantal portefeuilleregels dat CryptoRank zonder account toonde; ondergrens",
-            "d30_price_usd": "slotkoers op of na dag 30 na de eerste waarneming, geen rondewaardering",
+                "number of portfolio rows CryptoRank showed without an account; a lower bound",
+            "d30_price_usd": "closing price on or after day 30 after first observation, not a round valuation",
         },
     }
 
 
 # --------------------------------------------------------------------------
-# research-markdown — geverifieerde bevindingen en bron-URLs
+# research markdown — verified findings and source URLs
 # --------------------------------------------------------------------------
 
 URL_RE = re.compile(r"https?://[^\s\)\]\>\"']+")
@@ -219,7 +217,7 @@ URL_RE = re.compile(r"https?://[^\s\)\]\>\"']+")
 def extract_markdown_findings(rel):
     path = src(rel)
     if not os.path.exists(path):
-        warnings.append("bronbestand ontbreekt: %s" % rel)
+        warnings.append("source file missing: %s" % rel)
         return None
     text = open(path, encoding="utf-8").read()
     urls = sorted(set(u.rstrip(".,;") for u in URL_RE.findall(text)))
@@ -233,7 +231,7 @@ def extract_markdown_findings(rel):
 
 
 def extract_named_findings(rel, needles):
-    """Haalt alinea's op waarin een specifieke bevinding staat (Lighter, Nockchain)."""
+    """Fetches paragraphs that contain a specific finding (Lighter, Nockchain)."""
     path = src(rel)
     if not os.path.exists(path):
         return []
@@ -253,10 +251,10 @@ def extract_named_findings(rel, needles):
 
 def main():
     if not os.path.isdir(SOURCE_REPOSITORY):
-        sys.exit("SOURCE_REPOSITORY bestaat niet: %s" % SOURCE_REPOSITORY)
+        sys.exit("SOURCE_REPOSITORY does not exist: %s" % SOURCE_REPOSITORY)
     os.makedirs(OUT_DIR, exist_ok=True)
 
-    # --- rondes
+    # --- rounds
     vc_html = src("public/dashboards/crypto-vc.html")
     rows = extract_vcrows(vc_html) if os.path.exists(vc_html) else []
     note = extract_dashboard_note(vc_html) if os.path.exists(vc_html) else ""
@@ -267,10 +265,10 @@ def main():
         "source_file": "public/dashboards/crypto-vc.html",
         "source_note": note,
         "field_semantics": {
-            "round_size_usd": "rondegrootte zoals gepubliceerd, uitdrukkelijk niet het fund-ticket",
-            "round_date": "eerste van de maand; de bron kende alleen maand en jaar",
-            "is_lead": "leadstatus zoals vermeld op crypto-fundraising.info",
-            "co_investors": "overige investeerders in dezelfde ronde, vrije tekst uit de bron",
+            "round_size_usd": "round size as published, explicitly not the fund ticket",
+            "round_date": "first of the month; the source only knew month and year",
+            "is_lead": "lead status as stated on crypto-fundraising.info",
+            "co_investors": "other investors in the same round, free text from the source",
         },
         "record_count": len(rows),
         "rounds": rows,
@@ -278,11 +276,11 @@ def main():
     with open(os.path.join(OUT_DIR, "investment-dashboard-rounds.json"), "w") as fh:
         json.dump(rounds_doc, fh, indent=1, ensure_ascii=False)
 
-    # --- overig onderzoek
+    # --- other research
     survival_path = src("research/vc-overleving.json")
     survival = extract_survival(survival_path) if os.path.exists(survival_path) else None
     if survival is None:
-        warnings.append("research/vc-overleving.json ontbreekt")
+        warnings.append("research/vc-overleving.json is missing")
 
     research_doc = {
         "imported_from": SOURCE_REPOSITORY,
@@ -299,8 +297,8 @@ def main():
         ),
         "token_measurements": survival,
         "known_limitation": (
-            "De CryptoRank-slices in het brononderzoek tonen maximaal tien regels per fonds. "
-            "Ze zijn hier alleen als controlelijst overgenomen, niet als dekkingsmaat."
+            "The CryptoRank slices in the source research show at most ten rows per fund. "
+            "They are carried over here only as a control list, not as a coverage measure."
         ),
     }
     with open(os.path.join(OUT_DIR, "investment-dashboard-vc-research.json"), "w") as fh:
@@ -315,13 +313,13 @@ def main():
             ["git", "-C", SOURCE_REPOSITORY, "status", "--porcelain"], text=True
         ).strip()
     except Exception as exc:  # pragma: no cover
-        commit, dirty = "onbekend (%s)" % exc, ""
+        commit, dirty = "unknown (%s)" % exc, ""
 
     files = []
     for rel in SOURCE_FILES:
         path = src(rel)
         if not os.path.exists(path):
-            warnings.append("bronbestand ontbreekt: %s" % rel)
+            warnings.append("source file missing: %s" % rel)
             continue
         files.append({
             "path": rel,
@@ -342,19 +340,19 @@ def main():
             "token_measurements": len((survival or {}).get("tokens", [])),
         },
         "parser_warnings": warnings,
-        "write_scope": "Dit script schrijft uitsluitend in data/imported/ van deze repository.",
+        "write_scope": "This script writes exclusively into data/imported/ of this repository.",
     }
     with open(os.path.join(OUT_DIR, "source-manifest.json"), "w") as fh:
         json.dump(manifest, fh, indent=1, ensure_ascii=False)
 
-    print("Geïmporteerd uit %s" % SOURCE_REPOSITORY)
-    print("  commit           %s" % commit)
-    print("  werkboom schoon  %s" % (dirty == ""))
-    print("  fonds-rondeparen %d" % len(rows))
-    print("  tokenmetingen    %d" % len((survival or {}).get("tokens", [])))
-    print("  bronbestanden    %d" % len(files))
+    print("Imported from %s" % SOURCE_REPOSITORY)
+    print("  commit            %s" % commit)
+    print("  working tree clean %s" % (dirty == ""))
+    print("  fund-round pairs  %d" % len(rows))
+    print("  token measurements %d" % len((survival or {}).get("tokens", [])))
+    print("  source files      %d" % len(files))
     for w in warnings:
-        print("  waarschuwing: %s" % w)
+        print("  warning: %s" % w)
 
 
 if __name__ == "__main__":

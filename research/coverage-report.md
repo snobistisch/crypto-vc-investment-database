@@ -1,30 +1,30 @@
-# Dekkingsrapport
+# Coverage Report
 
-**Peildatum bron:** 2026-08-15
-**Rapport gegenereerd:** 2026-08-15
+**Source cutoff date:** 2026-08-15
+**Report generated:** 2026-08-15
 
-> Volledig binnen de publiek toegankelijke en genoemde bronnen op de peildatum. Niet-aangekondigde rondes, secundaire transacties, liquide marktposities en investeerders die in persberichten onder 'others' vallen, blijven structureel onzichtbaar.
+> Complete within the publicly accessible and named sources as of the cutoff date. Unannounced rounds, secondary transactions, liquid market positions, and investors that press releases lump under 'others' remain structurally invisible.
 
-Alle cijfers hieronder zijn gegenereerd uit `data/processed/dataset.json` en
-`data/processed/coverage-controls.json`. Er staat bewust geen algemeen
-dekkingspercentage in dit rapport: een percentage veronderstelt een bekende
-noemer, en de noemer is precies wat niet bekend is.
+Every figure below is generated from `data/processed/dataset.json` and
+`data/processed/coverage-controls.json`. This report deliberately carries
+no overall coverage percentage: a percentage presupposes a known
+denominator, and the denominator is exactly what is not known.
 
-## Wat de scrape heeft doorzocht
+## What the scrape searched
 
 | | |
 | --- | ---: |
-| Projectpagina's geparsed | 6.410 |
-| Pagina's mislukt | 1 |
-| Rondes in de bron | 10.395 |
-| Investeerdersrelaties in de bron | 48.588 |
-| Investeringsregels na filtering op de twintig fondsen | 2.947 |
-| Unieke rondes met minstens één geselecteerd fonds | 2.040 |
-| Unieke portefeuillebedrijven | 1.505 |
+| Project pages parsed | 6,410 |
+| Pages failed | 1 |
+| Rounds in the source | 10,395 |
+| Investor relations in the source | 48,588 |
+| Investment rows after filtering to the twenty funds | 2,947 |
+| Unique rounds with at least one selected fund | 2,040 |
+| Unique portfolio companies | 1,505 |
 
-## Rondes en bedrijven per fonds
+## Rounds and companies per fund
 
-| Fonds | Rondes | Unieke bedrijven | Waarvan lead | Actief in |
+| Fund | Rounds | Unique companies | Of which lead | Active | 
 | --- | ---: | ---: | ---: | --- |
 | Coinbase Ventures | 497 | 430 | 27 | 2018–2026 |
 | Pantera | 249 | 206 | 98 | 2014–2026 |
@@ -47,13 +47,13 @@ noemer, en de noemer is precies wat niet bekend is.
 | cyber•Fund | 30 | 29 | 14 | 2023–2026 |
 | Semantic Ventures | 31 | 26 | 5 | 2018–2025 |
 
-## Eigen telling naast de controlebronnen
+## Own count next to the control sources
 
-De kolom *fondspagina bron* is een displaylimiet, geen portefeuilletotaal.
-De kolom *CryptoRank* is de eigen telling van CryptoRank uit `__NEXT_DATA__`,
-niet de zichtbare lijst van tien regels.
+The *source fund page* column is a display limit, not a portfolio total.
+The *CryptoRank* column is CryptoRank's own count from `__NEXT_DATA__`,
+not the visible list of ten rows.
 
-| Fonds | Eigen bedrijven | Fondspagina bron | Officiële pagina | RootData | CryptoRank | Verschil eigen − CryptoRank |
+| Fund | Own companies | Source fund page | Official page | RootData | CryptoRank | Difference own − CryptoRank |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Paradigm | 116 | 10 | 95 | — | 121 | -5 |
 | cyber•Fund | 29 | 10 | — | — | 31 | -2 |
@@ -76,9 +76,9 @@ niet de zichtbare lijst van tien regels.
 | Coinbase Ventures | 430 | 10 | — | — | 507 | -77 |
 | Delphi Ventures | 141 | 10 | — | — | 175 | -34 |
 
-## Datakwaliteit per fonds
+## Data quality per fund
 
-| Fonds | Regels | Met rondegrootte | Met waardering | Met rondetype | Met primaire bron-URL |
+| Fund | Rows | With round size | With valuation | With round type | With primary source URL |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Paradigm | 144 | 138 (96%) | 17 (12%) | 109 (76%) | 142 (99%) |
 | cyber•Fund | 30 | 29 (97%) | 2 (7%) | 25 (83%) | 30 (100%) |
@@ -101,62 +101,63 @@ niet de zichtbare lijst van tien regels.
 | Coinbase Ventures | 497 | 459 (92%) | 38 (8%) | 379 (76%) | 493 (99%) |
 | Delphi Ventures | 160 | 142 (89%) | 13 (8%) | 113 (71%) | 157 (98%) |
 
-## Verificatie en betrouwbaarheid
+## Verification and confidence
 
-| Verificatiestatus | Regels |
+| Verification status | Rows |
 | --- | ---: |
-| verified_primary | 2.916 |
+| verified_primary | 2,916 |
 | verified_aggregator_only | 30 |
 | conflict | 1 |
 
-| Betrouwbaarheid | Regels |
+| Confidence | Rows |
 | --- | ---: |
-| high | 2.916 |
+| high | 2,916 |
 | medium | 30 |
 | low | 1 |
 
-`verified_two_sources` komt niet voor. De scripts stellen zelf geen tweede
-onafhankelijke primaire bron vast, en een status die automatisch wordt
-uitgedeeld is geen verificatie.
+`verified_two_sources` does not occur. The scripts do not themselves
+establish a second independent primary source, and a status handed out
+automatically is not verification.
 
-## Resterende datagaten
+## Remaining data gaps
 
-| Ontbrekend veld | Investeringsregels |
+| Missing field | Investment rows |
 | --- | ---: |
 | valuation_usd | 765 |
 | round_type | 728 |
 | round_size_usd | 171 |
 
-Structureel leeg, met reden:
+Structurally blank, with the reason:
 
-- `fund_ticket_usd` — geen enkele gebruikte bron publiceert wat een individueel
-  fonds in een ronde inlegde. De rondegrootte hier overnemen zou een getal
-  opleveren dat er goed uitziet en fout is.
-- `country`, `sector`, `chain_or_ecosystem` — de projectpagina's van de bron
-  voeren geen land-, sector- of ecosysteemtaxonomie. Niet ingevuld op gevoel.
-- `acquisition_or_exit`, `acquirer`, `exit_price_usd` — vereisen een aparte
-  exitdataset; die valt buiten deze opdracht.
-- `secondary_source_url` — vereist handmatige verificatie per regel.
+- `fund_ticket_usd` — no source used publishes what an individual fund put
+  into a round. Copying the round size here would produce a number that
+  looks right and is wrong.
+- `country`, `sector`, `chain_or_ecosystem` — the source's project pages
+  carry no country, sector, or ecosystem taxonomy. Not filled in by feel.
+- `acquisition_or_exit`, `acquirer`, `exit_price_usd` — require a separate
+  exit dataset; that falls outside this brief.
+- `secondary_source_url` — requires manual verification per row.
 
-## Kruiscontrole met het eerdere dashboardonderzoek
+## Cross-check against the earlier dashboard research
 
 | | |
 | --- | ---: |
-| Fonds-rondeparen uit het dashboard (13 aug 2026) | 153 |
-| Daarvan teruggevonden in deze dataset | 96 |
-| Niet teruggevonden | 57 |
+| Fund-round pairs from the dashboard (13 Aug 2026) | 153 |
+| Of which found again in this dataset | 96 |
+| Not found again | 57 |
 
-De niet-teruggevonden regels zijn niet stilzwijgend verwijderd en niet als
-bevestigd overgenomen. Ze matchen niet op de combinatie fonds, projectnaam en
-maand. Plausibele oorzaken, niet per regel uitgezocht: het project is bij de
-bron hernoemd, de ronde is sinds 13 augustus 2026 aangepast, of de maand
-verschilt tussen aankondiging en registratie. Overname zonder die controle
-zou regels aan de dataset toevoegen die de huidige bron niet bevestigt.
+The rows not found again were not silently dropped and not carried over
+as confirmed. They do not match on the combination of fund, project name
+and month. Plausible causes, not investigated row by row: the project was
+renamed at the source, the round was updated since 13 August 2026, or the
+month differs between announcement and registration. Carrying them over
+without that check would add rows to the dataset that the current source
+does not confirm.
 
-## Bronconflicten
+## Source conflicts
 
-Het tabblad `Conflicten` bevat 1 conflictregel. Die is niet gladgestreken: de actuele
-bronpagina is in de datavelden aangehouden en de afwijkende waarde uit het
-eerdere dashboardonderzoek blijft ernaast staan.
+The `Conflicts` sheet contains 1 conflict row. It is not smoothed over: the current
+source page was kept in the data fields, and the deviating value from the
+earlier dashboard research stays next to it.
 
-Geen beleggingsadvies.
+Not investment advice.

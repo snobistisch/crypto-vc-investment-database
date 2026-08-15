@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
-"""Haalt controletotalen per fonds op bij derde bronnen.
+"""Fetches per-fund control totals from third-party sources.
 
-Deze cijfers zijn *controlelijsten*, geen waarheid. Ze dienen om te meten waar
-de eigen dataset afwijkt, niet om die aan te vullen. Waar een bron niet
-leesbaar is, wordt dat als zodanig vastgelegd; er wordt niets geschat.
+These figures are *control lists*, not ground truth. They exist to measure
+where the own dataset deviates, not to fill it in. Where a source is not
+readable, that is recorded as such; nothing is estimated.
 
-Bronnen:
-  crypto-fundraising.info/funds/<slug>/  — toont structureel tien regels; de
-      telling die hier wordt vastgelegd is dus het displaymaximum, niet het
-      portefeuilletotaal. Dat is precies de reden dat de dataset via
-      rondepagina's is opgebouwd.
-  cryptorank.io/funds/<slug>/portfolio   — `__NEXT_DATA__` bevat een veld
-      `investments` met het door CryptoRank zelf getelde aantal investeringen.
-  officiële portfoliopagina                — statische HTML wordt geteld op
-      unieke uitgaande links; SPA's leveren niets en worden als 'niet leesbaar'
-      genoteerd.
-  rootdata.com                             — vereist een sleutel of JavaScript;
-      uitkomst wordt genoteerd zoals waargenomen.
+Sources:
+  crypto-fundraising.info/funds/<slug>/  — structurally shows ten rows; the
+      count recorded here is therefore the display maximum, not the
+      portfolio total. That is exactly why the dataset was built from round
+      pages instead.
+  cryptorank.io/funds/<slug>/portfolio   — `__NEXT_DATA__` contains a field
+      `investments` with CryptoRank's own investment count.
+  official portfolio page                — static HTML is counted on unique
+      outbound links; SPAs return nothing and are recorded as 'not readable'.
+  rootdata.com                           — requires a key or JavaScript;
+      the outcome is recorded as observed.
 
-Uitvoer: data/processed/coverage-controls.json
+Output: data/processed/coverage-controls.json
 """
 
 import json
@@ -52,7 +51,7 @@ def source_fund_page(sess, source_slug):
     url = "https://crypto-fundraising.info/funds/%s/" % source_slug
     r = get(sess, url)
     if not hasattr(r, "status_code"):
-        return {"url": url, "status": "fout: %s" % type(r).__name__, "visible_rows": None}
+        return {"url": url, "status": "error: %s" % type(r).__name__, "visible_rows": None}
     if r.status_code != 200:
         return {"url": url, "status": "HTTP %d" % r.status_code, "visible_rows": None}
     rows = len(set(re.findall(r'href="/projects/([a-z0-9\-]+)"', r.text)))
@@ -60,42 +59,42 @@ def source_fund_page(sess, source_slug):
         "url": url,
         "status": "HTTP 200",
         "visible_rows": rows,
-        "note": ("Fondspagina toont een vast maximum aantal regels; dit is een "
-                 "displaylimiet en geen portefeuilletotaal."),
+        "note": ("The fund page shows a fixed maximum number of rows; this is a "
+                 "display limit, not a portfolio total."),
     }
 
 
 def cryptorank(sess, url):
     r = get(sess, url)
     if not hasattr(r, "status_code"):
-        return {"url": url, "status": "fout: %s" % type(r).__name__, "investments": None}
+        return {"url": url, "status": "error: %s" % type(r).__name__, "investments": None}
     if r.status_code != 200:
         return {"url": url, "status": "HTTP %d" % r.status_code, "investments": None}
     m = re.search(r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
                   r.text, re.S)
     if not m:
-        return {"url": url, "status": "HTTP 200, geen __NEXT_DATA__", "investments": None}
+        return {"url": url, "status": "HTTP 200, no __NEXT_DATA__", "investments": None}
     try:
         data = json.loads(m.group(1))
         fund = data["props"]["pageProps"]["fund"]
     except (json.JSONDecodeError, KeyError):
-        return {"url": url, "status": "HTTP 200, fondsobject niet gevonden", "investments": None}
+        return {"url": url, "status": "HTTP 200, fund object not found", "investments": None}
     return {
         "url": url,
         "status": "HTTP 200",
         "investments": fund.get("investments"),
         "country": fund.get("country") or "",
         "tier": fund.get("tier"),
-        "note": ("`investments` is CryptoRanks eigen telling. De zichtbare "
-                 "portefeuillelijst toont zonder account maar tien regels; die "
-                 "lijst is niet gebruikt."),
+        "note": ("`investments` is CryptoRank's own count. The visible portfolio "
+                 "list shows only ten rows without an account; that list was not "
+                 "used."),
     }
 
 
 def official_portfolio(sess, url):
     r = get(sess, url)
     if not hasattr(r, "status_code"):
-        return {"url": url, "status": "fout: %s" % type(r).__name__, "names_found": None}
+        return {"url": url, "status": "error: %s" % type(r).__name__, "names_found": None}
     if r.status_code != 200:
         return {"url": url, "status": "HTTP %d" % r.status_code, "names_found": None}
     host = urlparse(url).netloc
@@ -114,10 +113,10 @@ def official_portfolio(sess, url):
         "status": "HTTP 200",
         "names_found": len(external) if readable else None,
         "words_in_page": text_len,
-        "note": ("Unieke uitgaande domeinen als benadering van portefeuillenamen."
+        "note": ("Unique outbound domains as an approximation of portfolio names."
                  if readable else
-                 "Pagina levert geen leesbare portefeuillelijst in statische HTML "
-                 "(client-side gerenderd). Niet geteld; geen schatting gemaakt."),
+                 "Page delivers no readable portfolio list in static HTML "
+                 "(client-side rendered). Not counted; no estimate made."),
     }
 
 
@@ -125,19 +124,19 @@ def rootdata(sess, fund_name):
     url = "https://www.rootdata.com/search?k=%s" % requests.utils.quote(fund_name)
     r = get(sess, url)
     if not hasattr(r, "status_code"):
-        return {"url": url, "status": "fout: %s" % type(r).__name__, "investments": None}
+        return {"url": url, "status": "error: %s" % type(r).__name__, "investments": None}
     if r.status_code != 200:
         return {"url": url, "status": "HTTP %d" % r.status_code, "investments": None,
-                "note": "Geen telling verkregen; niet geschat."}
+                "note": "No count obtained; not estimated."}
     has_data = bool(re.search(r"investment", r.text, re.I))
     return {
         "url": url,
         "status": "HTTP 200",
         "investments": None,
-        "note": ("Pagina geladen maar de portefeuillelijst wordt client-side "
-                 "opgebouwd; zonder API-sleutel is geen telling af te leiden. "
-                 "Niet geschat." if has_data else
-                 "Geen bruikbare inhoud in statische HTML. Niet geschat."),
+        "note": ("Page loaded but the portfolio list is built client-side; "
+                 "without an API key no count can be derived. Not estimated."
+                 if has_data else
+                 "No usable content in static HTML. Not estimated."),
     }
 
 
@@ -162,7 +161,7 @@ def main():
     os.makedirs(PROCESSED, exist_ok=True)
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1, ensure_ascii=False)
-    print("Geschreven: %s" % path)
+    print("Written: %s" % path)
     for slug, rec in out["funds"].items():
         print("  %-20s cf=%-4s cr=%-5s off=%-5s" % (
             slug,

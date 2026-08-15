@@ -1,54 +1,55 @@
-# Crypto-VC-investeringsdatabase
+# Crypto VC Investment Database
 
-Reproduceerbare database van publiek bekende investeringen van twintig
-crypto-venture-capitalfondsen. Eén regel per combinatie van fonds en
-financieringsronde, elke regel herleidbaar tot een bron-URL.
+Reproducible database of publicly known investments by twenty crypto venture
+capital funds. One row per combination of fund and funding round, every row
+traceable to a source URL.
 
-> **Volledigheid.** Volledig binnen de publiek toegankelijke en genoemde
-> bronnen op de peildatum. Niet-aangekondigde rondes, secundaire transacties,
-> liquide marktposities en investeerders die in persberichten onder 'others'
-> vallen, blijven structureel onzichtbaar.
+> **Completeness.** Complete within the publicly accessible and named
+> sources as of the cutoff date. Unannounced rounds, secondary transactions,
+> liquid market positions, and investors that press releases lump under
+> 'others' remain structurally invisible.
 
-## Uitvoer
+## Output
 
-| Bestand | Inhoud |
+| File | Contents |
 | --- | --- |
-| `outputs/vc-investeringen-volledig.xlsx` | Alle twintig fondsen. Tien tabbladen: README, Fondsen, Investeringen, Rondes, Portefeuillebedrijven, Dekking, Bronnen, Conflicten, Onbekend, Aliases |
-| `outputs/vc-investeringen-volledig.csv` | Platte export van het tabblad `Investeringen` |
-| `outputs/per-fonds/vc-investeringen-<fonds>.xlsx` | Twintig bestanden, één per fonds, met dezelfde tabbladen en kolommen |
+| `outputs/vc-investments-full.xlsx` | All twenty funds. Ten sheets: README, Funds, Investments, Rounds, Portfolio Companies, Coverage, Sources, Conflicts, Unknown, Aliases |
+| `outputs/vc-investments-full.csv` | Flat export of the `Investments` sheet |
+| `outputs/per-fund/vc-investments-<fund>.xlsx` | Twenty files, one per fund, with the same sheets and columns |
 
-De fondsbestanden zijn dezelfde dataset met een fondsfilter, niet een tweede
-opbouw: identieke kolommen, identieke opmaakregels. Twee dingen zijn bewust
-niet meegefilterd:
+The per-fund files are the same dataset with a fund filter, not a second
+build: identical columns, identical formatting rules. Two things are
+deliberately not filtered along:
 
-- Het tabblad **Rondes** toont álle investeerders in dezelfde ronde, ook fondsen
-  buiten dat bestand. De rest van de cap table is juist het interessante deel.
-- Het tabblad **Dekking** houdt de controletotalen van de externe bronnen, zodat
-  ook een los fondsbestand laat zien waar het afwijkt.
+- The **Rounds** sheet shows ALL investors in the same round, including funds
+  outside that file. The rest of the cap table is exactly the interesting
+  part.
+- The **Coverage** sheet keeps the external control totals, so a standalone
+  fund file also shows where it deviates.
 
-De validatie controleert dat de twintig fondsbestanden optellen tot het
-overzicht en dat geen bestand een regel van een ander fonds bevat.
+Validation checks that the twenty fund files sum to the overview and that no
+file contains a row belonging to another fund.
 
-## De fondsen
+## The funds
 
 Paradigm · cyber•Fund · Robot Ventures · Framework Ventures · Electric Capital ·
 Bain Capital Crypto · Dragonfly · Maven11 · Lemniscap · Haun Ventures ·
 Multicoin Capital · Figment Capital · a16z crypto · Founders Fund · Polychain ·
 Pantera · Semantic Ventures · GnosisVC · Coinbase Ventures · Delphi Ventures
 
-## Waarom de ronde de eenheid is en niet het fonds
+## Why the round is the unit, not the fund
 
-De fondspagina van crypto-fundraising.info toont tien rondes. Gemeten op
-Paradigm: precies tien projectlinks, terwijl CryptoRank voor hetzelfde fonds
-121 investeringen telt. Pagineringsparameters redirecten terug naar pagina één.
-Daar komt bij dat fondsen afgeschreven bedrijven van hun eigen portfoliopagina
-halen. Wie per fonds scrapet, meet de overlevers.
+The fund page on crypto-fundraising.info shows ten rounds. Measured on
+Paradigm: exactly ten project links, while CryptoRank counts 121 investments
+for the same fund. Pagination parameters redirect back to page one. On top of
+that, funds remove written-off companies from their own portfolio page.
+Whoever scrapes per fund measures the survivors.
 
-De dataset is daarom in één pass over alle projectpagina's opgebouwd, waarna de
-index is omgekeerd naar fonds → investeringen. Officiële portfoliopagina's en
-CryptoRank zijn uitsluitend als controlelijst gebruikt.
+The dataset was therefore built in a single pass over every project page,
+after which the index was inverted to fund → investments. Official portfolio
+pages and CryptoRank were used exclusively as a control list.
 
-Uitgebreid: [`research/methodology.md`](research/methodology.md) en
+In depth: [`research/methodology.md`](research/methodology.md) and
 [`research/source-audit.md`](research/source-audit.md).
 
 ## Pipeline
@@ -66,37 +67,37 @@ python -m venv .venv && ./.venv/bin/pip install -e .
 ./.venv/bin/python -m pytest tests -q                            # 8
 ```
 
-1. Leest herbruikbare gegevens uit het bestaande investeringsdashboard en legt
-   een manifest met SHA-256 per bronbestand vast.
-2. Haalt alle projectpagina's op en parset per ronde de investeerders. Pagina's
-   worden gzip-gecachet in `data/raw/`, buiten Git; een herhaalde run haalt
-   alleen ontbrekende pagina's op.
-3. Haalt controletotalen per fonds op bij de aggregators en de officiële
-   portfoliopagina's.
-4. Draait de index om naar fonds-rondeparen en bouwt de aliastabel.
-5. Bouwt het Excel-bestand en de CSV volledig uit de dataset.
-6. Genereert `research/coverage-report.md` uit de dataset — geen ingetypte
-   cijfers.
-7. Valideert dataset en workbook. Eindigt met foutcode 1 bij een fout.
+1. Reads reusable data from the existing investment dashboard and records a
+   manifest with a SHA-256 per source file.
+2. Fetches every project page and parses the investors per round. Pages are
+   gzip-cached in `data/raw/`, outside Git; a repeat run only fetches the
+   missing pages.
+3. Fetches per-fund control totals from the aggregators and the official
+   portfolio pages.
+4. Inverts the index to fund-round pairs and builds the alias table.
+5. Builds the Excel file and the CSV entirely from the dataset.
+6. Generates `research/coverage-report.md` from the dataset — no typed-in
+   figures.
+7. Validates the dataset and the workbook. Exits with code 1 on failure.
 
-Stap 2 duurt ongeveer een uur: de bron limiteert op ongeveer anderhalf verzoek
-per seconde en antwoordt bij hogere gelijktijdigheid met HTTP 429. De scrape
-draait op vier workers met backoff.
+Step 2 takes roughly an hour: the source rate-limits to about one and a half
+requests per second and responds with HTTP 429 at higher concurrency. The
+scrape runs on four workers with backoff.
 
-## Veldbetekenis
+## Field meaning
 
-Drie bedragvelden die vaak door elkaar worden gehaald:
+Three amount fields that often get mixed up:
 
-- `round_size_usd` — omvang van de hele ronde.
-- `fund_ticket_usd` — wat dit fonds zelf inlegde. Vrijwel altijd leeg: geen van
-  de gebruikte bronnen publiceert dit. Het is niet ingevuld met de rondegrootte.
-- `valuation_usd` — waardering van de ronde, met `valuation_type` ernaast.
-  Nooit een actuele token-FDV.
+- `round_size_usd` — size of the whole round.
+- `fund_ticket_usd` — what this fund itself put in. Almost always blank: none
+  of the sources used publish this. It is not filled in with the round size.
+- `valuation_usd` — valuation of the round, with `valuation_type` next to it.
+  Never a current token FDV.
 
-Een ontbrekende waarde is een lege cel. Niet nul, niet `null`, niet geschat.
-De bron gebruikt `0` en `TBD` voor onbekend; beide worden omgezet naar leeg.
+A missing value is a blank cell. Not zero, not `null`, not estimated. The
+source uses `0` and `TBD` for unknown; both are converted to blank.
 
-Toegestane categorieën:
+Allowed categories:
 
 ```text
 fund_role            lead | co-lead | participant | incubator | unknown
@@ -107,37 +108,37 @@ confidence           high | medium | low
 valuation_type       pre_money | post_money | FDV | enterprise_value | unknown
 ```
 
-`verified_two_sources` komt in de gegenereerde data niet voor. De scripts
-stellen zelf geen tweede onafhankelijke primaire bron vast, en een status die
-automatisch wordt uitgedeeld is geen verificatie.
+`verified_two_sources` does not occur in the generated data. The scripts do
+not themselves establish a second independent primary source, and a status
+handed out automatically is not verification.
 
-## Verhouding tot het investeringsdashboard
+## Relationship to the investment dashboard
 
-`/Users/matthiasalma/Documents/Investeringsdashboard` is uitsluitend als
-leesbron gebruikt. Er is daar geen bestand gewijzigd, geen branch gemaakt en
-niets gecommit. De 153 eerder gescrapete fonds-rondeparen zijn niet blind
-samengevoegd maar als kruiscontrole gebruikt; afwijkingen staan op het tabblad
-`Conflicten` en zijn niet gladgestreken.
+`/Users/matthiasalma/Documents/Investeringsdashboard` was used exclusively as
+a read source. No file there was changed, no branch was created, and nothing
+was committed. The 153 previously scraped fund-round pairs were not blindly
+merged in but used as a cross-check; deviations are on the `Conflicts` sheet
+and are not smoothed over.
 
-`data/imported/source-manifest.json` legt bronrepository, Git-commit,
-importdatum, SHA-256 per bronbestand en parserwaarschuwingen vast.
+`data/imported/source-manifest.json` records the source repository, Git
+commit, import date, SHA-256 per source file, and parser warnings.
 
-## Repositorystructuur
+## Repository structure
 
 ```text
-data/imported/    geïmporteerde dashboarddata en het bronmanifest
-data/raw/         gzip-cache van opgehaalde pagina's (niet in Git)
-data/processed/   ronde-universum, genormaliseerde dataset, controletotalen
-scripts/          import, scrape, normalisatie, workbook, validatie
-research/         methode, bronaudit, dekkingsrapport
-outputs/          xlsx en csv
-tests/            parser-, dataset- en workbooktests
+data/imported/    imported dashboard data and the source manifest
+data/raw/         gzip cache of fetched pages (not in Git)
+data/processed/   round universe, normalised dataset, control totals
+scripts/          import, scrape, normalisation, workbook, validation
+research/         methodology, source audit, coverage report
+outputs/          xlsx and csv
+tests/            parser, dataset and workbook tests
 ```
 
-## Licentie
+## Licence
 
-MIT voor de scripts. De onderliggende feitelijke gegevens komen van derden;
-raadpleeg hun gebruiksvoorwaarden voordat u de datasets verder verspreidt. De
-HTML-cache wordt bewust niet gecommit.
+MIT for the scripts. The underlying factual data comes from third parties;
+check their terms of use before redistributing the datasets further. The
+HTML cache is deliberately not committed.
 
-Geen beleggingsadvies.
+Not investment advice.

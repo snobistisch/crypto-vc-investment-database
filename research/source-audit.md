@@ -1,82 +1,82 @@
-# Bronaudit
+# Source Audit
 
-Wat is getest, wat werkte, en wat niet. Statuscodes zijn uitkomsten van
-feitelijke requests op de peildatum, geen aannames.
+What was tested, what worked, and what did not. Status codes are outcomes of
+actual requests as of the cutoff date, not assumptions.
 
-## Gestructureerde API's
+## Structured APIs
 
-| Bron | Endpoint | Uitkomst |
+| Source | Endpoint | Outcome |
 | --- | --- | --- |
-| crypto-fundraising.info | `/wp-json/wp/v2/projects` | **200**, `x-wp-total: 6411`, 65 pagina's — open en enumereerbaar |
-| crypto-fundraising.info | `/wp-json/wp/v2/funds` | **200**, doorzoekbaar op naam; gebruikt om bronslugs te verifiëren |
-| crypto-fundraising.info | ACF-relatievelden via REST | `acf` komt leeg terug; de relatie staat wél in de gerenderde HTML |
-| CryptoRank | `__NEXT_DATA__` op de fondspagina | **200**, bevat `investments` — de eigen telling van CryptoRank |
-| RootData | publieke portefeuillepagina | geen telling af te leiden zonder sleutel of JavaScript |
-| DefiLlama Raises | `api.llama.fi/raises` | betaald sinds 2026 (vastgesteld in het eerdere dashboardonderzoek) |
-| Crunchbase, CB Insights, PitchBook | — | sleutel of enterprise-contract vereist |
+| crypto-fundraising.info | `/wp-json/wp/v2/projects` | **200**, `x-wp-total: 6411`, 65 pages — open and enumerable |
+| crypto-fundraising.info | `/wp-json/wp/v2/funds` | **200**, searchable by name; used to verify source slugs |
+| crypto-fundraising.info | ACF relation fields via REST | `acf` comes back blank; the relation IS in the rendered HTML |
+| CryptoRank | `__NEXT_DATA__` on the fund page | **200**, contains `investments` — CryptoRank's own count |
+| RootData | public portfolio page | no count derivable without a key or JavaScript |
+| DefiLlama Raises | `api.llama.fi/raises` | paid since 2026 (established in the earlier dashboard research) |
+| Crunchbase, CB Insights, PitchBook | — | key or enterprise contract required |
 
-## robots.txt en rate-limiting
+## robots.txt and rate limiting
 
-`https://crypto-fundraising.info/robots.txt` bevat `User-agent: *` met
-`Disallow:` — geen enkel pad uitgesloten, en een sitemap-verwijzing.
+`https://crypto-fundraising.info/robots.txt` contains `User-agent: *` with
+`Disallow:` — no path excluded, plus a sitemap reference.
 
-De site limiteert wel op snelheid. Bij negen gelijktijdige verbindingen kwamen
-**HTTP 429**-antwoorden terug; de doorvoer bleef daarbij rond anderhalf verzoek
-per seconde steken. De scrape draait daarom op vier workers met een pauze per
-verzoek en zes pogingen met exponentiële backoff. Een pagina die na zes
-pogingen niet binnenkomt, wordt als mislukt geregistreerd en niet als leeg
-verwerkt.
+The site does rate-limit on speed, though. At nine concurrent connections,
+**HTTP 429** responses came back; throughput stayed stuck around one and a
+half requests per second. The scrape therefore runs on four workers with a
+pause per request and six attempts with exponential backoff. A page that does
+not come in after six attempts is registered as failed and not processed as
+blank.
 
-Elke pagina wordt gzip-gecachet in `data/raw/`, buiten Git. Een herhaalde run
-doet daardoor geen enkel overbodig verzoek en haalt alleen de ontbrekende
-pagina's op.
+Every page is gzip-cached in `data/raw/`, outside Git. A repeat run therefore
+makes no redundant request at all and only fetches the missing pages.
 
-## De fondspagina als controlelijst
+## The fund page as a control list
 
-Gemeten op `https://crypto-fundraising.info/funds/paradigm/`: tien unieke
-projectlinks. CryptoRank telt voor hetzelfde fonds 121 investeringen. Het
-verschil is geen datafout maar een displaylimiet, en het is de reden dat deze
-dataset niet per fonds is opgebouwd.
+Measured on `https://crypto-fundraising.info/funds/paradigm/`: ten unique
+project links. CryptoRank counts 121 investments for the same fund. The
+difference is not a data error but a display limit, and it is the reason this
+dataset was not built per fund.
 
-Dezelfde beperking geldt voor de openbare CryptoRank-portefeuillelijst, die
-tien regels toont. Het veld `investments` in `__NEXT_DATA__` is wél een totaal
-en is als controlegetal gebruikt — niet als bron van individuele rondes.
+The same limitation applies to the public CryptoRank portfolio list, which
+shows ten rows. The `investments` field in `__NEXT_DATA__` IS a total,
+though, and was used as a control figure — not as a source of individual
+rounds.
 
-## Officiële portfoliopagina's
+## Official portfolio pages
 
-Van de twintig fondsen levert een minderheid een portefeuillelijst in statische
-HTML. De rest rendert client-side; daar staat een lege cel met de reden. Waar
-een lijst wel leesbaar is, is het aantal unieke uitgaande domeinen geteld als
-benadering van het aantal portefeuillenamen. Dat is een benadering en staat als
-zodanig in de kolomtoelichting.
+Of the twenty funds, a minority serve a portfolio list in static HTML. The
+rest render client-side; there a blank cell with the reason is recorded.
+Where a list is readable, the number of unique outbound domains was counted
+as an approximation of the number of portfolio names. That is an
+approximation and is noted as such in the column note.
 
-Een portfoliopagina van een fonds is hoe dan ook een controlelijst en geen
-primaire bron: fondsen halen afgeschreven bedrijven weg.
+A fund's portfolio page is a control list either way, not a primary source:
+funds remove written-off companies.
 
-## Hergebruik uit het investeringsdashboard
+## Reuse from the investment dashboard
 
-Uit `SOURCE_REPOSITORY` zijn 153 fonds-rondeparen overgenomen (Haun Ventures en
-Paradigm, gescrapet op 13 augustus 2026) plus vijf tokenmetingen en de
-CryptoRank-slicetellingen per fonds. Die 153 regels zijn niet blind
-samengevoegd maar als **kruiscontrole** gebruikt: waar de leadstatus of de
-rondegrootte afwijkt van de actuele bronpagina, staat het verschil op het
-tabblad `Conflicten` en is het niet gladgestreken.
+153 fund-round pairs were carried over from `SOURCE_REPOSITORY` (Haun
+Ventures and Paradigm, scraped on 13 August 2026), plus five token
+measurements and the CryptoRank slice counts per fund. Those 153 rows were
+not blindly merged in but used as a **cross-check**: where lead status or
+round size deviates from the current source page, the difference is on the
+`Conflicts` sheet and is not smoothed over.
 
-`data/imported/source-manifest.json` legt de bronrepository, het Git-commit,
-de importdatum, een SHA-256 per bronbestand en de parserwaarschuwingen vast.
+`data/imported/source-manifest.json` records the source repository, the Git
+commit, the import date, a SHA-256 per source file, and the parser warnings.
 
-De bronrepository is uitsluitend gelezen. Er is daar geen bestand gewijzigd,
-geen branch gemaakt en niets gecommit.
+The source repository was read only. No file there was changed, no branch
+was created, and nothing was committed.
 
-## Bekende beperkingen van de bron
+## Known limitations of the source
 
-1. Persberichten noemen lead en "others"; de "others" vallen weg en verschijnen
-   in geen enkele database.
-2. Niet-aangekondigde pre-seedrondes bestaan niet in openbare bronnen.
-3. Secundaire aankopen en SAFT-overnames maken een fonds nergens zichtbaar als
-   investeerder.
-4. Een deel van de rondes heeft geen rondetype in de bron; die cel blijft leeg.
-5. Waar de bron alleen maand en jaar geeft, staat de datum op de eerste van de
-   maand met `date_precision = month`.
+1. Press releases name the lead and "others"; the "others" drop out and
+   appear in no database.
+2. Unannounced pre-seed rounds do not exist in public sources.
+3. Secondary purchases and SAFT takeovers make a fund invisible as an
+   investor anywhere.
+4. Some rounds carry no round type in the source; that cell stays blank.
+5. Where the source gives only month and year, the date is set to the first
+   of the month with `date_precision = month`.
 
-Geen beleggingsadvies.
+Not investment advice.

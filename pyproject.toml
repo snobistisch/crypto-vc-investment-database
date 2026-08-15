@@ -1,7 +1,7 @@
 [project]
 name = "crypto-vc-investment-database"
 version = "1.0.0"
-description = "Reproduceerbare database van publiek bekende investeringen van twintig crypto-venture-capitalfondsen"
+description = "Reproducible database of publicly known investments by twenty crypto venture capital funds"
 requires-python = ">=3.9"
 dependencies = [
     "requests>=2.31",
