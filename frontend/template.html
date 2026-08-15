@@ -148,9 +148,39 @@
   .colist{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px}
   .colist span{font-size:.7rem; color:var(--ink-2); background:var(--panel); border:1px solid var(--line-2); padding:3px 8px}
 
+  /* charts
+     Data colours are deliberately NOT the interface accent. Viridian marks
+     interactive state; the diverging scale below marks measurement. Cyan and
+     ochre were chosen over viridian/ochre because green↔orange separates by
+     only ΔE 6.2 for deuteranopes, which would have made the entire above/below
+     reading invisible to them. Cyan↔ochre separates by 21.4. */
+  .chartcard{background:var(--surface); border:1px solid var(--line); padding:22px 24px 18px; margin-top:18px}
+  .chartcard h3{font-size:.95rem; color:var(--ink); margin:0 0 3px}
+  .chartcard .csub{font-size:.76rem; color:var(--ink-3); line-height:1.55; margin:0 0 16px; max-width:78ch}
+  .legend{display:flex; flex-wrap:wrap; gap:16px; align-items:center; margin:0 0 14px; font-size:.7rem; color:var(--ink-3)}
+  .legend .li{display:flex; align-items:center; gap:7px}
+  .legend .sw{width:12px; height:12px; flex:none}
+  .legend .sw.round{border-radius:50%}
+  .legend .ramp{width:130px; height:10px; background:linear-gradient(90deg,#fb8b1e,#5a5a5a,#4dd0e1)}
+  svg.chart{display:block; width:100%; height:auto; overflow:visible}
+  svg.chart text{font-family:var(--mono); fill:var(--ink-3)}
+  svg.chart .vlabel{fill:var(--ink); font-weight:600}
+  svg.chart .axis{stroke:var(--line); stroke-width:1}
+  svg.chart .base{stroke:var(--ink-4); stroke-width:1}
+  svg.chart .gridline{stroke:var(--line-2); stroke-width:1}
+  svg.chart .hit{fill:transparent; cursor:pointer}
+  svg.chart .row:hover .rowbg{fill:rgba(255,255,255,.035)}
+  .chartnote{font-size:.66rem; color:var(--ink-4); line-height:1.8; margin-top:12px}
+  .tip{position:fixed; z-index:200; pointer-events:none; background:var(--panel); border:1px solid var(--line);
+       padding:9px 12px; font-size:.72rem; color:var(--ink); max-width:280px; line-height:1.5; display:none;
+       box-shadow:0 6px 22px rgba(0,0,0,.6)}
+  .tip b{color:#fff}
+  .tip .k{color:var(--ink-3)}
+  .chartgrid{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+  @media (max-width:980px){.chartgrid{grid-template-columns:1fr}}
+
   /* network */
-  .netgrid{display:grid; grid-template-columns:1.3fr 1fr; gap:22px; margin-top:26px; align-items:start}
-  @media (max-width:980px){.netgrid{grid-template-columns:1fr}}
+  .modeswitch{display:flex; gap:8px; align-items:center; margin:20px 0 0}
   .matrix-scroll{overflow:auto; border:1px solid var(--line); background:var(--surface); max-height:70vh}
   table.matrix{border-collapse:collapse; font-size:.68rem; min-width:0}
   table.matrix th{padding:5px 6px; background:var(--panel); color:var(--ink-3); font-weight:400; white-space:nowrap; position:sticky; top:0; z-index:4; border-bottom:1px solid var(--line)}
@@ -160,14 +190,6 @@
   table.matrix td.z{color:var(--ink-4); opacity:.35; cursor:default}
   table.matrix td.self{background:var(--panel-2); cursor:default; color:var(--ink-4)}
   table.matrix td:not(.z):not(.self):hover{outline:1px solid var(--viridian)}
-  .pairlist{border:1px solid var(--line); background:var(--surface)}
-  .pairlist .ph{padding:12px 16px; border-bottom:1px solid var(--line); font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3)}
-  .pairlist ol{list-style:none; margin:0; padding:0; max-height:62vh; overflow-y:auto}
-  .pairlist li{display:flex; align-items:center; gap:12px; padding:10px 16px; border-bottom:1px solid var(--line-2); font-size:.78rem; cursor:pointer}
-  .pairlist li:hover{background:var(--viridian-wash)}
-  .pairlist li .nm{flex:1; color:var(--ink-2); line-height:1.4}
-  .pairlist li .nm b{color:var(--ink); font-weight:600}
-  .pairlist li .n{font-weight:600; color:var(--viridian); white-space:nowrap}
 
   footer{background:#0a0a0a; color:var(--ink-3); padding:46px 0 58px}
   footer h3{font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ochre); margin:0 0 14px}
@@ -186,7 +208,7 @@
       <a href="#method">01 Method</a>
       <a href="#funds">02 Funds</a>
       <a href="#explorer">03 Explorer</a>
-      <a href="#network">04 Network</a>
+      <a href="#network">04 Co-investment</a>
     </div>
   </div>
 </nav>
@@ -311,24 +333,83 @@
 <section id="network">
   <div class="wrap">
     <div class="sec-head"><div class="sec-num">04</div>
-      <h2>Which of these funds keep showing up in the same rounds</h2></div>
+      <h2>Rank pairs by shared rounds and you rank portfolio size</h2></div>
     <div class="prose">
-      <p class="lead-p">Counts how often two of the twenty funds appear in the
-        same round. This is <b>co-occurrence and nothing more</b> — sharing a
-        cap table is not evidence of a relationship, a syndicate, or influence
-        over the outcome. Click any cell or row to filter the explorer to those
-        two funds.</p>
+      <p class="lead-p" id="rawLede"></p>
+      <p class="lead-p">So every figure below is scored against a
+        <b>permutation null</b> that holds two things fixed: each fund keeps its
+        own number of rounds, and each round keeps its own number of these
+        twenty funds. Swaps stay inside a calendar year, so a fund's active
+        window is preserved too. <b>Lift</b> is what actually happened divided
+        by what that null expects — 1.0 is exactly chance.</p>
     </div>
-    <div class="netgrid">
-      <div class="matrix-scroll" id="matrixWrap"></div>
-      <div class="pairlist">
-        <div class="ph">Most frequent pairings</div>
-        <ol id="pairList"></ol>
+
+    <div class="chartcard">
+      <h3>The biggest pairings, against what chance expected of them</h3>
+      <p class="csub">The twelve most frequent pairings, each drawn from what the
+        null expected to what was observed. A marker to the right of its
+        expected point means the pair beat chance; to the left means it fell
+        short despite the volume. Note how small the gaps are — these pairs are
+        frequent mainly because both funds are busy.</p>
+      <div class="legend">
+        <div class="li"><span class="sw round" style="background:#5a5a5a"></span>Expected by chance</div>
+        <div class="li"><span class="sw round" style="background:#4dd0e1"></span>Observed, above chance</div>
+        <div class="li"><span class="sw round" style="background:#fb8b1e"></span>Observed, below chance</div>
+      </div>
+      <svg class="chart" id="dumbbell" role="img" aria-label="Expected versus observed shared rounds for the twelve most frequent pairings"></svg>
+      <div class="chartnote" id="dumbbellNote"></div>
+    </div>
+
+    <div class="chartgrid">
+      <div class="chartcard">
+        <h3>Together more than chance</h3>
+        <p class="csub">Pairs whose lift sits above 1.0. A filled marker means
+          the result survives correction for testing 190 pairs.</p>
+        <svg class="chart" id="barsUp" role="img" aria-label="Fund pairs co-investing more than chance"></svg>
+      </div>
+      <div class="chartcard">
+        <h3>Apart more than chance</h3>
+        <p class="csub">Pairs whose lift sits below 1.0, shown only where the
+          null expected enough overlap for a low count to mean anything.</p>
+        <svg class="chart" id="barsDown" role="img" aria-label="Fund pairs co-investing less than chance"></svg>
       </div>
     </div>
-    <div class="table-note" id="netNote"></div>
+    <div class="chartnote" id="barsNote"></div>
+
+    <div class="chartcard">
+      <h3>Every pair, scored</h3>
+      <p class="csub" id="matrixSub"></p>
+      <div class="legend">
+        <div class="li"><span class="ramp"></span></div>
+        <div class="li" style="margin-left:-8px">much less &nbsp;·&nbsp; chance &nbsp;·&nbsp; much more</div>
+        <div class="li"><span class="sw" style="background:none;border:2px solid #fff"></span>survives FDR correction</div>
+      </div>
+      <div class="modeswitch">
+        <span style="font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)">Show</span>
+        <button class="chip on" data-mx="lift">Lift vs chance</button>
+        <button class="chip" data-mx="shared">Raw shared rounds</button>
+      </div>
+      <div class="matrix-scroll" id="matrixWrap" style="margin-top:12px"></div>
+      <div class="chartnote" id="netNote"></div>
+    </div>
+
+    <div class="chartcard">
+      <h3>How often each fund is the only one of the twenty in a round</h3>
+      <p class="csub">A high bar means the fund rarely shares a cap table with
+        the other nineteen. That is a statement about this sample, not about
+        whether the fund co-invests at all — it may well share rounds with
+        hundreds of funds outside these twenty.</p>
+      <svg class="chart" id="soloChart" role="img" aria-label="Share of each fund's rounds containing no other of the twenty funds"></svg>
+      <div class="chartnote" id="soloNote"></div>
+    </div>
+
+    <div class="prose" style="margin-top:30px">
+      <div class="note" id="coCaveat"></div>
+    </div>
   </div>
 </section>
+
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
 
 <div class="drawer" id="drawer">
   <div class="scrim" data-close></div>
@@ -701,64 +782,335 @@
   drawer.addEventListener('click', function(e){ if(e.target.hasAttribute('data-close')) closeDrawer(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
 
-  /* ---------- network ---------- */
+  /* ---------- co-investment charts ----------
+     Everything here is hand-rolled SVG: the page must stay self-contained, so
+     no charting library is available. Shared conventions: thin marks, hairline
+     solid gridlines, values direct-labelled only where they carry the point,
+     and a hover tooltip on every mark. */
+  var CO = D.coinvest;
+  var UP = '#4dd0e1', DOWN = '#fb8b1e', NEUTRAL = '#5a5a5a';
+  var tip = document.getElementById('tip');
+
+  function showTip(html, ev){
+    tip.innerHTML = html;
+    tip.style.display = 'block';
+    var r = tip.getBoundingClientRect();
+    var x = ev.clientX + 14, y = ev.clientY + 14;
+    if(x + r.width > window.innerWidth - 8) x = ev.clientX - r.width - 14;
+    if(y + r.height > window.innerHeight - 8) y = ev.clientY - r.height - 14;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip(){ tip.style.display = 'none'; }
+  function bindTip(el, html){
+    el.addEventListener('mousemove', function(ev){ showTip(html, ev); });
+    el.addEventListener('mouseleave', hideTip);
+  }
+  function svgEl(tag, attrs){
+    var e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for(var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  function pairLabel(p){ return FUNDS[p.a].name + ' + ' + FUNDS[p.b].name; }
+  // The label gutter is derived from the longest label rather than fixed.
+  // The face is monospace, so advance width is a reliable multiple of the font
+  // size; a fixed gutter let "Robot Ventures + Bain Capital Crypto" run off the
+  // left edge of the viewBox.
+  function gutterFor(rows, fontSize, pad){
+    var longest = 0;
+    rows.forEach(function(p){ longest = Math.max(longest, pairLabel(p).length); });
+    return Math.ceil(longest * fontSize * 0.62) + pad;
+  }
+  function pairTip(p){
+    var dir = p.lift >= 1 ? 'more' : 'fewer';
+    return '<b>' + esc(pairLabel(p)) + '</b><br>' +
+      '<span class="k">Shared rounds</span> ' + p.shared + '<br>' +
+      '<span class="k">Expected by chance</span> ' + p.expected.toFixed(1) + '<br>' +
+      '<span class="k">Lift</span> ' + p.lift.toFixed(2) + '× — ' + dir + ' than chance<br>' +
+      '<span class="k">Portfolios</span> ' + p.a_rounds + ' and ' + p.b_rounds + ' rounds<br>' +
+      ((p.sig_more || p.sig_less)
+        ? '<span class="k">Survives correction for 190 tests</span>'
+        : '<span class="k">Not significant after correcting for 190 tests</span>');
+  }
+  function focusPair(a, b){
+    state.funds = {}; state.funds[FUNDS[a].slug] = 1; state.funds[FUNDS[b].slug] = 1;
+    state.limit = 250;
+    syncChips(); renderFunds(); apply();
+    document.getElementById('explorer').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  /* --- dumbbell: expected vs observed for the biggest raw pairings --- */
   (function(){
-    var pairs = D.pairs;
-    var lookup = {};
-    pairs.forEach(function(p){ lookup[p[0] + ':' + p[1]] = p[2]; });
-    function count(a, b){
-      return lookup[Math.min(a,b) + ':' + Math.max(a,b)] || 0;
+    var rows = CO.top_raw, rowH = 26, padT = 28, padB = 34, right = 58;
+    var left = gutterFor(rows, 11, 16);
+    var W = Math.max(900, left + 380 + right);
+    var H = padT + rows.length * rowH + padB;
+    var max = Math.max.apply(null, rows.map(function(p){ return Math.max(p.shared, p.expected); })) * 1.08;
+    var x = function(v){ return left + (v / max) * (W - left - right); };
+    var svg = document.getElementById('dumbbell');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+
+    [0, 0.25, 0.5, 0.75, 1].forEach(function(f){
+      var v = max * f;
+      svg.appendChild(svgEl('line', {x1:x(v), y1:padT - 8, x2:x(v), y2:H - padB + 4, class:'gridline'}));
+      var t = svgEl('text', {x:x(v), y:H - padB + 18, 'text-anchor':'middle', 'font-size':'10'});
+      t.textContent = Math.round(v);
+      svg.appendChild(t);
+    });
+    var xl = svgEl('text', {x:x(max/2), y:H - 4, 'text-anchor':'middle', 'font-size':'10'});
+    xl.textContent = 'shared rounds';
+    svg.appendChild(xl);
+
+    rows.forEach(function(p, i){
+      var y = padT + i * rowH + rowH / 2;
+      var g = svgEl('g', {class:'row'});
+      g.appendChild(svgEl('rect', {x:0, y:y - rowH/2, width:W, height:rowH, class:'rowbg', fill:'transparent'}));
+      var lab = svgEl('text', {x:left - 14, y:y + 4, 'text-anchor':'end', 'font-size':'11'});
+      lab.textContent = pairLabel(p);
+      g.appendChild(lab);
+      var up = p.lift >= 1;
+      g.appendChild(svgEl('line', {x1:x(p.expected), y1:y, x2:x(p.shared), y2:y,
+                                   stroke:up ? UP : DOWN, 'stroke-width':2, opacity:.5}));
+      g.appendChild(svgEl('circle', {cx:x(p.expected), cy:y, r:4.5, fill:NEUTRAL}));
+      g.appendChild(svgEl('circle', {cx:x(p.shared), cy:y, r:5.5, fill:up ? UP : DOWN,
+                                     stroke:'var(--surface)', 'stroke-width':2}));
+      var v = svgEl('text', {x:W - right + 12, y:y + 4, 'font-size':'11', class:'vlabel',
+                             fill:up ? UP : DOWN});
+      v.textContent = p.lift.toFixed(2) + '×';
+      g.appendChild(v);
+      var hit = svgEl('rect', {x:0, y:y - rowH/2, width:W, height:rowH, class:'hit'});
+      g.appendChild(hit);
+      bindTip(hit, pairTip(p));
+      hit.addEventListener('click', function(){ focusPair(p.a, p.b); });
+      svg.appendChild(g);
+    });
+
+    document.getElementById('dumbbellNote').textContent =
+      'Lift across these twelve runs from ' + CO.totals.top_raw_lift_min + '× to ' +
+      CO.totals.top_raw_lift_max + '×, and ' + CO.totals.top_raw_below_chance +
+      ' of them sit at or below chance. Frequent, but barely more than two busy funds ' +
+      'would meet by accident. Click a row to load that pair into the explorer.';
+  })();
+
+  /* --- diverging bars: strongest affinities and separations --- */
+  function drawBars(id, rows, up){
+    var rowH = 30, padT = 10, padB = 30, right = 46;
+    // Both panels take the same gutter so their baselines line up side by side.
+    var left = gutterFor(CO.strongest.concat(CO.weakest), 10.5, 14);
+    var W = left + 300 + right;
+    var H = padT + Math.max(rows.length, 1) * rowH + padB;
+    var svg = document.getElementById(id);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    svg.innerHTML = '';
+    if(!rows.length){
+      var none = svgEl('text', {x:W/2, y:H/2, 'text-anchor':'middle', 'font-size':'11'});
+      none.textContent = 'No pair qualifies.';
+      svg.appendChild(none);
+      return;
     }
+    // Both panels share one scale so the two sides stay visually comparable.
+    var maxLift = Math.max.apply(null, CO.strongest.concat(CO.weakest).map(function(p){ return p.lift; }));
+    var scaleMax = Math.max(maxLift, 1.2) * 1.05;
+    var x = function(v){ return left + (v / scaleMax) * (W - left - right); };
+
+    [0, 1, 2, 3, 4].filter(function(v){ return v <= scaleMax; }).forEach(function(v){
+      svg.appendChild(svgEl('line', {x1:x(v), y1:padT - 2, x2:x(v), y2:H - padB + 4,
+                                     class: v === 1 ? 'base' : 'gridline'}));
+      var t = svgEl('text', {x:x(v), y:H - padB + 18, 'text-anchor':'middle', 'font-size':'10'});
+      t.textContent = v + '×';
+      svg.appendChild(t);
+    });
+    var cl = svgEl('text', {x:x(1), y:H - 4, 'text-anchor':'middle', 'font-size':'9.5', fill:'var(--ink-4)'});
+    cl.textContent = 'chance';
+    svg.appendChild(cl);
+
+    rows.forEach(function(p, i){
+      var y = padT + i * rowH + rowH / 2;
+      var g = svgEl('g', {class:'row'});
+      g.appendChild(svgEl('rect', {x:0, y:y - rowH/2, width:W, height:rowH, class:'rowbg', fill:'transparent'}));
+      var lab = svgEl('text', {x:left - 12, y:y + 4, 'text-anchor':'end', 'font-size':'10.5'});
+      lab.textContent = pairLabel(p);
+      g.appendChild(lab);
+      var sig = up ? p.sig_more : p.sig_less;
+      var x0 = x(1), x1 = x(p.lift);
+      var bx = Math.min(x0, x1), bw = Math.max(Math.abs(x1 - x0), 2);
+      g.appendChild(svgEl('rect', {x:bx, y:y - 5, width:bw, height:10, rx:4,
+                                   fill:up ? UP : DOWN, opacity: sig ? 1 : 0.42}));
+      var v = svgEl('text', {x:W - right + 8, y:y + 4, 'font-size':'10.5', class:'vlabel',
+                             fill: sig ? (up ? UP : DOWN) : 'var(--ink-3)'});
+      v.textContent = p.lift.toFixed(2) + '×';
+      g.appendChild(v);
+      var hit = svgEl('rect', {x:0, y:y - rowH/2, width:W, height:rowH, class:'hit'});
+      g.appendChild(hit);
+      bindTip(hit, pairTip(p));
+      hit.addEventListener('click', function(){ focusPair(p.a, p.b); });
+      svg.appendChild(g);
+    });
+  }
+  drawBars('barsUp', CO.strongest, true);
+  drawBars('barsDown', CO.weakest, false);
+  document.getElementById('barsNote').innerHTML =
+    'Solid bars survive Benjamini-Hochberg correction at an FDR of 5% across all ' +
+    fmtInt(CO.totals.pairs) + ' pairs; faded bars do not and should be read as suggestive only. ' +
+    fmtInt(CO.totals.significant_together) + ' pairs clear the bar on the together side and ' +
+    fmtInt(CO.totals.significant_apart) + ' on the apart side. ' +
+    'Both panels share one scale so the sides stay comparable.';
+
+  /* --- matrix, with a lift/raw toggle --- */
+  (function(){
+    var lookup = {};
+    CO.pairs.forEach(function(p){ lookup[p.a + ':' + p.b] = p; });
+    function get(a, b){ return lookup[Math.min(a,b) + ':' + Math.max(a,b)]; }
     var order = FUNDS.map(function(f, i){ return i; }).sort(function(a,b){
       return FUNDS[b].companies - FUNDS[a].companies;
     });
-    var maxPair = pairs.length ? pairs[0][2] : 1;
+    var maxShared = Math.max.apply(null, CO.pairs.map(function(p){ return p.shared; })) || 1;
+    var wrap = document.getElementById('matrixWrap');
+    var mode = 'lift';
 
-    var h = '<table class="matrix"><thead><tr><th class="corner rowh"></th>';
-    order.forEach(function(i){
-      h += '<th title="' + esc(FUNDS[i].name) + '">' + esc(FUNDS[i].name.slice(0,3).toUpperCase()) + '</th>';
-    });
-    h += '</tr></thead><tbody>';
-    order.forEach(function(i){
-      h += '<tr><th class="rowh" title="' + esc(FUNDS[i].name) + '">' + esc(FUNDS[i].name) + '</th>';
-      order.forEach(function(j){
-        if(i === j){ h += '<td class="self">·</td>'; return; }
-        var n = count(i, j);
-        if(!n){ h += '<td class="z">0</td>'; return; }
-        var a = 0.14 + 0.86 * (n / maxPair);
-        h += '<td style="background:rgba(0,210,100,' + a.toFixed(3) + ');color:' + (a > .55 ? '#000' : 'var(--ink)') +
-             '" data-a="' + i + '" data-b="' + j + '" title="' + esc(FUNDS[i].name + ' + ' + FUNDS[j].name + ': ' + n + ' shared rounds') + '">' + n + '</td>';
-      });
-      h += '</tr>';
-    });
-    h += '</tbody></table>';
-    document.getElementById('matrixWrap').innerHTML = h;
-
-    document.getElementById('pairList').innerHTML = pairs.slice(0, 30).map(function(p){
-      return '<li data-a="' + p[0] + '" data-b="' + p[1] + '">' +
-        '<span class="nm"><b>' + esc(FUNDS[p[0]].name) + '</b> + <b>' + esc(FUNDS[p[1]].name) + '</b></span>' +
-        '<span class="n">' + p[2] + '</span></li>';
-    }).join('');
-
-    function focusPair(a, b){
-      state.funds = {}; state.funds[FUNDS[a].slug] = 1; state.funds[FUNDS[b].slug] = 1;
-      state.limit = 250;
-      syncChips(); renderFunds(); apply();
-      document.getElementById('explorer').scrollIntoView({behavior:'smooth', block:'start'});
+    function cellStyle(p){
+      if(mode === 'shared'){
+        var a = p.shared ? 0.14 + 0.86 * (p.shared / maxShared) : 0;
+        return p.shared
+          ? {bg:'rgba(77,208,225,' + a.toFixed(3) + ')', fg: a > .55 ? '#000' : 'var(--ink)', txt:p.shared}
+          : {bg:'', fg:'', txt:0, zero:true};
+      }
+      if(p.lift === null) return {bg:'', fg:'', txt:'·', zero:true};
+      // Diverging on log lift so 0.5x and 2x sit equally far from the middle.
+      var l = Math.log(Math.max(p.lift, 0.02)) / Math.log(4);
+      var t = Math.max(-1, Math.min(1, l));
+      var hue = t >= 0 ? '77,208,225' : '251,139,30';
+      var a = Math.abs(t) * 0.9;
+      return {bg:'rgba(' + hue + ',' + a.toFixed(3) + ')',
+              fg: a > .5 ? '#000' : 'var(--ink)',
+              txt: p.lift >= 10 ? Math.round(p.lift) : p.lift.toFixed(1)};
     }
-    ['matrixWrap','pairList'].forEach(function(id){
-      document.getElementById(id).addEventListener('click', function(e){
-        var t = e.target.closest('[data-a]');
-        if(t) focusPair(parseInt(t.getAttribute('data-a'),10), parseInt(t.getAttribute('data-b'),10));
+
+    function render(){
+      var h = '<table class="matrix"><thead><tr><th class="corner rowh"></th>';
+      order.forEach(function(i){
+        h += '<th title="' + esc(FUNDS[i].name) + '">' + esc(FUNDS[i].name.slice(0,3).toUpperCase()) + '</th>';
+      });
+      h += '</tr></thead><tbody>';
+      order.forEach(function(i){
+        h += '<tr><th class="rowh" title="' + esc(FUNDS[i].name) + '">' + esc(FUNDS[i].name) + '</th>';
+        order.forEach(function(j){
+          if(i === j){ h += '<td class="self">·</td>'; return; }
+          var p = get(i, j);
+          if(!p){ h += '<td class="z">·</td>'; return; }
+          var s = cellStyle(p);
+          if(s.zero){ h += '<td class="z" data-a="' + i + '" data-b="' + j + '">' + s.txt + '</td>'; return; }
+          var sig = (p.sig_more || p.sig_less);
+          h += '<td style="background:' + s.bg + ';color:' + s.fg +
+               (sig ? ';box-shadow:inset 0 0 0 2px #fff' : '') +
+               '" data-a="' + i + '" data-b="' + j + '">' + s.txt + '</td>';
+        });
+        h += '</tr>';
+      });
+      wrap.innerHTML = h + '</tbody></table>';
+    }
+    render();
+
+    document.querySelectorAll('[data-mx]').forEach(function(b){
+      b.addEventListener('click', function(){
+        document.querySelectorAll('[data-mx]').forEach(function(x){ x.classList.remove('on'); });
+        b.classList.add('on');
+        mode = b.getAttribute('data-mx');
+        render();
       });
     });
 
-    var linked = pairs.length;
+    wrap.addEventListener('mousemove', function(ev){
+      var td = ev.target.closest('td[data-a]');
+      if(!td){ hideTip(); return; }
+      var p = get(parseInt(td.getAttribute('data-a'),10), parseInt(td.getAttribute('data-b'),10));
+      if(p) showTip(pairTip(p), ev);
+    });
+    wrap.addEventListener('mouseleave', hideTip);
+    wrap.addEventListener('click', function(ev){
+      var td = ev.target.closest('td[data-a]');
+      if(td) focusPair(parseInt(td.getAttribute('data-a'),10), parseInt(td.getAttribute('data-b'),10));
+    });
+
+    document.getElementById('matrixSub').textContent =
+      'All ' + fmtInt(CO.totals.pairs) + ' pairs. Colour is lift on a logarithmic scale, so 0.5× ' +
+      'and 2× sit equally far either side of chance. A white ring marks a pair that survives ' +
+      'correction. Hover for the counts, click to load the pair into the explorer.';
     document.getElementById('netNote').innerHTML =
-      fmtInt(M.shared_rounds) + ' of ' + fmtInt(M.rounds) + ' rounds contain more than one of these twenty funds; ' +
-      fmtInt(linked) + ' distinct fund pairs share at least one round. Selecting two funds shows the intersection, ' +
-      'not the union — the explorer keeps rows for either fund, so read the Fund column to see which side a row belongs to.';
+      fmtInt(CO.totals.multi_fund_rounds) + ' of ' + fmtInt(CO.totals.rounds_scored) +
+      ' rounds contain more than one of these twenty funds. Median lift across all pairs is ' +
+      CO.totals.median_lift + '× under the permutation null, against ' +
+      CO.totals.median_lift_naive + '× under a naive independence assumption — the naive model ' +
+      'systematically over-predicts co-investment, which is why it is not used here. Selecting two ' +
+      'funds in the explorer shows rows for either of them, not only their shared rounds.';
   })();
+
+  /* --- solo rate --- */
+  (function(){
+    var rows = CO.profiles.slice().sort(function(a,b){ return b.solo_rate - a.solo_rate; });
+    var W = 900, rowH = 24, padT = 8, padB = 32, left = 190, right = 150;
+    var H = padT + rows.length * rowH + padB;
+    var svg = document.getElementById('soloChart');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var x = function(v){ return left + (v / 100) * (W - left - right); };
+
+    [0, 25, 50, 75, 100].forEach(function(v){
+      svg.appendChild(svgEl('line', {x1:x(v), y1:padT - 2, x2:x(v), y2:H - padB + 4, class:'gridline'}));
+      var t = svgEl('text', {x:x(v), y:H - padB + 18, 'text-anchor':'middle', 'font-size':'10'});
+      t.textContent = v + '%';
+      svg.appendChild(t);
+    });
+    var xl = svgEl('text', {x:x(50), y:H - 3, 'text-anchor':'middle', 'font-size':'10'});
+    xl.textContent = 'share of the fund’s rounds with no other of the twenty present';
+    svg.appendChild(xl);
+
+    rows.forEach(function(p, i){
+      var y = padT + i * rowH + rowH / 2;
+      var g = svgEl('g', {class:'row'});
+      g.appendChild(svgEl('rect', {x:0, y:y - rowH/2, width:W, height:rowH, class:'rowbg', fill:'transparent'}));
+      var lab = svgEl('text', {x:left - 12, y:y + 4, 'text-anchor':'end', 'font-size':'11'});
+      lab.textContent = p.name;
+      g.appendChild(lab);
+      g.appendChild(svgEl('rect', {x:left, y:y - 5, width:Math.max(x(p.solo_rate) - left, 2),
+                                   height:10, rx:4, fill:UP, opacity:.85}));
+      var v = svgEl('text', {x:x(p.solo_rate) + 9, y:y + 4, 'font-size':'10.5', class:'vlabel'});
+      v.textContent = p.solo_rate + '% of ' + p.rounds;
+      g.appendChild(v);
+      var hit = svgEl('rect', {x:0, y:y - rowH/2, width:W, height:rowH, class:'hit'});
+      g.appendChild(hit);
+      bindTip(hit, '<b>' + esc(p.name) + '</b><br>' +
+        '<span class="k">Rounds</span> ' + p.rounds + '<br>' +
+        '<span class="k">Alone among the twenty</span> ' + p.solo_rounds + ' (' + p.solo_rate + '%)<br>' +
+        '<span class="k">Distinct partners here</span> ' + p.distinct_partners + ' of 19<br>' +
+        '<span class="k">Most frequent</span> ' + esc(p.top_partner) + ' (' + p.top_partner_rounds + ' rounds)');
+      hit.addEventListener('click', function(){
+        state.funds = {}; state.funds[FUNDS[p.i].slug] = 1; state.limit = 250;
+        syncChips(); renderFunds(); apply();
+        document.getElementById('explorer').scrollIntoView({behavior:'smooth', block:'start'});
+      });
+      svg.appendChild(g);
+    });
+
+    var most = rows[0], least = rows[rows.length - 1];
+    document.getElementById('soloNote').textContent =
+      most.name + ' appears without any of the other nineteen in ' + most.solo_rate +
+      '% of its rounds; ' + least.name + ' in ' + least.solo_rate + '%. Hover for each fund’s ' +
+      'partner count, click to filter the explorer.';
+  })();
+
+  document.getElementById('rawLede').innerHTML =
+    'Coinbase Ventures sits in ' + fmtInt(FUNDS.filter(function(f){ return f.slug === 'coinbase-ventures'; })[0].rounds) +
+    ' rounds, so it pairs with everyone often, and a ranking by shared rounds fills up with the ' +
+    'busiest names. The test: the ten pairs that share the most rounds and the ten with the ' +
+    'strongest affinity have <b>' +
+    (CO.totals.top10_overlap === 0 ? 'no overlap at all' : 'only ' + CO.totals.top10_overlap + ' in common') +
+    '</b>. Frequency and affinity are simply different questions.';
+
+  document.getElementById('coCaveat').innerHTML =
+    '<p><b>Co-occurrence is not collaboration.</b> ' + esc(CO.method.caveat) + '</p>' +
+    '<p style="margin-bottom:0">The null holds each fund’s round count, each round’s fund count and ' +
+    'each fund’s active years fixed, across ' + fmtInt(CO.method.samples) + ' permutations with a ' +
+    'fixed seed so the figures reproduce. What it cannot hold fixed is stage, sector and geography — ' +
+    'so a pair below chance may simply be writing different cheques, not avoiding each other.</p>';
 
   /* ---------- footer ---------- */
   document.getElementById('footNote').textContent =

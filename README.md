@@ -64,9 +64,10 @@ python -m venv .venv && ./.venv/bin/pip install -e .
 ./.venv/bin/python scripts/normalize_funds.py                    # 4
 ./.venv/bin/python scripts/build_workbook.py                     # 5
 ./.venv/bin/python scripts/build_coverage_report.py              # 6
-./.venv/bin/python scripts/build_frontend.py                     # 7
-./.venv/bin/python scripts/validate_dataset.py                   # 8
-./.venv/bin/python -m pytest tests -q                            # 9
+./.venv/bin/python scripts/analyze_coinvestment.py               # 7
+./.venv/bin/python scripts/build_frontend.py                     # 8
+./.venv/bin/python scripts/validate_dataset.py                   # 9
+./.venv/bin/python -m pytest tests -q                            # 10
 ```
 
 1. Reads reusable data from the existing investment dashboard and records a
@@ -80,11 +81,13 @@ python -m venv .venv && ./.venv/bin/pip install -e .
 5. Builds the Excel file and the CSV entirely from the dataset.
 6. Generates `research/coverage-report.md` from the dataset — no typed-in
    figures.
-7. Injects the dataset into `frontend/template.html` and writes
+7. Scores every fund pair on how often they share a round against a
+   permutation null. See *Who co-invests with whom* below.
+8. Injects the dataset into `frontend/template.html` and writes
    `docs/index.html`. The payload is index-compressed: fund, investor,
    project and round-type strings are stored once and referenced by integer,
    which keeps the page under 1 MB despite carrying every row.
-8. Validates the dataset and the workbook. Exits with code 1 on failure.
+9. Validates the dataset and the workbook. Exits with code 1 on failure.
 
 Step 2 takes roughly an hour: the source rate-limits to about one and a half
 requests per second and responds with HTTP 429 at higher concurrency. The
@@ -135,7 +138,7 @@ commit, import date, SHA-256 per source file, and parser warnings.
 data/imported/    imported dashboard data and the source manifest
 data/raw/         gzip cache of fetched pages (not in Git)
 data/processed/   round universe, normalised dataset, control totals
-scripts/          import, scrape, normalisation, workbook, frontend, validation
+scripts/          import, scrape, normalisation, workbook, analysis, frontend, validation
 frontend/         template.html — markup, styling and behaviour, no data
 research/         methodology, source audit, coverage report
 outputs/          xlsx and csv
@@ -158,16 +161,59 @@ it opens from disk with no server and makes no external requests.
 - **Fund profiles** — twenty cards with companies, rounds, lead rate, median
   round, most common round types, and CryptoRank's count as a coverage
   contrast. Clicking a card filters the explorer.
-- **Co-investment network** — a matrix and ranked list of how often two of
-  the twenty funds appear in the same round. Labelled as co-occurrence:
-  sharing a cap table is not evidence of a syndicate or of influence over
-  the outcome.
+- **Co-investment charts** — four views of which funds cluster and which do
+  not. See below.
 
 To serve it locally:
 
 ```bash
 python3 -m http.server 8931 --directory docs
 ```
+
+## Who co-invests with whom
+
+`scripts/analyze_coinvestment.py` scores all 190 fund pairs. Counting shared
+rounds on its own answers the wrong question: Coinbase Ventures is in 497
+rounds, so it pairs with everyone often, and a ranking by raw count is close
+to a ranking of portfolio size. Measured: **the ten pairs sharing the most
+rounds and the ten with the strongest affinity have no overlap at all.**
+
+**The null model.** The obvious null — expected = (rounds_a x rounds_b) / N —
+is wrong here and measurably so: under it the median pair scores 0.55, so the
+model over-predicts co-investment for nearly every pair. Most rounds hold only
+one of these twenty funds, so rounds cannot absorb co-occurrence the way
+independent draws assume.
+
+Instead the script shuffles fund-round memberships by repeated edge swaps that
+hold three things fixed:
+
+- every fund keeps its own number of rounds;
+- every round keeps its own number of these twenty funds;
+- swaps stay within a calendar year, so each fund's active window survives —
+  without this, Semantic Ventures (2018–2025) could be shuffled into
+  cyber•Fund's 2023–2026 rounds and their non-overlap would read as avoidance
+  when it is only vintage.
+
+The median pair scores 0.89 under this null, against 0.55 under independence.
+`lift` is observed / expected; 1.0 is exactly chance.
+
+**Significance.** p-values are empirical from 10,000 permutations, corrected
+with Benjamini-Hochberg at a 5% FDR across all 190 pairs. The sample count is
+set by the correction, not by taste: BH requires a p at or below 0.00026 for
+anything to clear the strictest rank, and 1,000 samples floor out at 0.001 —
+no pair could have been called significant at all. A test pins this
+relationship so reducing `SAMPLES` fails loudly.
+
+**Result.** 5 pairs co-invest significantly more than chance, 2 significantly
+less. The strongest is Robot Ventures + Figment Capital at 4.5x. The highest
+raw lift, cyber•Fund + Semantic Ventures at 7.7x, does *not* survive
+correction — it rests on two shared rounds — and the chart fades it
+accordingly.
+
+**What it cannot say.** Co-occurrence is not collaboration. Two funds in one
+cap table may never have spoken. The null holds size and vintage fixed but
+cannot hold stage, sector or geography, so a pair below chance may simply be
+writing different cheques rather than avoiding each other.
 
 ## Licence
 
