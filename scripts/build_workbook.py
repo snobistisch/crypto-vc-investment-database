@@ -32,6 +32,7 @@ OUTPUTS = os.path.join(ROOT, "outputs")
 
 XLSX = os.path.join(OUTPUTS, "vc-investeringen-volledig.xlsx")
 CSV = os.path.join(OUTPUTS, "vc-investeringen-volledig.csv")
+PER_FUND = os.path.join(OUTPUTS, "per-fonds")
 
 HEADER_FILL = PatternFill("solid", fgColor="1F3A5F")
 HEADER_FONT = Font(color="FFFFFF", bold=True, size=10)
@@ -159,17 +160,36 @@ def write_table(ws, name, columns, rows, freeze="A2"):
     return last_row
 
 
-def sheet_readme(wb, dataset, controls):
+def sheet_readme(wb, dataset, controls, fund_slug=None):
     ws = wb.create_sheet("README")
     ws.column_dimensions["A"].width = 32
     ws.column_dimensions["B"].width = 110
 
+    if fund_slug:
+        title = "Crypto-VC-investeringsdatabase — %s" % FUNDS[fund_slug]["fund_name"]
+        scope = [
+            ("Bereik van dit bestand", "Alleen %s. Het volledige overzicht met alle twintig "
+                                       "fondsen staat in vc-investeringen-volledig.xlsx."
+                                       % FUNDS[fund_slug]["fund_name"]),
+            ("Co-investeerders", "Het tabblad Rondes toont álle investeerders in dezelfde ronde, "
+                                 "ook fondsen buiten dit bestand. Dat is bewust: de overige namen "
+                                 "in de cap table zijn juist het interessante deel."),
+        ]
+    else:
+        title = "Crypto-VC-investeringsdatabase"
+        scope = [
+            ("Bereik van dit bestand", "Alle twintig fondsen. Per fonds bestaat daarnaast een "
+                                       "afzonderlijk bestand in outputs/per-fonds/."),
+        ]
+
     lines = [
-        ("Crypto-VC-investeringsdatabase", ""),
+        (title, ""),
+        ("", ""),
+    ] + scope + [
         ("", ""),
         ("Peildatum bron", dataset["source_consulted_date"]),
         ("Workbook gegenereerd", dataset["generated_at"]),
-        ("Fondsen in scope", str(len(dataset["funds"]))),
+        ("Fondsen in dit bestand", str(len(dataset["funds"]))),
         ("", ""),
         ("Wat dit bestand is", "Eén regel per combinatie van fonds en financieringsronde, "
                                "opgebouwd uit rondepagina's en niet uit fondspagina's."),
@@ -226,17 +246,37 @@ def sheet_readme(wb, dataset, controls):
     return ws
 
 
-def main():
-    with open(os.path.join(PROCESSED, "dataset.json")) as fh:
-        dataset = json.load(fh)
-    controls_path = os.path.join(PROCESSED, "coverage-controls.json")
-    controls = json.load(open(controls_path)) if os.path.exists(controls_path) else {"funds": {}}
+def scope_to_fund(dataset, fund_slug):
+    """Beperkt de dataset tot één fonds, met dezelfde structuur als het geheel.
 
-    os.makedirs(OUTPUTS, exist_ok=True)
+    Rondes, bedrijven, conflicten en onbekende velden worden meegefilterd, zodat
+    de tellingen binnen een fondsbestand onderling kloppen. `all_investors` op
+    het tabblad Rondes blijft ongewijzigd: de overige investeerders in dezelfde
+    ronde zijn juist het interessante deel en worden niet weggefilterd.
+    """
+    inv = [r for r in dataset["investments"] if r["fund_slug"] == fund_slug]
+    round_ids = {r["round_id"] for r in inv}
+    project_slugs = {r["project_slug"] for r in inv}
+    return {
+        "generated_at": dataset["generated_at"],
+        "source_consulted_date": dataset["source_consulted_date"],
+        "scrape": dataset["scrape"],
+        "funds": [f for f in dataset["funds"] if f["fund_slug"] == fund_slug],
+        "investments": inv,
+        "rounds": [r for r in dataset["rounds"] if r["round_id"] in round_ids],
+        "projects": [p for p in dataset["projects"] if p["project_slug"] in project_slugs],
+        "conflicts": [c for c in dataset["conflicts"] if c["fund_slug"] == fund_slug],
+        "unknowns": [u for u in dataset["unknowns"] if u["fund_slug"] == fund_slug],
+        "aliases": [a for a in dataset["aliases"] if a["fund_slug"] == fund_slug],
+    }
+
+
+def build(dataset, controls, xlsx_path, csv_path=None, fund_slug=None):
+    """Bouwt één workbook. Met `fund_slug` is het bereik één fonds."""
     wb = Workbook()
     wb.remove(wb.active)
 
-    sheet_readme(wb, dataset, controls)
+    sheet_readme(wb, dataset, controls, fund_slug)
 
     investments = sorted(
         dataset["investments"],
@@ -462,26 +502,54 @@ def main():
             value="=COUNTIF(Investeringen!%s2:%s%d,TRUE)" % (col["conflict_flag"],
                                                             col["conflict_flag"], last))
 
-    wb.save(XLSX)
-    print("Geschreven: %s" % XLSX)
+    os.makedirs(os.path.dirname(xlsx_path), exist_ok=True)
+    wb.save(xlsx_path)
 
-    with open(CSV, "w", newline="", encoding="utf-8") as fh:
-        writer = csv.writer(fh)
-        writer.writerow([c[0] for c in INVESTMENT_COLUMNS])
-        for inv in investments:
-            row = []
-            for name, kind, _w in INVESTMENT_COLUMNS:
-                v = inv.get(name)
-                if kind == "bool":
-                    row.append("TRUE" if v else "FALSE")
-                elif kind == "usd":
-                    row.append("" if v in (None, "", 0) else v)
-                else:
-                    row.append("" if v is None else v)
-            writer.writerow(row)
+    if csv_path:
+        with open(csv_path, "w", newline="", encoding="utf-8") as fh:
+            writer = csv.writer(fh)
+            writer.writerow([c[0] for c in INVESTMENT_COLUMNS])
+            for inv in investments:
+                row = []
+                for name, kind, _w in INVESTMENT_COLUMNS:
+                    v = inv.get(name)
+                    if kind == "bool":
+                        row.append("TRUE" if v else "FALSE")
+                    elif kind == "usd":
+                        row.append("" if v in (None, "", 0) else v)
+                    else:
+                        row.append("" if v is None else v)
+                writer.writerow(row)
+
+    return {
+        "investments": len(investments), "rounds": len(rounds),
+        "companies": len(company_rows), "sources": len(source_rows),
+    }
+
+
+def main():
+    with open(os.path.join(PROCESSED, "dataset.json")) as fh:
+        dataset = json.load(fh)
+    controls_path = os.path.join(PROCESSED, "coverage-controls.json")
+    controls = json.load(open(controls_path)) if os.path.exists(controls_path) else {"funds": {}}
+
+    os.makedirs(OUTPUTS, exist_ok=True)
+
+    stats = build(dataset, controls, XLSX, CSV)
+    print("Geschreven: %s" % XLSX)
     print("Geschreven: %s" % CSV)
     print("  investeringen %d, rondes %d, bedrijven %d, bronnen %d"
-          % (len(investments), len(rounds), len(company_rows), len(source_rows)))
+          % (stats["investments"], stats["rounds"], stats["companies"], stats["sources"]))
+
+    os.makedirs(PER_FUND, exist_ok=True)
+    print("\nPer fonds:")
+    for slug, meta in FUNDS.items():
+        scoped = scope_to_fund(dataset, slug)
+        path = os.path.join(PER_FUND, "vc-investeringen-%s.xlsx" % slug)
+        s = build(scoped, controls, path, fund_slug=slug)
+        print("  %-20s %4d investeringen  %4d rondes  %4d bedrijven  -> %s"
+              % (meta["fund_name"], s["investments"], s["rounds"], s["companies"],
+                 os.path.basename(path)))
 
 
 if __name__ == "__main__":

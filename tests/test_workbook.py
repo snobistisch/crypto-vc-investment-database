@@ -157,6 +157,63 @@ def test_dekking_telt_niet_hoger_dan_investeringen(wb):
         assert own == len(companies.get(slug, set())), slug
 
 
+PER_FUND = os.path.join(ROOT, "outputs", "per-fonds")
+
+
+@pytest.fixture(scope="module")
+def fund_slugs():
+    import sys
+    sys.path.insert(0, os.path.join(ROOT, "scripts"))
+    from funds import FUNDS
+    return list(FUNDS)
+
+
+def test_een_bestand_per_fonds(fund_slugs):
+    if not os.path.isdir(PER_FUND):
+        pytest.skip("per-fonds map ontbreekt; draai eerst build_workbook.py")
+    for slug in fund_slugs:
+        assert os.path.exists(os.path.join(PER_FUND, "vc-investeringen-%s.xlsx" % slug)), slug
+    assert len([f for f in os.listdir(PER_FUND) if f.endswith(".xlsx")]) == 20
+
+
+def test_fondsbestand_bevat_alleen_eigen_fonds(fund_slugs):
+    if not os.path.isdir(PER_FUND):
+        pytest.skip("per-fonds map ontbreekt")
+    for slug in fund_slugs:
+        fwb = load_workbook(os.path.join(PER_FUND, "vc-investeringen-%s.xlsx" % slug))
+        assert fwb.sheetnames == SHEETS, slug
+        ws = fwb["Investeringen"]
+        header = [c.value for c in ws[1]]
+        i = header.index("fund_slug")
+        found = {row[i].value for row in ws.iter_rows(min_row=2, max_row=ws.max_row)}
+        assert found <= {slug}, (slug, found)
+        assert fwb["Aliases"].max_row - 1 == 1, slug
+        assert fwb["Dekking"].max_row - 1 == 1, slug
+
+
+def test_fondsbestanden_tellen_op_tot_het_overzicht(wb, fund_slugs):
+    if not os.path.isdir(PER_FUND):
+        pytest.skip("per-fonds map ontbreekt")
+    total = 0
+    for slug in fund_slugs:
+        ws = load_workbook(os.path.join(
+            PER_FUND, "vc-investeringen-%s.xlsx" % slug))["Investeringen"]
+        total += ws.max_row - 1 if ws.max_row > 1 else 0
+    assert total == wb["Investeringen"].max_row - 1
+
+
+def test_fondsbestand_houdt_co_investeerders(fund_slugs):
+    """Rondes toont álle investeerders, ook fondsen buiten dit bestand."""
+    if not os.path.isdir(PER_FUND):
+        pytest.skip("per-fonds map ontbreekt")
+    ws = load_workbook(os.path.join(PER_FUND, "vc-investeringen-paradigm.xlsx"))["Rondes"]
+    header = [c.value for c in ws[1]]
+    i = header.index("all_investors")
+    values = [row[i].value for row in ws.iter_rows(min_row=2, max_row=ws.max_row)]
+    # Minstens één ronde noemt medeinvesteerders naast Paradigm zelf.
+    assert any(v and ";" in v for v in values)
+
+
 def test_csv_komt_overeen_met_investeringen(wb):
     if not os.path.exists(CSV):
         pytest.skip("CSV ontbreekt")

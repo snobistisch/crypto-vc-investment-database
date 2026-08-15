@@ -19,6 +19,7 @@ from funds import FUNDS  # noqa: E402
 PROCESSED = os.path.join(ROOT, "data", "processed")
 XLSX = os.path.join(ROOT, "outputs", "vc-investeringen-volledig.xlsx")
 CSV = os.path.join(ROOT, "outputs", "vc-investeringen-volledig.csv")
+PER_FUND = os.path.join(ROOT, "outputs", "per-fonds")
 
 ALLOWED = {
     "fund_role": {"lead", "co-lead", "participant", "incubator", "unknown"},
@@ -193,6 +194,69 @@ def main():
             lines = sum(1 for _ in fh)
         check(lines - 1 == len(inv), "CSV heeft evenveel regels als Investeringen",
               "(%d tegenover %d)" % (lines - 1, len(inv)))
+
+    print("\nWerkboek per fonds")
+    per_fund_expected = {}
+    for r in inv:
+        per_fund_expected.setdefault(r["fund_slug"], []).append(r)
+
+    check(os.path.isdir(PER_FUND), "map outputs/per-fonds bestaat")
+    files = sorted(f for f in os.listdir(PER_FUND) if f.endswith(".xlsx")) \
+        if os.path.isdir(PER_FUND) else []
+    check(len(files) == 20, "twintig fondsbestanden", "(%d gevonden)" % len(files))
+
+    total_rows = 0
+    for slug in FUNDS:
+        path = os.path.join(PER_FUND, "vc-investeringen-%s.xlsx" % slug)
+        if not os.path.exists(path):
+            check(False, "bestand voor %s bestaat" % slug)
+            continue
+        fwb = load_workbook(path)
+        if fwb.sheetnames != expected:
+            check(False, "%s: tabbladen in de voorgeschreven volgorde" % slug,
+                  str(fwb.sheetnames))
+            continue
+        fws = fwb["Investeringen"]
+        expected_rows = per_fund_expected.get(slug, [])
+        rows_in_sheet = fws.max_row - 1 if fws.max_row > 1 else 0
+        total_rows += rows_in_sheet
+
+        fheader = [c.value for c in fws[1]]
+        ok_cols = fheader == header
+        ok_count = rows_in_sheet == len(expected_rows)
+        fi = fheader.index("fund_slug") if "fund_slug" in fheader else None
+        only_own = True
+        if fi is not None:
+            for row in fws.iter_rows(min_row=2, max_row=fws.max_row):
+                if row[fi].value not in (None, slug):
+                    only_own = False
+                    break
+        ok_alias = fwb["Aliases"].max_row - 1 == 1
+        ok_dekking = fwb["Dekking"].max_row - 1 == 1
+        ok_freeze = fws.freeze_panes == "A2"
+        ok_rounds = fwb["Rondes"].max_row - 1 == len({r["round_id"] for r in expected_rows})
+
+        problems = []
+        if not ok_cols:
+            problems.append("kolommen wijken af")
+        if not ok_count:
+            problems.append("regels %d tegenover %d" % (rows_in_sheet, len(expected_rows)))
+        if not only_own:
+            problems.append("bevat een ander fonds")
+        if not ok_alias:
+            problems.append("Aliases niet één regel")
+        if not ok_dekking:
+            problems.append("Dekking niet één regel")
+        if not ok_freeze:
+            problems.append("kop niet bevroren")
+        if not ok_rounds:
+            problems.append("aantal rondes klopt niet")
+        check(not problems, "%s: fondsbestand consistent (%d regels)"
+              % (slug, rows_in_sheet), "; ".join(problems))
+
+    check(total_rows == len(inv),
+          "som van alle fondsbestanden is gelijk aan het overzicht",
+          "(%d tegenover %d)" % (total_rows, len(inv)))
 
     return finish()
 

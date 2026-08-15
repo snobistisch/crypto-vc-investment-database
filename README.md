@@ -13,8 +13,21 @@ financieringsronde, elke regel herleidbaar tot een bron-URL.
 
 | Bestand | Inhoud |
 | --- | --- |
-| `outputs/vc-investeringen-volledig.xlsx` | Tien tabbladen: README, Fondsen, Investeringen, Rondes, Portefeuillebedrijven, Dekking, Bronnen, Conflicten, Onbekend, Aliases |
+| `outputs/vc-investeringen-volledig.xlsx` | Alle twintig fondsen. Tien tabbladen: README, Fondsen, Investeringen, Rondes, Portefeuillebedrijven, Dekking, Bronnen, Conflicten, Onbekend, Aliases |
 | `outputs/vc-investeringen-volledig.csv` | Platte export van het tabblad `Investeringen` |
+| `outputs/per-fonds/vc-investeringen-<fonds>.xlsx` | Twintig bestanden, één per fonds, met dezelfde tabbladen en kolommen |
+
+De fondsbestanden zijn dezelfde dataset met een fondsfilter, niet een tweede
+opbouw: identieke kolommen, identieke opmaakregels. Twee dingen zijn bewust
+niet meegefilterd:
+
+- Het tabblad **Rondes** toont álle investeerders in dezelfde ronde, ook fondsen
+  buiten dat bestand. De rest van de cap table is juist het interessante deel.
+- Het tabblad **Dekking** houdt de controletotalen van de externe bronnen, zodat
+  ook een los fondsbestand laat zien waar het afwijkt.
+
+De validatie controleert dat de twintig fondsbestanden optellen tot het
+overzicht en dat geen bestand een regel van een ander fonds bevat.
 
 ## De fondsen
 
